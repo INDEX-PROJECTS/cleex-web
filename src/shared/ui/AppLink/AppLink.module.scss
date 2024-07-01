@@ -1,0 +1,15 @@
+.AppLink {
+  color: var(--color-main);
+}
+
+.default {
+  color: var(--color-main);
+}
+
+.primary {
+  color: var(--color-gray);
+
+  &:hover {
+      color: var(--color-grayTwo);
+  }
+}

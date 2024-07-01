@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  app:
+    image: cleex_web_front
+    container_name: cleex_web_front
+    tty: true
+    restart: always
+    stdin_open: true
+    ports:
+      - "5918:3000"
+    build:
+      context: .
+      dockerfile: Dockerfile

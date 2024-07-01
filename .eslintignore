@@ -1,0 +1,9 @@
+# Folders
+/public
+/.next
+/.husky
+/node_modules
+
+# Files
+jest.config.js
+jest.setup.ts
