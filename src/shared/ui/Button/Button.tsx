@@ -1,12 +1,20 @@
-import { ButtonHTMLAttributes, ReactNode, memo, useState } from 'react';
-import styles from './Button.module.scss';
-import clsx from 'clsx';
-import { Mods } from '@/shared/types';
+"use client";
+
+/* eslint-disable react/display-name */
+import { memo } from "react";
+import clsx from "clsx";
+import styles from "./Button.module.scss";
+import type { Mods } from "@/shared/types";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 export enum ThemeButton {
-  CLEAR = 'clear',
-  DEFAULT = 'default',
-  ICON = 'icon'
+  CLEAR = "clear",
+  DEFAULT = "default",
+  ICON = "icon",
+  ICON_BG = "icon_bg",
+  LINK = "link",
+  BACK = "back",
+  TAB = "tab",
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,25 +26,27 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   helperText?: string;
 }
 
-export const Button = memo((props : ButtonProps) => {
-    const {
-        className, children, disabled, helper, helperText, theme = ThemeButton.CLEAR, ...otherProps
-    } = props;
+export const Button = memo((props: ButtonProps) => {
+  const {
+    className,
+    children,
+    disabled,
+    theme = ThemeButton.CLEAR,
+    ...otherProps
+  } = props;
 
-    const mods: Mods = {
-        [styles[theme]]: true,
-        [styles.disabled]: disabled,
-    };
+  const mods: Mods = {
+    [styles[theme]]: true,
+    [styles.disabled]: disabled,
+  };
 
-    return (
-        <button
-            disabled={disabled}
-            type="button"
-            className={clsx(styles.Button, mods, [className])}
-            {...otherProps}
-        >
-            {children}
-        </button>
-
-    );
+  return (
+    <button
+      disabled={disabled}
+      type="button"
+      className={clsx(styles.Button, mods, [className])}
+      {...otherProps}>
+      {children}
+    </button>
+  );
 });

@@ -15,11 +15,6 @@
   box-sizing: border-box;
   color: var(--text-primary);
   transition: all 0.5s ease-in-out;
-
-  &:focus-within {
-      transition: outline 0.1s ease-in-out;
-      outline: 2px solid var(--active-color-default);
-  }
 }
 
 .readonly {
@@ -35,19 +30,38 @@
 }
 
 .password {
-  padding: 16px 45px 16px 16px;
+  padding: 15px 45px 15px 16px;
+}
+
+.code {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  .input {
+    width: 50px;
+    text-align: center;
+  }
 }
 
 .eyeBtn {
   position: absolute;
-  right: 2%;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   transition: color 0.2s ease-in-out;
-  color: var(--text-secondary);
+
+  svg {
+    color: var(--color-gray);
+  }
+ 
 
   &:hover {
-      color: var(--text-primary);
+
+    svg {
+      color: var(--color-grayTwo);
+    }
+     
   }
 }
 
@@ -57,21 +71,22 @@
   justify-content: space-between;
   margin-bottom: 16px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-dark);
 }
 
 .input { 
   width: 100%;
   font-weight: 600;
   color: var(--text-primary);
+  caret-color: var(--color-main);
 
   &::placeholder {
-      color: var(--text-secondary);
+      color: var(--color-gray);
   }
 
   &[type="password"] {
       &::placeholder {
-          color: var(--text-secondary);
+          color: var(--color-gray);
       }
   }
 }

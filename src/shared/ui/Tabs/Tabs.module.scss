@@ -1,0 +1,12 @@
+.Tabs {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+}
+
+.selected {
+  transition: all 0.2s ease-in-out;
+  color: var(--color-dark);
+}

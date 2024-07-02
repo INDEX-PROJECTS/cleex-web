@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   color: var(--text-primary);
+  background-color: transparent;
   font-size: 14px;
   line-height: 1.4;
   font-weight: 500;
@@ -57,4 +58,63 @@
       color: var(--color-main);
     }
   }
+}
+
+.icon_bg {
+  background-color: var(--color-whiteTwo);
+  border-radius: 50%;
+  padding: 3px;
+
+  svg {
+    height: 24px;
+    width: 24px;
+    flex: none;
+    color: var(--color-gray);
+  }
+
+  &:hover {
+    svg {
+      transition: all 0.2s ease-in-out;
+      color: var(--color-grayTwo);
+    }
+  }
+}
+
+.link {
+  color: var(--color-main);
+
+  &:hover {
+    color: var(--color-main-hover);
+  }
+
+  &:active {
+    color: var(--color-main-active);
+  }
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-white);
+
+  svg {
+    height: 24px;
+    width: 24px;
+    flex: none;
+    color: var(--color-white);
+  }
+
+  &:hover {
+    svg {
+      transition: transform 0.2s ease-in-out;
+      transform: translateX(-3px);
+    }
+  }
+}
+
+.tab {
+  color: var(--color-gray);
+  padding: 15px 16px;  
 }
