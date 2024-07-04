@@ -21,6 +21,7 @@ import { RangeInput } from "@/shared/ui/RangeInput/RangeInput";
 import { Toggle } from "@/shared/ui/Toggle/Toggle";
 import AnnouncementsGrid from "@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx";
 import { AnnouncementCard } from "@/entities/announcement";
+import { Modal } from "@/shared/ui/Modal/Modal";
 import styles from "./Kit.module.scss";
 import type { ChangeEvent } from "react";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
@@ -33,9 +34,19 @@ const Kit = () => {
   const [check, setCheck] = useState(false);
   const [meter, setMeter] = useState(false);
 
+  const [modal, setModal] = useState(false);
+
   const [height, setHeight] = useState(100);
 
   const [password, setPassword] = useState("");
+
+  const onCloseModal = () => {
+    setModal(false);
+  };
+
+  const onOpenModal = () => {
+    setModal(true);
+  };
 
   const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
@@ -381,6 +392,45 @@ const Kit = () => {
         <Button theme={ThemeButton.DEFAULT}>
           <Loader theme={ThemeLoader.BTN_LOADER} />
         </Button>
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Modal window"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack
+        gap="32"
+        max={true}>
+        <Button
+          onClick={onOpenModal}
+          theme={ThemeButton.DEFAULT}>
+          Open modal window
+        </Button>
+        <Modal
+          isOpen={modal}
+          onClose={onCloseModal}>
+          <VStack
+            gap="32"
+            max={true}>
+            <Text
+              gap="0"
+              title="Modal window title"
+              variant={TextVariant.TITLE}
+            />
+            <Text
+              gap="0"
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              variant={TextVariant.MAIN_REGULAR}
+            />
+            <Button
+              onClick={onCloseModal}
+              theme={ThemeButton.DEFAULT}>
+              Close modal window
+            </Button>
+          </VStack>
+        </Modal>
       </HStack>
 
       <VStack>

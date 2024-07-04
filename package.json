@@ -10,6 +10,7 @@
     "generate:slice": "node ./scripts/createSlice/index.js"
   },
   "dependencies": {
+    "@headlessui/react": "2.1.1",
     "@reduxjs/toolkit": "2.2.6",
     "axios": "1.7.2",
     "nanoid": "5.0.7",
@@ -20,9 +21,9 @@
     "react-hook-form": "7.52.0",
     "react-input-mask": "2.0.4",
     "react-redux": "9.1.2",
+    "react-transition-group": "4.4.5",
     "sass": "1.77.6",
-    "swiper": "11.1.4",
-    "react-transition-group": "4.4.5"
+    "swiper": "11.1.4"
   },
   "devDependencies": {
     "@svgr/webpack": "8.1.0",

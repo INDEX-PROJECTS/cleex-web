@@ -2,12 +2,6 @@
   display: none;
 }
 
-@media screen and (max-width: 1200px) {
-  .label {
-      font-size: 12px;
-  }
-}
-
 .checkbox[type="checkbox"] + .label {
   display: block;
   text-align: left;

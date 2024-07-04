@@ -1,11 +1,10 @@
 import { memo } from "react";
-import clsx from "clsx";
 // eslint-disable-next-line import/no-internal-modules
 import { VStack } from "@/shared/ui/Stack";
 // eslint-disable-next-line import/no-internal-modules
 import { Text, TextVariant } from "@/shared/ui/Text/Text.tsx";
-import styles from "./AnnouncementCard.module.scss";
 import { ImageSwiper } from "@/entities/announcement/ui/AnnouncementCard/ImageSwiper/ImageSwiper.tsx";
+import styles from "./AnnouncementCard.module.scss";
 
 interface AnnouncementProps {
   imageUrl: string;
@@ -23,7 +22,7 @@ export const AnnouncementCard = memo((props: AnnouncementProps) => {
     <VStack gap="8">
       <ImageSwiper />
       <VStack
-        align="flex-start"
+        align="start"
         gap="4"
         max={true}>
         <Text
@@ -39,8 +38,8 @@ export const AnnouncementCard = memo((props: AnnouncementProps) => {
           className={styles.title}
         />
         <VStack
-          align="flex-start"
-          gap="2">
+          align="start"
+          gap="4">
           <Text
             gap="0"
             text={address}
