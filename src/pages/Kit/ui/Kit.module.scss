@@ -1,33 +1,9 @@
-.Kit {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  gap: 32px;
-  width: 100%; 
+.kit {
   padding: 10px;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  gap: 24px;
 }
 
 .bg_main {
   background-color: var(--color-main);
   padding: 20px;
   border-radius: 20px;
-}
-
-.btnLoader {
-  height: 50px;
-  width: 50px;
-}
-
-.mainLoader {
-  height: 150px;
-  width: 150px;
 }

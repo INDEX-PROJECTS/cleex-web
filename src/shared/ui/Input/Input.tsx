@@ -22,6 +22,7 @@ interface InputProps extends HTMLInputProps {
   placeholder: string;
   label?: string;
   mask?: string;
+  maskChar?: string;
   code?: boolean;
   isPassword?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -40,6 +41,7 @@ export const Input = memo((props: InputProps) => {
     readonly,
     placeholder,
     isPassword,
+    maskChar,
     label,
     type = "text",
     ...otherProps
@@ -78,6 +80,7 @@ export const Input = memo((props: InputProps) => {
             mask={mask}
             id={placeholder}
             placeholder={placeholder}
+            maskChar={maskChar}
             name={label}
             value={value}
             onChange={onChange}
