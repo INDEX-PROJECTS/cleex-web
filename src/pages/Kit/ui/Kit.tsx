@@ -2,11 +2,11 @@
 
 /* eslint-disable import/no-internal-modules */
 import React, { useCallback, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 import { Button, ThemeButton } from "@/shared/ui/Button/Button";
 import ProfileIcon from "@/shared/assets/icons/ProfileIcon.svg";
 import { Input } from "@/shared/ui/Input/Input";
 import CloseIcon from "@/shared/assets/icons/CloseIcon.svg";
-
 import ArrowBackIcon from "@/shared/assets/icons/ArrowIcon.svg";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
@@ -14,9 +14,16 @@ import { Tabs } from "@/shared/ui/Tabs/Tabs";
 import { Loader, ThemeLoader } from "@/shared/ui/Loader/Loader";
 import { HStack, VStack } from "@/shared/ui/Stack";
 import { Text, TextVariant } from "@/shared/ui/Text/Text";
+import { Skeleton } from "@/shared/ui/Skeleton/Skeleton";
+import { PasswordStrength } from "@/shared/ui/PasswordStrength/PasswordStrength";
+import { AppLink, AppLinkTheme } from "@/shared/ui/AppLink/AppLink";
+import { RangeInput } from "@/shared/ui/RangeInput/RangeInput";
+import { Toggle } from "@/shared/ui/Toggle/Toggle";
 import styles from "./Kit.module.scss";
 import AnnouncementsGrid from "@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx";
 import { AnnouncementCard } from "@/entities/announcement";
+import type { ChangeEvent } from "react";
+import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 
 const tabs: TabItem[] = [
   { value: "Логин", content: "Логин" },
@@ -24,11 +31,30 @@ const tabs: TabItem[] = [
 ];
 const Kit = () => {
   const [check, setCheck] = useState(false);
+  const [meter, setMeter] = useState(false);
 
+  const [height, setHeight] = useState(100);
+
+  const [password, setPassword] = useState("");
+
+  const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onChangeHeight = (event: ChangeEvent<HTMLInputElement>) => {
+    const validateValue = event.currentTarget.value.replace(/\D+/gm, "");
+    setHeight(Number(validateValue));
+  };
   const [activeTab, setActiveTab] = useState("Логин");
 
   const onTabClick = useCallback((tab: TabItem) => {
     setActiveTab(tab.value);
+  }, []);
+
+  const onChangeHandle = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const newHandle = event.currentTarget.checked ? true : false;
+
+    return newHandle;
   }, []);
 
   return (
@@ -179,10 +205,15 @@ const Kit = () => {
           />
         </VStack>
       </VStack>
-      <h2>Buttons</h2>
+      <Text
+        gap="0"
+        title="Buttons"
+        variant={TextVariant.SUBTITLE}
+      />
       <HStack
         gap="32"
         max={true}>
+        <Button theme={ThemeButton.SECONDARY}>Secondary</Button>
         <Button theme={ThemeButton.DEFAULT}>Default</Button>
 
         <Button theme={ThemeButton.CLEAR}>Clear</Button>
@@ -208,15 +239,64 @@ const Kit = () => {
         </HStack>
       </HStack>
 
-      <h2>Inputs</h2>
+      <Text
+        gap="0"
+        title="Links"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack
+        max={true}
+        gap="32">
+        <AppLink
+          href="#"
+          theme={AppLinkTheme.MAIN}>
+          Main link
+        </AppLink>
+
+        <AppLink
+          href="#"
+          theme={AppLinkTheme.GRAY}>
+          Gray link
+        </AppLink>
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Range Input"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack max={true}>
+        <RangeInput
+          title="Высота, мм"
+          max={2000}
+          min={400}
+          step={1}
+          value={height}
+          onChange={onChangeHeight}
+        />
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Switcher"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack max={true}>
+        <Toggle onChange={onChangeHandle} />
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Inputs"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
         max={true}>
-        <Input
-          placeholder="Пароль"
-          isPassword={true}
-        />
         <Input
           placeholder="+7 (___) ___-__-__"
           mask="+7 (999) 999-99-99"
@@ -227,9 +307,38 @@ const Kit = () => {
           mask="9999"
           code={true}
         />
+
+        <HStack className={styles.passwordWrapper}>
+          <Input
+            placeholder="Пароль"
+            isPassword={true}
+            value={password}
+            onBlur={() => {
+              return setMeter(false);
+            }}
+            onFocus={() => {
+              return setMeter(true);
+            }}
+            onChange={onChangeNewPassword}
+          />
+          <CSSTransition
+            in={meter}
+            timeout={300}
+            unmountOnExit={true}
+            classNames="slide-animation">
+            <PasswordStrength
+              password={password || ""}
+              className={styles.passwordPosition}
+            />
+          </CSSTransition>
+        </HStack>
       </HStack>
 
-      <h2>Checkboxes</h2>
+      <Text
+        gap="0"
+        title="Checkboxes"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -244,7 +353,11 @@ const Kit = () => {
         />
       </HStack>
 
-      <h2>Tabs</h2>
+      <Text
+        gap="0"
+        title="Tabs"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -256,7 +369,11 @@ const Kit = () => {
         />
       </HStack>
 
-      <h2>Loaders</h2>
+      <Text
+        gap="0"
+        title="Loaders"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -331,6 +448,68 @@ const Kit = () => {
           />
         </AnnouncementsGrid>
       </VStack>
+
+      <Text
+        gap="0"
+        title="Skeletons"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack
+        gap="32"
+        max={true}>
+        <HStack
+          justify="start"
+          gap="16">
+          <Skeleton
+            border="50%"
+            flex={false}
+            width={50}
+            height={50}
+          />
+
+          <VStack
+            gap="4"
+            max={true}>
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+          </VStack>
+        </HStack>
+
+        <VStack
+          justify="start"
+          gap="16">
+          <Skeleton
+            border="20px"
+            flex={false}
+            width={200}
+            height={100}
+          />
+
+          <VStack
+            gap="4"
+            max={true}>
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+          </VStack>
+        </VStack>
+      </HStack>
     </VStack>
   );
 };

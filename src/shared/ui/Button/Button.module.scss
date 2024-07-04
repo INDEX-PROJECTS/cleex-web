@@ -42,6 +42,28 @@
   }
 }
 
+.secondary {
+  border-radius: 12px;
+  padding: 15px 16px;   
+  color: var(--color-gray-secondary);
+  background-color: var(--color-white-secondary);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-white-secondary-hover);
+  }
+
+  &:active {
+      background-color: var(--color-white-secondary-active);
+  }
+
+  &:disabled,
+  &[disabled] {
+      pointer-events: none;
+      color: var(--color-gray);
+  }
+}
+
 .icon {
   background-color: transparent;
 

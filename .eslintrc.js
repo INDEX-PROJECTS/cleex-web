@@ -55,6 +55,7 @@ module.exports = {
 
     //? COMBINE
     "no-duplicate-imports": "off",
+    "react/display-name": "off",
     "@typescript-eslint/array-type": [
       "error",
       {

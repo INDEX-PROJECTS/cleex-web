@@ -1,11 +1,14 @@
-import Link, { LinkProps } from 'next/link';
-import styles from './AppLink.module.scss';
-import { ForwardedRef, ReactNode, forwardRef } from 'react';
-import clsx from 'clsx';
+import Link from "next/link";
+import { forwardRef } from "react";
+import clsx from "clsx";
+import styles from "./AppLink.module.scss";
+import type { Mods } from "@/shared/types";
+import type { ForwardedRef, ReactNode } from "react";
+import type { LinkProps } from "next/link";
 
 export enum AppLinkTheme {
-  PRIMARY = 'primary',
-  DEFAULT = 'default',
+  MAIN = "main",
+  GRAY = "gray",
 }
 
 interface AppLinkProps extends LinkProps {
@@ -14,13 +17,27 @@ interface AppLinkProps extends LinkProps {
   children?: ReactNode;
 }
 
-export const AppLink = forwardRef((props : AppLinkProps, ref: ForwardedRef<HTMLAnchorElement>) => {
+export const AppLink = forwardRef(
+  (props: AppLinkProps, ref: ForwardedRef<HTMLAnchorElement>) => {
     const {
-        href, className, children, theme = AppLinkTheme.PRIMARY, ...otherProps
+      href,
+      className,
+      children,
+      theme = AppLinkTheme.MAIN,
+      ...otherProps
     } = props;
+
+    const mods: Mods = {
+      [styles[theme]]: true,
+    };
     return (
-        <Link ref={ref} href={href} className={clsx(styles.AppLink, {}, [className, styles[theme]])} {...otherProps}>
-            {children}
-        </Link>
+      <Link
+        ref={ref}
+        href={href}
+        className={clsx(styles.AppLink, mods, [className])}
+        {...otherProps}>
+        {children}
+      </Link>
     );
-});
+  },
+);
