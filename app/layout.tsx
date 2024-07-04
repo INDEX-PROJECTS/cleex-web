@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { Ubuntu } from "next/font/google";
 import "./styles/index.scss";
-
-const ubuntu = Ubuntu({ subsets: ["latin"], weight: ["700", "500", "400"] });
 
 export const metadata: Metadata = {
   title: "Cleex Web",
@@ -16,10 +13,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={ubuntu.className}>
-        <main className={'app'}>
-          {children}
-        </main>
+      <body>
+        <main className={"app"}>{children}</main>
       </body>
     </html>
   );
