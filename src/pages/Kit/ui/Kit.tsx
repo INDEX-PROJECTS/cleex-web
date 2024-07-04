@@ -526,10 +526,22 @@ const Kit = () => {
         variant={TextVariant.SUBTITLE}
       />
 
-      <HStack>
+      <HStack gap="16">
+        <Avatar
+          name="Ян Юшков"
+          size={AvatarSize.SIZE88}
+        />
         <Avatar
           name="Ян Юшков"
           size={AvatarSize.SIZE64}
+        />
+        <Avatar
+          name="Ян Юшков"
+          size={AvatarSize.SIZE48}
+        />
+        <Avatar
+          name="Ян Юшков"
+          size={AvatarSize.SIZE32}
         />
       </HStack>
     </VStack>
