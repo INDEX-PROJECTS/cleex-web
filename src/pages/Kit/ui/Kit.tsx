@@ -97,7 +97,10 @@ const Kit = () => {
       <h2>Loaders</h2>
 
       <div className={styles.container}>
-        <Loader theme={ThemeLoader.BTN_LOADER} />
+        <Button theme={ThemeButton.DEFAULT}>
+          <Loader theme={ThemeLoader.BTN_LOADER} />
+        </Button>
+
         <Loader theme={ThemeLoader.MAIN_LOADER} />
       </div>
     </div>

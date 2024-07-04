@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 .Button {
   position: relative;
   cursor: pointer;
@@ -42,7 +43,6 @@
 }
 
 .icon {
- 
   background-color: transparent;
 
   svg {
@@ -61,7 +61,7 @@
 }
 
 .icon_bg {
-  background-color: var(--color-whiteTwo);
+  background-color: var(--color-white-secondary);
   border-radius: 50%;
   padding: 3px;
 
@@ -75,7 +75,7 @@
   &:hover {
     svg {
       transition: all 0.2s ease-in-out;
-      color: var(--color-grayTwo);
+      color: var(--color-gray-secondary);
     }
   }
 }

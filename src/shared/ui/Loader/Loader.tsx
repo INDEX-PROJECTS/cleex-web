@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import "./Loader.module.scss";
+import "./Loader.scss";
 
 export enum ThemeLoader {
   MAIN_LOADER = "mainLoader",
