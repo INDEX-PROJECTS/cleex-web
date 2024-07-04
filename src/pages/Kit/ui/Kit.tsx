@@ -13,6 +13,7 @@ import { Tabs } from "@/shared/ui/Tabs/Tabs";
 import { Loader, ThemeLoader } from "@/shared/ui/Loader/Loader";
 import { HStack, VStack } from "@/shared/ui/Stack";
 import { Text, TextVariant } from "@/shared/ui/Text/Text";
+import { Skeleton } from "@/shared/ui/Skeleton/Skeleton";
 import styles from "./Kit.module.scss";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 
@@ -177,7 +178,11 @@ const Kit = () => {
           />
         </VStack>
       </VStack>
-      <h2>Buttons</h2>
+      <Text
+        gap="0"
+        title="Buttons"
+        variant={TextVariant.SUBTITLE}
+      />
       <HStack
         gap="32"
         max={true}>
@@ -206,7 +211,11 @@ const Kit = () => {
         </HStack>
       </HStack>
 
-      <h2>Inputs</h2>
+      <Text
+        gap="0"
+        title="Inputs"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -227,7 +236,11 @@ const Kit = () => {
         />
       </HStack>
 
-      <h2>Checkboxes</h2>
+      <Text
+        gap="0"
+        title="Checkboxes"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -242,7 +255,11 @@ const Kit = () => {
         />
       </HStack>
 
-      <h2>Tabs</h2>
+      <Text
+        gap="0"
+        title="Tabs"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -254,7 +271,11 @@ const Kit = () => {
         />
       </HStack>
 
-      <h2>Loaders</h2>
+      <Text
+        gap="0"
+        title="Loaders"
+        variant={TextVariant.SUBTITLE}
+      />
 
       <HStack
         gap="32"
@@ -262,6 +283,68 @@ const Kit = () => {
         <Button theme={ThemeButton.DEFAULT}>
           <Loader theme={ThemeLoader.BTN_LOADER} />
         </Button>
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Skeletons"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack
+        gap="32"
+        max={true}>
+        <HStack
+          justify="start"
+          gap="16">
+          <Skeleton
+            border="50%"
+            flex={false}
+            width={50}
+            height={50}
+          />
+
+          <VStack
+            gap="4"
+            max={true}>
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+          </VStack>
+        </HStack>
+
+        <VStack
+          justify="start"
+          gap="16">
+          <Skeleton
+            border="20px"
+            flex={false}
+            width={200}
+            height={100}
+          />
+
+          <VStack
+            gap="4"
+            max={true}>
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+            <Skeleton
+              width={200}
+              height={10}
+              border="5px"
+            />
+          </VStack>
+        </VStack>
       </HStack>
     </VStack>
   );
