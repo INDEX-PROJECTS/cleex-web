@@ -9,7 +9,7 @@ import { Input } from "@/shared/ui/Input/Input";
 import CloseIcon from "@/shared/assets/icons/CloseIcon.svg";
 import ArrowBackIcon from "@/shared/assets/icons/ArrowIcon.svg";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
-import type { TabItem } from "@/shared/ui/Tabs/Tabs";
+
 import { Tabs } from "@/shared/ui/Tabs/Tabs";
 import { Loader, ThemeLoader } from "@/shared/ui/Loader/Loader";
 import { HStack, VStack } from "@/shared/ui/Stack";
@@ -19,9 +19,9 @@ import { PasswordStrength } from "@/shared/ui/PasswordStrength/PasswordStrength"
 import { AppLink, AppLinkTheme } from "@/shared/ui/AppLink/AppLink";
 import { RangeInput } from "@/shared/ui/RangeInput/RangeInput";
 import { Toggle } from "@/shared/ui/Toggle/Toggle";
-import styles from "./Kit.module.scss";
 import AnnouncementsGrid from "@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx";
 import { AnnouncementCard } from "@/entities/announcement";
+import styles from "./Kit.module.scss";
 import type { ChangeEvent } from "react";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 
