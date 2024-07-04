@@ -1,12 +1,15 @@
 import { memo } from "react";
 // eslint-disable-next-line import/no-internal-modules
 import { VStack } from "@/shared/ui/Stack";
-// eslint-disable-next-line import/no-internal-modules
 import { Text, TextVariant } from "@/shared/ui/Text/Text.tsx";
 import { ImageSwiper } from "@/entities/announcement/ui/AnnouncementCard/ImageSwiper/ImageSwiper.tsx";
+
+import { AppLink } from "@/shared/ui/AppLink/AppLink.tsx";
+
 import styles from "./AnnouncementCard.module.scss";
 
 interface AnnouncementProps {
+  href: string;
   imageUrl: string;
   price: string;
   title: string;
@@ -16,7 +19,7 @@ interface AnnouncementProps {
 
 // eslint-disable-next-line react/display-name
 export const AnnouncementCard = memo((props: AnnouncementProps) => {
-  const { imageUrl, price, title, address, date } = props;
+  const { href, imageUrl, price, title, address, date } = props;
 
   return (
     <VStack gap="8">
@@ -30,13 +33,11 @@ export const AnnouncementCard = memo((props: AnnouncementProps) => {
           title={price + " ₽"}
           variant={TextVariant.SUBTITLE}
         />
-        <Text
-          gap="0"
-          title={title}
-          variant={TextVariant.MAIN_REGULAR}
-          isActive={true}
-          className={styles.title}
-        />
+        <AppLink
+          href={href}
+          className={styles.title}>
+          {title}
+        </AppLink>
         <VStack
           align="start"
           gap="4">
