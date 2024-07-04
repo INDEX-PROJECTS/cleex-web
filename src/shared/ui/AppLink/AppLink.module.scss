@@ -2,14 +2,18 @@
   color: var(--color-main);
 }
 
-.default {
+.main {
   color: var(--color-main);
-}
-
-.primary {
-  color: var(--color-gray);
 
   &:hover {
-      color: var(--color-gray-secondary);
+    color: var(--color-main-hover);
+}
+}
+
+.gray {
+  color: var(--color-gray-secondary);
+
+  &:hover {
+      color: var(--color-gray-secondary-hover);
   }
 }

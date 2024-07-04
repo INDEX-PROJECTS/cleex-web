@@ -2,11 +2,11 @@
 
 /* eslint-disable import/no-internal-modules */
 import React, { useCallback, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 import { Button, ThemeButton } from "@/shared/ui/Button/Button";
 import ProfileIcon from "@/shared/assets/icons/ProfileIcon.svg";
 import { Input } from "@/shared/ui/Input/Input";
 import CloseIcon from "@/shared/assets/icons/CloseIcon.svg";
-
 import ArrowBackIcon from "@/shared/assets/icons/ArrowIcon.svg";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
 import { Tabs } from "@/shared/ui/Tabs/Tabs";
@@ -14,7 +14,12 @@ import { Loader, ThemeLoader } from "@/shared/ui/Loader/Loader";
 import { HStack, VStack } from "@/shared/ui/Stack";
 import { Text, TextVariant } from "@/shared/ui/Text/Text";
 import { Skeleton } from "@/shared/ui/Skeleton/Skeleton";
+import { PasswordStrength } from "@/shared/ui/PasswordStrength/PasswordStrength";
+import { AppLink, AppLinkTheme } from "@/shared/ui/AppLink/AppLink";
+import { RangeInput } from "@/shared/ui/RangeInput/RangeInput";
+import { Toggle } from "@/shared/ui/Toggle/Toggle";
 import styles from "./Kit.module.scss";
+import type { ChangeEvent } from "react";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 
 const tabs: TabItem[] = [
@@ -23,11 +28,30 @@ const tabs: TabItem[] = [
 ];
 const Kit = () => {
   const [check, setCheck] = useState(false);
+  const [meter, setMeter] = useState(false);
 
+  const [height, setHeight] = useState(100);
+
+  const [password, setPassword] = useState("");
+
+  const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onChangeHeight = (event: ChangeEvent<HTMLInputElement>) => {
+    const validateValue = event.currentTarget.value.replace(/\D+/gm, "");
+    setHeight(Number(validateValue));
+  };
   const [activeTab, setActiveTab] = useState("Логин");
 
   const onTabClick = useCallback((tab: TabItem) => {
     setActiveTab(tab.value);
+  }, []);
+
+  const onChangeHandle = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const newHandle = event.currentTarget.checked ? true : false;
+
+    return newHandle;
   }, []);
 
   return (
@@ -186,6 +210,7 @@ const Kit = () => {
       <HStack
         gap="32"
         max={true}>
+        <Button theme={ThemeButton.SECONDARY}>Secondary</Button>
         <Button theme={ThemeButton.DEFAULT}>Default</Button>
 
         <Button theme={ThemeButton.CLEAR}>Clear</Button>
@@ -213,6 +238,55 @@ const Kit = () => {
 
       <Text
         gap="0"
+        title="Links"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack
+        max={true}
+        gap="32">
+        <AppLink
+          href="#"
+          theme={AppLinkTheme.MAIN}>
+          Main link
+        </AppLink>
+
+        <AppLink
+          href="#"
+          theme={AppLinkTheme.GRAY}>
+          Gray link
+        </AppLink>
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Range Input"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack max={true}>
+        <RangeInput
+          title="Высота, мм"
+          max={2000}
+          min={400}
+          step={1}
+          value={height}
+          onChange={onChangeHeight}
+        />
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Switcher"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack max={true}>
+        <Toggle onChange={onChangeHandle} />
+      </HStack>
+
+      <Text
+        gap="0"
         title="Inputs"
         variant={TextVariant.SUBTITLE}
       />
@@ -220,10 +294,6 @@ const Kit = () => {
       <HStack
         gap="32"
         max={true}>
-        <Input
-          placeholder="Пароль"
-          isPassword={true}
-        />
         <Input
           placeholder="+7 (___) ___-__-__"
           mask="+7 (999) 999-99-99"
@@ -234,6 +304,31 @@ const Kit = () => {
           mask="9999"
           code={true}
         />
+
+        <HStack className={styles.passwordWrapper}>
+          <Input
+            placeholder="Пароль"
+            isPassword={true}
+            value={password}
+            onBlur={() => {
+              return setMeter(false);
+            }}
+            onFocus={() => {
+              return setMeter(true);
+            }}
+            onChange={onChangeNewPassword}
+          />
+          <CSSTransition
+            in={meter}
+            timeout={300}
+            unmountOnExit={true}
+            classNames="slide-animation">
+            <PasswordStrength
+              password={password || ""}
+              className={styles.passwordPosition}
+            />
+          </CSSTransition>
+        </HStack>
       </HStack>
 
       <Text

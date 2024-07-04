@@ -10,6 +10,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 export enum ThemeButton {
   CLEAR = "clear",
   DEFAULT = "default",
+  SECONDARY = "secondary",
   ICON = "icon",
   ICON_BG = "icon_bg",
   LINK = "link",

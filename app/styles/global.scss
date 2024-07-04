@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap';
 
 *,
 *::after,
@@ -9,8 +9,6 @@
 }
 
 html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
   text-size-adjust: none;
 }
 
@@ -23,8 +21,7 @@ body {
 body {
   min-height: 100vh;
   line-height: 1.5;
-
-  font-family: "Ubuntu", sans-serif;
+  font-family: Ubuntu, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -85,4 +82,25 @@ select {
 
 input {
   all: unset;
+}
+
+.slide-animation-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.slide-animation-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.slide-animation-exit {
+  opacity: 1;
+}
+
+.slide-animation-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
 }
