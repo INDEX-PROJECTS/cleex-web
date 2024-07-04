@@ -1,6 +1,10 @@
 /* stylelint-disable scss/double-slash-comment-empty-line-before */
 :root {
 
+  // Брейкпоинты
+  --desktop-breakpoints: 1920px;
+  --laptop-breakpoints: 1024px;
+  --tablet-breakpoints: 768px;
 
   // z - Индексы
   --modal-z-index: 10;
