@@ -141,7 +141,6 @@ module.exports = {
           "@/features/**/*",
           "@/entities/store/**",
 
-          "@/shared/ui/**",
           "@/shared/hook/**",
           "@/shared/functions/**",
           "@/shared/config/**",
