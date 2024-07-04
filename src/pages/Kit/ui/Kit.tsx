@@ -1,5 +1,6 @@
 "use client";
 
+import type { ChangeEvent } from "react";
 /* eslint-disable import/no-internal-modules */
 import React, { useCallback, useState } from "react";
 import { CSSTransition } from "react-transition-group";
@@ -10,6 +11,7 @@ import CloseIcon from "@/shared/assets/icons/CloseIcon.svg";
 import ArrowBackIcon from "@/shared/assets/icons/ArrowIcon.svg";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
 
+import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 import { Tabs } from "@/shared/ui/Tabs/Tabs";
 import { Loader, ThemeLoader } from "@/shared/ui/Loader/Loader";
 import { HStack, VStack } from "@/shared/ui/Stack";
@@ -22,8 +24,7 @@ import { Toggle } from "@/shared/ui/Toggle/Toggle";
 import AnnouncementsGrid from "@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx";
 import { AnnouncementCard } from "@/entities/announcement";
 import styles from "./Kit.module.scss";
-import type { ChangeEvent } from "react";
-import type { TabItem } from "@/shared/ui/Tabs/Tabs";
+import Avatar, { AvatarSize } from "@/shared/ui/Avatar/Avatar.tsx";
 
 const tabs: TabItem[] = [
   { value: "Логин", content: "Логин" },
@@ -517,6 +518,19 @@ const Kit = () => {
             />
           </VStack>
         </VStack>
+      </HStack>
+
+      <Text
+        gap="0"
+        title="Avatars"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack>
+        <Avatar
+          name="Ян Юшков"
+          size={AvatarSize.SIZE64}
+        />
       </HStack>
     </VStack>
   );
