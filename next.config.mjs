@@ -4,10 +4,20 @@ const IS_PROD = process.env.NODE_ENV === "production";
 const nextConfig = {
   assetPrefix: IS_PROD ? "/cleex_web_frontend" : "",
 
+  images: {
+    remotePatterns: [
+      {
+        // тестовые хосты
+        protocol: 'https',
+        hostname: 's3-alpha-sig.figma.com',
+      },
+    ],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
+      use: ["@svgr/webpack"],
     });
 
     return config;

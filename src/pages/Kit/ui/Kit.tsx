@@ -591,10 +591,12 @@ const Kit = () => {
           <Avatar
             name="Ян Юшков"
             size={AvatarSize.SIZE48}
+            isOnline={true}
           />
           <Avatar
             name="Ян Юшков"
             size={AvatarSize.SIZE32}
+            isOnline={true}
           />
         </HStack>
         <HStack gap="16">
@@ -609,10 +611,36 @@ const Kit = () => {
           <Avatar
             name="Артём Шабанов"
             size={AvatarSize.SIZE48}
+            isOnline={true}
           />
           <Avatar
             name="Артём Шабанов"
             size={AvatarSize.SIZE32}
+            isOnline={true}
+          />
+        </HStack>
+        <HStack gap="16">
+          <Avatar
+            name="Девушка какая-то"
+            size={AvatarSize.SIZE88}
+            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+          />
+          <Avatar
+            name="Девушка какая-то"
+            size={AvatarSize.SIZE64}
+            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+          />
+          <Avatar
+            name="Девушка какая-то"
+            size={AvatarSize.SIZE48}
+            isOnline={true}
+            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+          />
+          <Avatar
+            name="Девушка какая-то"
+            size={AvatarSize.SIZE32}
+            isOnline={true}
+            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
           />
         </HStack>
       </VStack>
