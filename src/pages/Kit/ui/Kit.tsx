@@ -1,8 +1,9 @@
 "use client";
 
 /* eslint-disable import/no-internal-modules */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import axios from "axios";
 import { Button, ThemeButton } from "@/shared/ui/Button/Button";
 import ProfileIcon from "@/shared/assets/icons/ProfileIcon.svg";
 import { Input } from "@/shared/ui/Input/Input";
@@ -70,6 +71,17 @@ const Kit = () => {
 
     return newHandle;
   }, []);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line promise/catch-or-return
+    axios.get("https://testguru.ru/kvik_v3/api/v1/items").then((res) => {
+      setData(res.data.items);
+    });
+  }, []);
+
+  console.log(data);
 
   return (
     <VStack
@@ -443,70 +455,19 @@ const Kit = () => {
           variant={TextVariant.TITLE}
         />
         <AnnouncementsGrid>
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011 в идеальном состоянии"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
-          <AnnouncementCard
-            href="#"
-            imageUrl="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y3QcHxfOh7mnWZQTimzSbuFJ~lUpizB4RK5lfHu-P-KPfagZOivgRrEN9qxo4PVL0TpRLX7lK69q-DgoHdK4ckfsestEINxJb6WTWskhf3al2VG~Qq-o2jBciZaNsPyDJBVopNdjCfofUoqAm8Jla6c4hVQWY9MrozYDJHiJWl139SUXT3GMzrIDcA511twt7dVJlaTBmr7ccchdkB-z52XyX4N6v0nbQLbslZXNG-L-Fo3lBthYPeeqLSKiZZSIMNdBDy9pm9ruSv8KZSY5hRNbbXeJKmgk3XflcKZi8SrGWeBDyHJx6mk2t6HZfjVVFmQeJhhhLeCRAPsudeG-gQ__"
-            price="1 700"
-            title="Капот Toyota Camry 40 2009-2011"
-            address="Челябинск, ул. Баумана, 116 а"
-            date="19 октября, 21:30"
-          />
+          {data.map((item) => {
+            return (
+              <AnnouncementCard
+                key={item.id}
+                href="#"
+                imageUrl={item.photos}
+                price={item.price}
+                title={item.title}
+                address={item.location.address}
+                date={item.created_at}
+              />
+            );
+          })}
         </AnnouncementsGrid>
       </VStack>
 
