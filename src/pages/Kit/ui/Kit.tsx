@@ -1,6 +1,5 @@
 "use client";
 
-import type { ChangeEvent } from "react";
 /* eslint-disable import/no-internal-modules */
 import React, { useCallback, useState } from "react";
 import { CSSTransition } from "react-transition-group";
@@ -11,7 +10,6 @@ import CloseIcon from "@/shared/assets/icons/CloseIcon.svg";
 import ArrowBackIcon from "@/shared/assets/icons/ArrowIcon.svg";
 import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
 
-import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 import { Tabs } from "@/shared/ui/Tabs/Tabs";
 import { Loader, ThemeLoader } from "@/shared/ui/Loader/Loader";
 import { HStack, VStack } from "@/shared/ui/Stack";
@@ -24,8 +22,12 @@ import { Toggle } from "@/shared/ui/Toggle/Toggle";
 import AnnouncementsGrid from "@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx";
 import { AnnouncementCard } from "@/entities/announcement";
 import { Modal } from "@/shared/ui/Modal/Modal";
-import styles from "./Kit.module.scss";
 import Avatar, { AvatarSize } from "@/shared/ui/Avatar/Avatar.tsx";
+import { Stars } from "@/shared/ui/Stars/Stars";
+import { RadioButton } from "@/shared/ui/RadioButton/RadioButton";
+import styles from "./Kit.module.scss";
+import type { TabItem } from "@/shared/ui/Tabs/Tabs";
+import type { ChangeEvent } from "react";
 
 const tabs: TabItem[] = [
   { value: "Логин", content: "Логин" },
@@ -576,23 +578,95 @@ const Kit = () => {
         variant={TextVariant.SUBTITLE}
       />
 
-      <HStack gap="16">
-        <Avatar
-          name="Ян Юшков"
-          size={AvatarSize.SIZE88}
+      <VStack gap="16">
+        <HStack gap="16">
+          <Avatar
+            name="Ян Юшков"
+            size={AvatarSize.SIZE88}
+          />
+          <Avatar
+            name="Ян Юшков"
+            size={AvatarSize.SIZE64}
+          />
+          <Avatar
+            name="Ян Юшков"
+            size={AvatarSize.SIZE48}
+          />
+          <Avatar
+            name="Ян Юшков"
+            size={AvatarSize.SIZE32}
+          />
+        </HStack>
+        <HStack gap="16">
+          <Avatar
+            name="Артём Шабанов"
+            size={AvatarSize.SIZE88}
+          />
+          <Avatar
+            name="Артём Шабанов"
+            size={AvatarSize.SIZE64}
+          />
+          <Avatar
+            name="Артём Шабанов"
+            size={AvatarSize.SIZE48}
+          />
+          <Avatar
+            name="Артём Шабанов"
+            size={AvatarSize.SIZE32}
+          />
+        </HStack>
+      </VStack>
+
+      <Text
+        gap="0"
+        title="Stars Rating"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <VStack
+        gap="16"
+        align="start"
+        max={true}>
+        <Stars
+          rating={0}
+          isRating={false}
+          size={32}
         />
-        <Avatar
-          name="Ян Юшков"
-          size={AvatarSize.SIZE64}
+        <Stars
+          rating={1}
+          isRating={false}
+          size={32}
         />
-        <Avatar
-          name="Ян Юшков"
-          size={AvatarSize.SIZE48}
+        <Stars
+          rating={2}
+          isRating={false}
+          size={32}
         />
-        <Avatar
-          name="Ян Юшков"
-          size={AvatarSize.SIZE32}
+        <Stars
+          rating={3}
+          isRating={false}
+          size={32}
         />
+        <Stars
+          rating={4}
+          isRating={false}
+          size={32}
+        />
+        <Stars
+          rating={5}
+          isRating={false}
+          size={32}
+        />
+      </VStack>
+
+      <Text
+        gap="0"
+        title="Radio Button"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <HStack max={true}>
+        <RadioButton id="test-kit-radio" />
       </HStack>
     </VStack>
   );

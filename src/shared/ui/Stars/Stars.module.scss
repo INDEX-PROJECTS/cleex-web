@@ -1,0 +1,14 @@
+.star {
+    flex: none;
+    color: var(--color-white-secondary);
+    width: 25px;
+    height: 25px;
+}
+
+.input {
+    display: none;
+}
+
+.active {
+    color: var(--color-yellow);
+}
