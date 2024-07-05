@@ -12,6 +12,16 @@
     }
 }
 
+.white {
+    .title {
+        color: var(--color-white);
+    }
+    
+    .text {
+        color: var(--color-white);
+    }
+}
+
 .active {
     .text {
         color: var(--color-main);

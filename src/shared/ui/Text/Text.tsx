@@ -32,6 +32,7 @@ interface TextProps {
   className?: string;
   title?: string;
   text?: string;
+  white?: boolean;
   textPrimary?: boolean;
   isActive?: boolean;
   theme?: TextTheme;
@@ -61,6 +62,7 @@ export const Text = memo((props: TextProps) => {
     title,
     textPrimary,
     isActive,
+    white,
     text,
     children,
     gap = "16",
@@ -73,6 +75,7 @@ export const Text = memo((props: TextProps) => {
   const mods: Mods = {
     [styles[theme]]: true,
     [styles[align]]: true,
+    [styles.white]: white,
     [styles[variant]]: true,
     [styles.primary]: textPrimary,
     [styles.active]: isActive,

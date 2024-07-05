@@ -83,12 +83,12 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <Portal>
-      <div className={clsx(styles.Modal, mods, [className])}>
+      <div className={clsx(styles.Modal, mods, [])}>
         <div
           className={styles.overlay}
           onClick={closeHandler}>
           <div
-            className={styles.content}
+            className={clsx(styles.content, {}, [className])}
             onClick={onContentClick}>
             {children}
           </div>

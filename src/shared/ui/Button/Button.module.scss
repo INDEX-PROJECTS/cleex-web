@@ -7,10 +7,14 @@
   justify-content: center;
   color: var(--text-primary);
   background-color: transparent;
-  font-size: 14px;
-  line-height: 1.4;
-  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 400;
   transition: all 0.2s ease-in-out;
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 .clear {
@@ -104,6 +108,8 @@
 
 .link {
   color: var(--color-main);
+  font-size: 16px;
+  line-height: 18px;
 
   &:hover {
     color: var(--color-main-hover);

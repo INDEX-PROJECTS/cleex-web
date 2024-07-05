@@ -18,12 +18,13 @@
 
 .content {
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 20px;
   background: var(--color-white);
   transition: 0.3s transform;
   transform: scale(0.5);
-  max-width: 40%;
+  max-width: 60%;
   box-shadow: var(--box-shadow-default);
+  height: 480px;
 }
 
 .opened {

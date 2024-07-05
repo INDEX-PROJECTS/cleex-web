@@ -1,5 +1,5 @@
 {
-  "name": "cleex-web-frontend",
+  "name": "cleex-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "@headlessui/react": "2.1.1",
     "@reduxjs/toolkit": "2.2.6",
     "axios": "1.7.2",
+    "js-cookie": "3.0.5",
     "nanoid": "5.0.7",
     "next": "14.2.4",
     "react": "^18",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "8.1.0",
+    "@types/js-cookie": "3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

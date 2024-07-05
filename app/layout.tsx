@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./styles/index.scss";
+import "@/app/styles/index.scss";
 
 export const metadata: Metadata = {
   title: "Cleex Web",
@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <main className={"app"}>{children}</main>
+        <main className="app">{children}</main>
       </body>
     </html>
   );
