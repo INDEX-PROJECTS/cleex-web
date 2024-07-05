@@ -7,6 +7,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: 'testguru.ru',
+      },
+      {
         // тестовые хосты
         protocol: 'https',
         hostname: 's3-alpha-sig.figma.com',
