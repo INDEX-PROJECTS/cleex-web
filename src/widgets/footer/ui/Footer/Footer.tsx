@@ -1,9 +1,9 @@
 import { AppLink, AppLinkTheme } from "@/shared/ui/AppLink/AppLink.tsx";
 import { Text, TextVariant } from "@/shared/ui/Text/Text.tsx";
 import { HStack, VStack } from "@/shared/ui/Stack";
-import Rustore from "@/shared/assets/icons/RustoreIcon.svg";
-import Android from "@/shared/assets/icons/AndroidIcon.svg";
-import Apple from "@/shared/assets/icons/AppleIcon.svg";
+import Rustore from "@/shared/assets/icons/RustoreIcon-32.svg";
+import Android from "@/shared/assets/icons/AndroidIcon-32.svg";
+import Apple from "@/shared/assets/icons/AppleIcon-32.svg";
 import MaxContainer from "@/shared/ui/MaxContainer/MaxContainer.tsx";
 import styles from "./Footer.module.scss";
 

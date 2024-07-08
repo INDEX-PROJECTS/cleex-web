@@ -27,6 +27,7 @@ import Avatar, { AvatarSize } from "@/shared/ui/Avatar/Avatar.tsx";
 import { Stars } from "@/shared/ui/Stars/Stars";
 import { RadioButton } from "@/shared/ui/RadioButton/RadioButton";
 import { Footer } from "@/widgets/footer";
+import { Header } from "@/widgets/header";
 import styles from "./Kit.module.scss";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 import type { ChangeEvent } from "react";
@@ -81,8 +82,6 @@ const Kit = () => {
       setData(res.data.items);
     });
   }, []);
-
-  console.log(data);
 
   return (
     <VStack
@@ -658,6 +657,14 @@ const Kit = () => {
       <HStack max={true}>
         <RadioButton id="test-kit-radio" />
       </HStack>
+
+      <Text
+        gap="0"
+        title="Header top"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <Header />
 
       <Text
         gap="0"

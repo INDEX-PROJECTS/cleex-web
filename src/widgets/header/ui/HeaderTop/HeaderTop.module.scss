@@ -1,0 +1,41 @@
+.HeaderTop {
+  width: 100%;
+  padding: 8px 0;
+}
+
+.appLink {
+  svg {
+    path {
+      fill: var(--color-dark);
+    }
+  }
+}
+
+.accountPage {
+  border-bottom: 1px solid var(--color-white);
+
+  * {
+    color: white !important;
+  }
+
+  .navigate {
+    * {
+      stroke: var(--color-white)
+    }
+  }
+
+  .appLink {
+    svg {
+      path {
+        fill: var(--color-white);
+      }
+    }
+  }
+
+  .accountLinks {
+    * {
+      fill: var(--color-white)
+    }
+  }
+}
+

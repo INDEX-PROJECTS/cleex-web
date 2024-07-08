@@ -5,12 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
+  color: var(--color-dark);
   background-color: transparent;
-  font-size: 14px;
-  line-height: 1.4;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+  transition: all 0.15s ease-in-out;
 }
 
 .clear {
@@ -26,7 +26,7 @@
   padding: 15px 16px;           
   color: var(--color-white);
   background-color: var(--color-main);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 
   &:hover {
       background-color: var(--color-main-hover);
@@ -47,7 +47,7 @@
   padding: 15px 16px;   
   color: var(--color-gray-secondary);
   background-color: var(--color-white-secondary);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 
   &:hover {
     background-color: var(--color-white-secondary-hover);
@@ -72,12 +72,21 @@
     width: 24px;
     flex: none;
     color: var(--color-gray);
+    fill: var(--color-gray);
+    transition: all 0.15s ease-in-out;
+    path {
+      fill: var(--color-gray);
+      transition: all 0.15s ease-in-out;
+    }
   }
 
   &:hover {
     svg {
-      transition: all 0.2s ease-in-out;
       color: var(--color-main);
+      path {
+        transition: all 0.15s ease-in-out;
+        fill: var(--color-main);
+      }
     }
   }
 }
@@ -92,11 +101,11 @@
     width: 24px;
     flex: none;
     color: var(--color-gray);
+    transition: all 0.15s ease-in-out;
   }
 
   &:hover {
     svg {
-      transition: all 0.2s ease-in-out;
       color: var(--color-gray-secondary);
     }
   }
@@ -130,7 +139,7 @@
 
   &:hover {
     svg {
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.15s ease-in-out;
       transform: translateX(-3px);
     }
   }
