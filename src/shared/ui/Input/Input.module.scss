@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 .FieldBox {
   position: relative;
   width: 100%;
@@ -44,6 +45,12 @@
   }
 }
 
+.error {
+    border: 1px solid var(--color-error);
+    margin-bottom: 4px;
+
+}
+
 .eyeBtn {
   position: absolute;
   right: 16px;
@@ -75,8 +82,10 @@
 
 .input { 
   width: 100%;
-  font-weight: 600;
   color: var(--text-primary);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
   caret-color: var(--color-main);
 
   &::placeholder {

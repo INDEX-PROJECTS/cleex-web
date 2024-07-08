@@ -1,3 +1,4 @@
+import { StoreProvider } from "@/app/providers/StoreProvider";
 import type { Metadata } from "next";
 import "@/app/styles/index.scss";
 
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <main className="app">{children}</main>
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );

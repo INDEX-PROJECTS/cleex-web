@@ -1,49 +1,34 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { configureStore } from "@reduxjs/toolkit";
-import { rtkApi } from "@/shared/api/rtkApi";
-import { $api } from "@/shared/api/api";
-import { __IS_DEV__ } from "@/shared/const/constants";
-import { createReducerManager } from "./reducerManager";
-import type {
-  Reducer,
-  ReducersMapObject,
-  StateFromReducersMapObject,
-} from "@reduxjs/toolkit";
-import type { StateSchema, ThunkExtraArg } from "./StateSchema";
+import { configureStore } from '@reduxjs/toolkit';
+import { AxiosInstance } from 'axios';
+import { rootReducer } from './rootReducers';
+import { $api } from '@/shared/api/api';
 
-export function createReduxStore(
-  initialState?: StateSchema,
-  asyncReducers?: ReducersMapObject<StateSchema>,
-) {
-  const rootReducers: ReducersMapObject<StateSchema> = {
-    ...asyncReducers,
-    [rtkApi.reducerPath]: rtkApi.reducer,
-  };
-
-  const reducerManager = createReducerManager(rootReducers);
-
-  const extraArg: ThunkExtraArg = {
-    api: $api,
-  };
-
-  const store = configureStore({
-    reducer: reducerManager.reduce as Reducer<
-      StateFromReducersMapObject<StateSchema>
-    >,
-    devTools: __IS_DEV__,
-    preloadedState: initialState,
-    middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware({
-        thunk: {
-          extraArgument: extraArg,
-        },
-      }).concat(rtkApi.middleware);
-    },
-  });
-  // @ts-ignore
-  store.reducerManager = reducerManager;
-
-  return store;
+export interface ThunkExtraArg {
+    api: AxiosInstance;
 }
 
-export type AppDispatch = ReturnType<typeof createReduxStore>["dispatch"];
+const extraArg: ThunkExtraArg = {
+    api: $api,
+};
+
+const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        thunk: {
+            extraArgument: extraArg,
+        },
+        serializableCheck: false,
+    }),
+});
+
+type RootState = ReturnType<typeof store.getState>;
+type AppDispatch = typeof store.dispatch;
+
+interface Store {
+    dispatch: AppDispatch;
+    state: RootState;
+    extra: typeof extraArg;
+}
+
+export { store };
+export type { RootState, AppDispatch, Store };

@@ -1,20 +1,12 @@
-import { memo } from "react";
-import { Provider } from "react-redux";
-import type { ReactNode } from "react";
+'use client';
 
-interface StoreProviderProps {
-  children: ReactNode;
-  initialState?: DeepPartial<StateSchema>;
-  asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>;
+import { Provider } from 'react-redux';
+import { store } from '../config/store';
+
+export default function StoreProvider({
+    children,
+}: {
+  children: React.ReactNode
+}) {
+    return <Provider store={store}>{children}</Provider>;
 }
-
-export const StoreProvider = memo((props: StoreProviderProps) => {
-  const { children, initialState, asyncReducers } = props;
-
-  const store = createReduxStore(
-    initialState as StateSchema,
-    asyncReducers as ReducersMapObject<StateSchema>,
-  );
-
-  return <Provider store={store}>{children}</Provider>;
-});
