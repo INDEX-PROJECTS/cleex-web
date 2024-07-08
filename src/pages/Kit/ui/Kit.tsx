@@ -26,6 +26,7 @@ import { Modal } from "@/shared/ui/Modal/Modal";
 import Avatar, { AvatarSize } from "@/shared/ui/Avatar/Avatar.tsx";
 import { Stars } from "@/shared/ui/Stars/Stars";
 import { RadioButton } from "@/shared/ui/RadioButton/RadioButton";
+import { Footer } from "@/widgets/footer";
 import styles from "./Kit.module.scss";
 import type { TabItem } from "@/shared/ui/Tabs/Tabs";
 import type { ChangeEvent } from "react";
@@ -657,6 +658,14 @@ const Kit = () => {
       <HStack max={true}>
         <RadioButton id="test-kit-radio" />
       </HStack>
+
+      <Text
+        gap="0"
+        title="Footer"
+        variant={TextVariant.SUBTITLE}
+      />
+
+      <Footer />
     </VStack>
   );
 };

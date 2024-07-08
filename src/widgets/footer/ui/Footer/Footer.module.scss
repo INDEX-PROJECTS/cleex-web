@@ -1,0 +1,37 @@
+.Footer {
+  background-color: var(--color-white-secondary);
+  width: 100%;
+  padding: 48px 0;
+}
+
+.storesBlock {
+  align-self: stretch;
+}
+
+.btnLink {
+  background-color: var(--color-gray-secondary);
+  padding: 12px;
+  line-height: 0;
+  border-radius: 16px;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    height: 32px;
+    width: 32px;
+    flex: none;
+    path {
+      transition: all 0.2s ease-in-out;
+      fill: var(--color-white-secondary)
+    }
+  }
+
+  &:hover {
+    background-color: var(--color-gray-secondary-hover);
+    svg {
+      path {
+        transition: all 0.2s ease-in-out;
+        fill: var(--color-white-secondary-hover);
+      }
+    }
+  }
+}
