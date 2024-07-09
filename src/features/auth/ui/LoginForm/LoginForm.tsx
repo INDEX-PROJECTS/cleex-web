@@ -13,7 +13,6 @@ import {
 import { loginActions } from '../../model/slice/loginSlice';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { validateLoginData } from '../../model/services/validateLoginData/validateLoginData';
-import { ValidateLoginDataError } from '../../model/types/loginSchema';
 
 interface LoginFormProps {
   className?: string;
@@ -28,7 +27,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const phone = useAppSelector(getLoginPhone);
     const password = useAppSelector(getLoginPassword);
     const isLoading = useAppSelector(getLoginIsLoading);
-    const validateDataErrors = useAppSelector(getLoginValidateData);
+    const validateLoginDataErrors = useAppSelector(getLoginValidateData);
 
     const [check, setCheck] = useState(false);
 
@@ -50,9 +49,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
         const errors = validateLoginData(phone, password);
 
         if (errors.length === 0) {
-            // const result = await dispatch(loginByPhoneNumber(phone, password));
-
-            alert('Вход выполнен успешно');
+            alert('Отправляй запрос');
         }
 
         return dispatch(loginActions.setLoginValidateDataError(errors));

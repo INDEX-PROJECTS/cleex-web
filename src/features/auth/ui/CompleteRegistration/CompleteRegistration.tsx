@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 import type { ChangeEvent } from 'react';
@@ -9,6 +9,9 @@ import { Text, TextVariant } from '@/shared/ui/Text/Text';
 import { PasswordStrength } from '@/shared/ui/PasswordStrength/PasswordStrength';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import styles from './CompleteRegistration.module.scss';
+import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
+import { getRegistrationPassword, getRegistrationUsername } from '../../model/selectors/getRegistrationData';
+import { registrationActions } from '../../model/slice/registrationSlice';
 
 interface CompleteRegistrationProps {
   className?: string;
@@ -19,13 +22,27 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
     const { className, handleChangeStep } = props;
 
     const [meter, setMeter] = useState(false);
-    const [password, setPassword] = useState('');
 
     const [check, setCheck] = useState(false);
 
-    const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.currentTarget.value);
-    };
+    const dispatch = useAppDispatch();
+
+    const username = useAppSelector(getRegistrationUsername);
+    const password = useAppSelector(getRegistrationPassword);
+
+    const onChangeUsername = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(registrationActions.setUsername(event.currentTarget.value));
+        },
+        [dispatch],
+    );
+
+    const onChangePassword = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(registrationActions.setPassword(event.currentTarget.value));
+        },
+        [dispatch],
+    );
 
     return (
         <VStack
@@ -48,7 +65,11 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                     max
                     gap="16"
                 >
-                    <Input placeholder="Имя пользователя" />
+                    <Input
+                        value={username}
+                        onChange={onChangeUsername}
+                        placeholder="Имя пользователя"
+                    />
 
                     <HStack
                         max
@@ -60,7 +81,7 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                             value={password}
                             onBlur={() => setMeter(false)}
                             onFocus={() => setMeter(true)}
-                            onChange={onChangeNewPassword}
+                            onChange={onChangePassword}
                         />
                         <CSSTransition
                             in={meter}

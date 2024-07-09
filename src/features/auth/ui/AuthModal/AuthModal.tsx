@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { HStack, VStack } from '@/shared/ui/Stack';
-import { Text, TextVariant } from '@/shared/ui/Text/Text';
+import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import CloseIcon from '@/shared/assets/icons/CloseIcon.svg';
 import LocationIcon from '@/shared/assets/icons/LocationIcon.svg';
@@ -20,13 +20,28 @@ import ArrowIconBack from '@/shared/assets/icons/ArrowIcon.svg';
 interface AuthModalProps {
   className?: string;
   isOpen: boolean;
+  portal: boolean;
   onClose: () => void;
 }
 
+const stepsToRenderBack = [1, 3];
+
 export const AuthModal = memo((props: AuthModalProps) => {
-    const { className, onClose, isOpen } = props;
+    const {
+        className, onClose, isOpen, portal,
+    } = props;
 
     const [currentStep, setCurrentStep] = useState(0);
+
+    const [modal, setModal] = useState(false);
+
+    const onCloseModal = () => {
+        setModal(false);
+    };
+
+    const onOpenModal = () => {
+        setModal(true);
+    };
 
     const [slideIn, setSlideIn] = useState(true);
 
@@ -61,9 +76,19 @@ export const AuthModal = memo((props: AuthModalProps) => {
     return (
         <Modal
             isOpen={isOpen}
+            portal={portal}
             onClose={onClose}
             className={clsx(styles.AuthModal, {}, [className])}
         >
+            <Modal portal={false} onClose={onCloseModal} isOpen={modal} className={styles.NotificationModal}>
+                <VStack align="center" gap="24" max>
+                    <Text gap="0" align={TextAlign.CENTER} textPrimary text="Пользователь с таким номером уже существует" />
+
+                    <Button fullWidth theme={ThemeButton.DEFAULT}>
+                        Хорошо
+                    </Button>
+                </VStack>
+            </Modal>
             <HStack
                 max
                 align="start"
@@ -149,10 +174,12 @@ export const AuthModal = memo((props: AuthModalProps) => {
                             </HStack>
                         </VStack>
 
-                        <Button theme={ThemeButton.BACK}>
-                            <ArrowIconBack />
-                            Назад
-                        </Button>
+                        {stepsToRenderBack.includes(currentStep) && (
+                            <Button onClick={() => handleChangeStep(0)} theme={ThemeButton.BACK}>
+                                <ArrowIconBack />
+                                Назад
+                            </Button>
+                        )}
                     </VStack>
 
                 </VStack>
@@ -163,8 +190,9 @@ export const AuthModal = memo((props: AuthModalProps) => {
                     gap="16"
                     className={styles.formWrapper}
                 >
+
                     <Button
-                        onClick={onClose}
+                        onClick={onOpenModal}
                         theme={ThemeButton.ICON_BG}
                     >
                         <CloseIcon />

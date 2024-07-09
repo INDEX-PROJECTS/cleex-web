@@ -1,14 +1,17 @@
 'use client';
 
 /* eslint-disable import/no-internal-modules */
-import React, { useCallback,useEffect,, useState } from "react";
-import { CSSTransition } from "react-transition-group";
-import { Button, ThemeButton } from "@/shared/ui/Button/Button";
-import ProfileIcon from "@/shared/assets/icons/ProfileIcon.svg";
-import { Input } from "@/shared/ui/Input/Input";
-import CloseIcon from "@/shared/assets/icons/CloseIcon.svg";
-import ArrowBackIcon from "@/shared/assets/icons/ArrowIcon.svg";
-import { Checkbox } from "@/shared/ui/Checkbox/Checkbox";
+import React, {
+    ChangeEvent, useCallback, useEffect, useState,
+} from 'react';
+import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
+import ProfileIcon from '@/shared/assets/icons/ProfileIcon.svg';
+import { Input } from '@/shared/ui/Input/Input';
+import CloseIcon from '@/shared/assets/icons/CloseIcon.svg';
+import ArrowBackIcon from '@/shared/assets/icons/ArrowIcon.svg';
+import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 
 import { Tabs } from '@/shared/ui/Tabs/Tabs';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
@@ -25,8 +28,8 @@ import { Modal } from '@/shared/ui/Modal/Modal';
 import Avatar, { AvatarSize } from '@/shared/ui/Avatar/Avatar.tsx';
 import { Stars } from '@/shared/ui/Stars/Stars';
 import { RadioButton } from '@/shared/ui/RadioButton/RadioButton';
-import { Footer } from "@/widgets/footer";
-import { Header } from "@/widgets/header";
+import { Footer } from '@/widgets/footer';
+import { Header } from '@/widgets/header';
 import styles from './Kit.module.scss';
 import type { TabItem } from '@/shared/ui/Tabs/Tabs';
 
@@ -69,17 +72,16 @@ const Kit = () => {
     const onChangeHandle = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const newHandle = !!event.currentTarget.checked;
 
-    return newHandle;
-  }, []);
+        return newHandle;
+    }, []);
 
-  const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
 
-  useEffect(() => {
-    // eslint-disable-next-line promise/catch-or-return
-    axios.get("https://testguru.ru/kvik_v3/api/v1/items").then((res) => {
-      setData(res.data.items);
-    });
-  }, []);
+    useEffect(() => {
+        axios.get('https://testguru.ru/kvik_v3/api/v1/items').then((res) => {
+            setData(res.data.items);
+        });
+    }, []);
 
     return (
         <VStack
@@ -107,8 +109,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.TITLE}
                     />
                 </VStack>
@@ -125,8 +131,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.SUBTITLE}
                     />
                 </VStack>
@@ -143,8 +153,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.DESCRIPTION_MEDIUM}
                     />
                 </VStack>
@@ -161,8 +175,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.DESCRIPTION_REGULAR}
                     />
                 </VStack>
@@ -179,8 +197,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MAIN_MEDIUM}
                     />
                 </VStack>
@@ -197,8 +219,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MAIN_REGULAR}
                     />
                 </VStack>
@@ -215,8 +241,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.ADDITIONAL}
                     />
                 </VStack>
@@ -233,8 +263,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MINIMUM}
                     />
                 </VStack>
@@ -382,7 +416,8 @@ const Kit = () => {
                 max
             >
                 <Checkbox
-                    label="Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским соглашением"
+                    label="Продолжая, вы соглашаетесь со сбором и
+                    обработкой персональных данных и пользовательским соглашением"
                     checked={check}
                     id="registrationCheck"
                     onToggle={() => setCheck(!check)}
@@ -439,6 +474,7 @@ const Kit = () => {
                 </Button>
                 <Modal
                     isOpen={modal}
+                    portal
                     onClose={onCloseModal}
                 >
                     <VStack
@@ -452,7 +488,8 @@ const Kit = () => {
                         />
                         <Text
                             gap="0"
-                            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                             variant={TextVariant.MAIN_REGULAR}
                         />
                         <Button
@@ -465,28 +502,26 @@ const Kit = () => {
                 </Modal>
             </HStack>
 
-      <VStack>
-        <Text
-          gap="0"
-          title="Grid wrapper"
-          variant={TextVariant.TITLE}
-        />
-        <AnnouncementsGrid>
-          {data.map((item) => {
-            return (
-              <AnnouncementCard
-                key={item.id}
-                href="#"
-                imageUrl={item.photos}
-                price={item.price}
-                title={item.title}
-                address={item.location.address}
-                date={item.created_at}
-              />
-            );
-          })}
-        </AnnouncementsGrid>
-      </VStack>
+            <VStack>
+                <Text
+                    gap="0"
+                    title="Grid wrapper"
+                    variant={TextVariant.TITLE}
+                />
+                <AnnouncementsGrid>
+                    {data.map((item) => (
+                        <AnnouncementCard
+                            key={item.id}
+                            href="#"
+                            imageUrl={item.photos}
+                            price={item.price}
+                            title={item.title}
+                            address={item.location.address}
+                            date={item.created_at}
+                        />
+                    ))}
+                </AnnouncementsGrid>
+            </VStack>
 
             <Text
                 gap="0"
@@ -561,72 +596,82 @@ const Kit = () => {
                 variant={TextVariant.SUBTITLE}
             />
 
-      <VStack gap="16">
-        <HStack gap="16">
-          <Avatar
-            name="Ян Юшков"
-            size={AvatarSize.SIZE88}
-          />
-          <Avatar
-            name="Ян Юшков"
-            size={AvatarSize.SIZE64}
-          />
-          <Avatar
-            name="Ян Юшков"
-            size={AvatarSize.SIZE48}
-            isOnline={true}
-          />
-          <Avatar
-            name="Ян Юшков"
-            size={AvatarSize.SIZE32}
-            isOnline={true}
-          />
-        </HStack>
-        <HStack gap="16">
-          <Avatar
-            name="Артём Шабанов"
-            size={AvatarSize.SIZE88}
-          />
-          <Avatar
-            name="Артём Шабанов"
-            size={AvatarSize.SIZE64}
-          />
-          <Avatar
-            name="Артём Шабанов"
-            size={AvatarSize.SIZE48}
-            isOnline={true}
-          />
-          <Avatar
-            name="Артём Шабанов"
-            size={AvatarSize.SIZE32}
-            isOnline={true}
-          />
-        </HStack>
-        <HStack gap="16">
-          <Avatar
-            name="Девушка какая-то"
-            size={AvatarSize.SIZE88}
-            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
-          />
-          <Avatar
-            name="Девушка какая-то"
-            size={AvatarSize.SIZE64}
-            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
-          />
-          <Avatar
-            name="Девушка какая-то"
-            size={AvatarSize.SIZE48}
-            isOnline={true}
-            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
-          />
-          <Avatar
-            name="Девушка какая-то"
-            size={AvatarSize.SIZE32}
-            isOnline={true}
-            imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
-          />
-        </HStack>
-      </VStack>
+            <VStack gap="16">
+                <HStack gap="16">
+                    <Avatar
+                        name="Ян Юшков"
+                        size={AvatarSize.SIZE88}
+                    />
+                    <Avatar
+                        name="Ян Юшков"
+                        size={AvatarSize.SIZE64}
+                    />
+                    <Avatar
+                        name="Ян Юшков"
+                        size={AvatarSize.SIZE48}
+                        isOnline
+                    />
+                    <Avatar
+                        name="Ян Юшков"
+                        size={AvatarSize.SIZE32}
+                        isOnline
+                    />
+                </HStack>
+                <HStack gap="16">
+                    <Avatar
+                        name="Артём Шабанов"
+                        size={AvatarSize.SIZE88}
+                    />
+                    <Avatar
+                        name="Артём Шабанов"
+                        size={AvatarSize.SIZE64}
+                    />
+                    <Avatar
+                        name="Артём Шабанов"
+                        size={AvatarSize.SIZE48}
+                        isOnline
+                    />
+                    <Avatar
+                        name="Артём Шабанов"
+                        size={AvatarSize.SIZE32}
+                        isOnline
+                    />
+                </HStack>
+                <HStack gap="16">
+                    <Avatar
+                        name="Девушка какая-то"
+                        size={AvatarSize.SIZE88}
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair
+                        -Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jy
+                        ZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                    />
+                    <Avatar
+                        name="Девушка какая-то"
+                        size={AvatarSize.SIZE64}
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb
+                        2eb3a8c4d512?Expires=1721001600&Key-
+                        Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA
+                        -WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h
+                        4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFO
+                        txWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pw
+                        WXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05Pr
+                        axEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                    />
+                    <Avatar
+                        name="Девушка какая-то"
+                        size={AvatarSize.SIZE48}
+                        isOnline
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb
+                        3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                    />
+                    <Avatar
+                        name="Девушка какая-то"
+                        size={AvatarSize.SIZE32}
+                        isOnline
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                    />
+                </HStack>
+            </VStack>
 
             <Text
                 gap="0"
@@ -677,27 +722,27 @@ const Kit = () => {
                 variant={TextVariant.SUBTITLE}
             />
 
-      <HStack max={true}>
-        <RadioButton id="test-kit-radio" />
-      </HStack>
+            <HStack max>
+                <RadioButton id="test-kit-radio" />
+            </HStack>
 
-      <Text
-        gap="0"
-        title="Header top"
-        variant={TextVariant.SUBTITLE}
-      />
+            <Text
+                gap="0"
+                title="Header top"
+                variant={TextVariant.SUBTITLE}
+            />
 
-      <Header />
+            <Header />
 
-      <Text
-        gap="0"
-        title="Footer"
-        variant={TextVariant.SUBTITLE}
-      />
+            <Text
+                gap="0"
+                title="Footer"
+                variant={TextVariant.SUBTITLE}
+            />
 
-      <Footer />
-    </VStack>
-  );
+            <Footer />
+        </VStack>
+    );
 };
 
 export default Kit;

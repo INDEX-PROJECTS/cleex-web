@@ -1,10 +1,13 @@
-import { memo } from "react";
-import clsx from "clsx";
-import { VStack } from "@/shared/ui/Stack";
-import { Button, ThemeButton } from "@/shared/ui/Button/Button";
-import { Text, TextAlign, TextVariant } from "@/shared/ui/Text/Text";
-import { Input } from "@/shared/ui/Input/Input";
-import styles from "./CodeStep.module.scss";
+import { ChangeEvent, memo, useCallback } from 'react';
+import clsx from 'clsx';
+import { VStack } from '@/shared/ui/Stack';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
+import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
+import { Input } from '@/shared/ui/Input/Input';
+import styles from './CodeStep.module.scss';
+import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
+import { getRegistrationCode, getRegistrationPhone } from '../../model/selectors/getRegistrationData';
+import { registrationActions } from '../../model/slice/registrationSlice';
 
 interface CodeStepProps {
   className?: string;
@@ -12,56 +15,86 @@ interface CodeStepProps {
 }
 
 export const CodeStep = memo((props: CodeStepProps) => {
-  const { className, handleChangeStep } = props;
-  return (
-    <VStack
-      max={true}
-      justify="between"
-      align="center"
-      className={clsx(styles.CodeStep, {}, [className])}>
-      <VStack
-        max={true}
-        gap="24">
-        <Text
-          gap="0"
-          text="Код подтверждения"
-          textPrimary={true}
-          variant={TextVariant.TITLE}
-        />
+    const { className, handleChangeStep } = props;
 
-        <Text
-          gap="0"
-          text="Введите последние 4 цифры номера позвонившего на + 7 (951) 122-32-81"
-          textPrimary={true}
-          align={TextAlign.CENTER}
-          variant={TextVariant.SUBTITLE}
-        />
+    const dispatch = useAppDispatch();
 
-        <Input
-          placeholder="••••"
-          maskChar="•"
-          mask="9999"
-          code={true}
-        />
-      </VStack>
+    const phone = useAppSelector(getRegistrationPhone);
+    const code = useAppSelector(getRegistrationCode);
 
-      <VStack
-        max={true}
-        gap="16">
-        <Button
-          fullWidth={true}
-          theme={ThemeButton.LINK}>
-          Позвонить еще раз
-        </Button>
-        <Button
-          onClick={() => {
-            return handleChangeStep(2);
-          }}
-          fullWidth={true}
-          theme={ThemeButton.DEFAULT}>
-          Продолжить
-        </Button>
-      </VStack>
-    </VStack>
-  );
+    const onChangeCode = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(registrationActions.setCode(event.currentTarget.value));
+        },
+        [dispatch],
+    );
+
+    const handleSubmitCode = () => {
+
+    };
+    return (
+        <VStack
+            max
+            justify="between"
+            align="center"
+            className={clsx(styles.CodeStep, {}, [className])}
+        >
+            <VStack
+                max
+                gap="24"
+            >
+                <Text
+                    gap="0"
+                    text="Код подтверждения"
+                    textPrimary
+                    variant={TextVariant.TITLE}
+                />
+
+                <Text
+                    gap="0"
+                    text=""
+                    textPrimary
+                    align={TextAlign.CENTER}
+                    variant={TextVariant.SUBTITLE}
+                />
+                <p className={styles.text}>
+                    Введите
+                    {' '}
+                    <span className={styles.textActive}>последние 4 цифры</span>
+                    {' '}
+                    номера позвонившего на
+                    {' '}
+                    {phone}
+                </p>
+
+                <Input
+                    placeholder="••••"
+                    maskChar="•"
+                    mask="9999"
+                    code
+                    value={code}
+                    onChange={onChangeCode}
+                />
+            </VStack>
+
+            <VStack
+                max
+                gap="16"
+            >
+                <Button
+                    fullWidth
+                    theme={ThemeButton.LINK}
+                >
+                    Позвонить еще раз
+                </Button>
+                <Button
+                    onClick={() => handleChangeStep(2)}
+                    fullWidth
+                    theme={ThemeButton.DEFAULT}
+                >
+                    Продолжить
+                </Button>
+            </VStack>
+        </VStack>
+    );
 });

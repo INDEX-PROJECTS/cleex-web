@@ -44,19 +44,14 @@ module.exports = {
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
-        'max-len': [
-            'error',
-            {
-                ignoreComments: true,
-                code: 120,
-            },
-        ],
+        'max-len': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'error',
         'no-param-reassign': 'off',
         'no-undef': 'off',
+
         'ulbi-tv-plugin/path-checker': [
             'error',
             {

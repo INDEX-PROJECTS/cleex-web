@@ -1,40 +1,43 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Button, ThemeButton } from "@/shared/ui/Button/Button";
-import { AuthModal } from "@/features/auth";
-import { HStack } from "@/shared/ui/Stack";
-import styles from "./Home.module.scss";
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
+import { AuthModal } from '@/features/auth';
+import { HStack } from '@/shared/ui/Stack';
+import styles from './Home.module.scss';
 
 const Home = () => {
-  const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false);
 
-  const onCloseModal = () => {
-    setModal(false);
-  };
+    const onCloseModal = () => {
+        setModal(false);
+    };
 
-  const onOpenModal = () => {
-    setModal(true);
-  };
+    const onOpenModal = () => {
+        setModal(true);
+    };
 
-  return (
-    <HStack
-      max={true}
-      justify="center"
-      align="center"
-      className={styles.wrapper}>
-      <Button
-        theme={ThemeButton.DEFAULT}
-        onClick={onOpenModal}>
-        Авторизация
-      </Button>
-      <AuthModal
-        isOpen={modal}
-        onClose={onCloseModal}
-      />
-    </HStack>
-  );
+    return (
+        <HStack
+            max
+            justify="center"
+            align="center"
+            className={styles.wrapper}
+        >
+            <Button
+                theme={ThemeButton.DEFAULT}
+                onClick={onOpenModal}
+            >
+                Авторизация
+            </Button>
+            <AuthModal
+                portal
+                isOpen={modal}
+                onClose={onCloseModal}
+            />
+        </HStack>
+    );
 };
 
 export default Home;

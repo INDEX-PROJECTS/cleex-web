@@ -14,19 +14,7 @@ export interface LoginSchema {
   validateData: ValidateLoginDataError[];
 }
 
-export interface ITokens {
-  accessToken: string;
-  refreshToken: string;
+export interface IAuthTokens {
+  refresh_token: string;
+  access_token: string;
 }
-
-export type AuthStep = '' | 'login' | 'phone' | 'code' | 'password';
-
-export type AuthModalType =
-  | ''
-  | 'selectMethods'
-  | 'login'
-  | 'registration'
-  | 'reset'
-  | 'confirmPhone';
-
-export type StepsType = 'registration' | 'reset-password';
