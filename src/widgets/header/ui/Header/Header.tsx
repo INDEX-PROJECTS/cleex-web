@@ -1,12 +1,10 @@
-import HeaderBottom from "@/widgets/header/ui/HeaderBottom/HeaderBottom.tsx";
-import HeaderTop from "@/widgets/header/ui/HeaderTop/HeaderTop.tsx";
-import styles from "./Header.module.scss";
+import HeaderBottom from '../HeaderBottom/HeaderBottom.tsx';
+import HeaderTop from '../HeaderTop/HeaderTop.tsx';
+import styles from './Header.module.scss';
 
-export const Header = () => {
-  return (
+export const Header = () => (
     <div className={styles.Header}>
-      <HeaderTop isAccountPage={false} />
-      <HeaderBottom />
+        <HeaderTop isAccountPage={false} />
+        <HeaderBottom />
     </div>
-  );
-};
+);
