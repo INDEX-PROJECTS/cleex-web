@@ -12,6 +12,27 @@
     }
 }
 
+.white {
+    .title {
+        color: var(--color-white);
+    }
+    
+    .text {
+        color: var(--color-white);
+    }
+}
+
+
+.error {
+    .title {
+        color: var(--color-error);
+    }
+    
+    .text {
+        color: var(--color-error);
+    }
+}
+
 .active {
     .text {
         color: var(--color-main);

@@ -2,7 +2,7 @@ const IS_PROD = process.env.NODE_ENV === "production";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  assetPrefix: IS_PROD ? "/cleex_web_frontend" : "",
+  assetPrefix: IS_PROD ? "/cleex_web" : "",
 
   images: {
     remotePatterns: [
@@ -25,7 +25,7 @@ const nextConfig = {
     });
 
     return config;
-  }
+  },
 };
 
 export default nextConfig;

@@ -1,5 +1,5 @@
 {
-  "name": "cleex-web-frontend",
+  "name": "cleex-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "2.2.6",
     "axios": "1.7.2",
     "date-fns": "3.6.0",
+    "js-cookie": "3.0.5",
     "nanoid": "5.0.7",
     "next": "14.2.4",
     "react": "^18",
@@ -21,13 +22,13 @@
     "react-google-recaptcha": "3.1.0",
     "react-hook-form": "7.52.0",
     "react-input-mask": "2.0.4",
-    "react-redux": "9.1.2",
+    "react-redux": "8.1.3",
     "react-transition-group": "4.4.5",
-    "sass": "1.77.6",
     "swiper": "11.1.4"
   },
   "devDependencies": {
     "@svgr/webpack": "8.1.0",
+    "@types/js-cookie": "3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -38,22 +39,22 @@
     "@typescript-eslint/parser": "7.14.1",
     "clsx": "2.1.1",
     "eslint": "^8",
+    "eslint-config-airbnb": "19.0.4",
     "eslint-config-next": "14.2.4",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-prettier": "5.1.3",
+    "eslint-plugin-jsx-a11y": "6.9.0",
     "eslint-plugin-promise": "6.4.0",
     "eslint-plugin-react": "7.34.3",
     "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-ulbi-tv-plugin": "0.0.10",
     "husky": "9.0.11",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "lint-staged": "15.2.7",
+    "sass": "1.77.6",
     "stylelint": "16.6.1",
-    "stylelint-config-standard": "36.0.1",
     "stylelint-config-standard-scss": "13.1.0",
-    "typescript": "^5"
+    "typescript": "5.5.3"
   },
   "lint-staged": {
     "./src/**/*.{ts,tsx}": [

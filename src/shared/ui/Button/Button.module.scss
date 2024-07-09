@@ -13,6 +13,10 @@
   transition: all 0.15s ease-in-out;
 }
 
+.fullWidth {
+  width: 100%;
+}
+
 .clear {
   padding: 0;
   margin: 0;
@@ -74,6 +78,7 @@
     color: var(--color-gray);
     fill: var(--color-gray);
     transition: all 0.15s ease-in-out;
+
     path {
       fill: var(--color-gray);
       transition: all 0.15s ease-in-out;
@@ -83,6 +88,7 @@
   &:hover {
     svg {
       color: var(--color-main);
+
       path {
         transition: all 0.15s ease-in-out;
         fill: var(--color-main);
@@ -113,6 +119,8 @@
 
 .link {
   color: var(--color-main);
+  font-size: 16px;
+  line-height: 18px;
 
   &:hover {
     color: var(--color-main-hover);
