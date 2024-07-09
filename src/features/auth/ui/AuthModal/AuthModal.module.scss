@@ -6,7 +6,7 @@
 
 .info {
   position: relative;
-  padding: 60px 24px;
+  padding: 60px 24px 24px;
   height: 480px;
   z-index: 1;
 }
@@ -32,4 +32,8 @@
 .formWrapper {
   padding: 24px;
   height: 480px;
+}
+
+.backContainer {
+  height: 100%;
 }

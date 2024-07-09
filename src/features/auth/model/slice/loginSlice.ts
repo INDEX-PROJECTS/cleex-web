@@ -21,10 +21,10 @@ export const loginSlice = createSlice({
             state.password = action.payload;
         },
         setResetPassword: (state, action: PayloadAction<string>) => {
-            state.password = action.payload;
+            state.resetPassword = action.payload;
         },
         setRepeatResetPassword: (state, action: PayloadAction<string>) => {
-            state.password = action.payload;
+            state.repeatResetPassword = action.payload;
         },
         setLoginValidateDataError: (state, action: PayloadAction<ValidateLoginDataError[]>) => {
             state.validateData = action.payload;

@@ -18,3 +18,15 @@ export interface ITokens {
   accessToken: string;
   refreshToken: string;
 }
+
+export type AuthStep = '' | 'login' | 'phone' | 'code' | 'password';
+
+export type AuthModalType =
+  | ''
+  | 'selectMethods'
+  | 'login'
+  | 'registration'
+  | 'reset'
+  | 'confirmPhone';
+
+export type StepsType = 'registration' | 'reset-password';
