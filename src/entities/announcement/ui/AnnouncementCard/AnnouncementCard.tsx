@@ -1,11 +1,13 @@
 import { memo } from "react";
 // eslint-disable-next-line import/no-internal-modules
+import Image from "next/image";
 import { VStack } from "@/shared/ui/Stack";
 import { Text, TextVariant } from "@/shared/ui/Text/Text.tsx";
-import { ImageSwiper } from "@/entities/announcement/ui/AnnouncementCard/ImageSwiper/ImageSwiper.tsx";
 
 import { AppLink } from "@/shared/ui/AppLink/AppLink.tsx";
 
+import { normalizeDateTime } from "@/shared/utils/normalizeDateTime/normalizeDateTime.ts";
+import { priceFormatter } from "@/shared/utils/priceFormatter/priceFormatter.ts";
 import styles from "./AnnouncementCard.module.scss";
 
 interface AnnouncementProps {
@@ -23,19 +25,27 @@ export const AnnouncementCard = memo((props: AnnouncementProps) => {
 
   return (
     <VStack gap="8">
-      <ImageSwiper />
+      <Image
+        src={`https://testguru.ru/kvik_v3/api/v1/images/640x480/${imageUrl}`}
+        className={styles.image}
+        width={640}
+        height={480}
+        alt={title}
+        title={`Объявление «${title}»`}
+      />
       <VStack
         align="start"
         gap="4"
         max={true}>
         <Text
           gap="0"
-          title={price + " ₽"}
+          title={priceFormatter(price)}
           variant={TextVariant.SUBTITLE}
         />
         <AppLink
           href={href}
-          className={styles.title}>
+          className={styles.title}
+          title={title}>
           {title}
         </AppLink>
         <VStack
@@ -49,7 +59,7 @@ export const AnnouncementCard = memo((props: AnnouncementProps) => {
           />
           <Text
             gap="0"
-            text={date}
+            text={normalizeDateTime(date)}
             variant={TextVariant.ADDITIONAL}
           />
         </VStack>

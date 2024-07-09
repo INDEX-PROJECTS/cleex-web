@@ -1,5 +1,6 @@
 import { memo } from "react";
 import clsx from "clsx";
+import Image from "next/image";
 import { getUppercaseFirstLetter } from "@/shared/utils/getUppercaseFirstLetter/getUppercaseFirstLetter.ts";
 import { stringToColor } from "@/shared/utils/stringToColor/stringToColor.ts";
 import styles from "./Avatar.module.scss";
@@ -16,13 +17,17 @@ export enum AvatarSize {
 interface AvatarProps {
   name: string;
   size?: AvatarSize;
+  imageUrl?: string;
+  isOnline?: boolean;
   className?: string;
 }
 
 const Avatar: FC<AvatarProps> = ({
   name,
   className,
+  imageUrl,
   size = AvatarSize.SIZE48,
+  isOnline = false,
   ...props
 }) => {
   const splitName = name.split(" ");
@@ -37,16 +42,30 @@ const Avatar: FC<AvatarProps> = ({
 
   const mods: Mods = {
     [styles[size]]: true,
+    [styles.isOnline]: isOnline,
   };
 
-  return (
-    <div
-      style={{ backgroundColor: `${backgroundColor}` }}
-      className={clsx(styles.avatar, mods, [className])}
-      {...props}>
-      {title}
-    </div>
-  );
+  if (imageUrl) {
+    return (
+      <div className={clsx(styles.avatar, mods, [className])}>
+        <Image
+          src={imageUrl}
+          width={500}
+          height={500}
+          alt="Аватар"
+        />
+      </div>
+    );
+  } else {
+    return (
+      <div
+        style={{ backgroundColor: `${backgroundColor}` }}
+        className={clsx(styles.avatar, mods, [className])}
+        {...props}>
+        {title}
+      </div>
+    );
+  }
 };
 
 export default memo(Avatar);

@@ -1,0 +1,38 @@
+.HeaderBottom {
+  width: 100%;
+  padding: 4px 0;
+}
+
+.category {
+  svg > path {
+    stroke: var(--color-main);
+    transition: all 0.15s ease-in-out;
+  }
+
+  &:hover {
+    svg > path {
+      stroke: var(--color-main-hover);
+      transition: all 0.15s ease-in-out;
+    }
+  }
+
+  &:active {
+    svg > path {
+      stroke: var(--color-main-active);
+      transition: all 0.15s ease-in-out;
+    }
+  }
+}
+
+.search_bar {
+  flex-grow: 1;
+
+  &_input > * {
+    border-radius: 12px 0 0 12px;
+  }
+
+  &_button {
+    border-radius: 0 12px 12px 0;
+    padding: 8px 16px;
+  }
+}
