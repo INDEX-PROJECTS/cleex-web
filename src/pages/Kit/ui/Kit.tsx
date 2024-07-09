@@ -184,8 +184,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MAIN_MEDIUM}
                     />
                 </VStack>
@@ -202,8 +204,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MAIN_REGULAR}
                     />
                 </VStack>
@@ -220,8 +224,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.ADDITIONAL}
                     />
                 </VStack>
@@ -238,8 +244,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MINIMUM}
                     />
                 </VStack>
@@ -387,7 +395,8 @@ const Kit = () => {
                 max
             >
                 <Checkbox
-                    label="Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским соглашением"
+                    label="Продолжая, вы соглашаетесь со сбором и
+                    обработкой персональных данных и пользовательским соглашением"
                     checked={check}
                     id="registrationCheck"
                     onToggle={() => setCheck(!check)}
@@ -457,7 +466,8 @@ const Kit = () => {
                         />
                         <Text
                             gap="0"
-                            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                             variant={TextVariant.MAIN_REGULAR}
                         />
                         <Button
