@@ -13,6 +13,8 @@ const initialState: LoginSchema = {
         password: [],
     },
     error: '',
+    hasError: false,
+    resetPhone: '',
 };
 
 export const loginSlice = createSlice({
@@ -21,6 +23,9 @@ export const loginSlice = createSlice({
     reducers: {
         setPhone: (state, action: PayloadAction<string>) => {
             state.phone = action.payload;
+        },
+        setResetPhone: (state, action: PayloadAction<string>) => {
+            state.resetPhone = action.payload;
         },
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload;
@@ -34,19 +39,29 @@ export const loginSlice = createSlice({
         setLoginValidateDataError: (state, action: PayloadAction<ValidateDataLogin>) => {
             state.validateData = action.payload;
         },
+        setHasError: (state, action: PayloadAction<boolean>) => {
+            state.hasError = action.payload;
+        },
+        setError: (state, action: PayloadAction<string | undefined>) => {
+            state.error = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(loginByPhoneNumber.pending, (state) => {
                 state.error = '';
                 state.isLoading = true;
+                state.hasError = false;
             })
             .addCase(loginByPhoneNumber.fulfilled, (state) => {
                 state.isLoading = false;
+                state.hasError = false;
+                state.error = '';
             })
             .addCase(loginByPhoneNumber.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+                state.hasError = true;
             });
     },
 });

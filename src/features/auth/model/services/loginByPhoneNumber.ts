@@ -15,6 +15,18 @@ export const loginByPhoneNumber = createAsyncThunk<
   IStore<string>
 >('auth/loginByPhoneNumber', async ({ phone, password }, { extra: api, rejectWithValue }) => {
     try {
+        const deviceInfo = JSON.stringify({
+            os: 'web',
+            brand: '',
+            model: '',
+            deviceId: '',
+            manufacturer: '',
+            fingerprint: '',
+            ip: '',
+            userAgent: '',
+            uniqueId: '',
+            token: '',
+        });
         const phoneNonePlus = getStandardNumber(phone, false);
 
         let result = false;
@@ -26,10 +38,18 @@ export const loginByPhoneNumber = createAsyncThunk<
             'client_secret=',
             `username=%2B${phoneNonePlus}`,
             `password=${password}`,
-            `device=${{}}`,
+            `device=${deviceInfo || {}}`,
         ];
 
-        const response = await axios.post('https://testguru.ru/kvik_v3/api/v1/auth/login', data.join('&'));
+        const response = await api.request({
+            url: '/auth/login',
+            method: 'post',
+            auth: {
+                username: phoneNonePlus,
+                password,
+            },
+            data: data.join('&'),
+        });
 
         if (response.status === 200) {
             saveTokensStorage(response.data);
@@ -38,6 +58,6 @@ export const loginByPhoneNumber = createAsyncThunk<
 
         return result;
     } catch (error: any) {
-        return rejectWithValue(error.response.data.msg);
+        return rejectWithValue(error.response.data.detail.msg);
     }
 });

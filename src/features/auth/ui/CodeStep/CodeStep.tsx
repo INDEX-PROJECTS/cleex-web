@@ -1,4 +1,6 @@
-import { ChangeEvent, memo, useCallback } from 'react';
+import {
+    ChangeEvent, memo, useCallback, useState,
+} from 'react';
 import clsx from 'clsx';
 import { VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
@@ -6,12 +8,15 @@ import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
 import { Input } from '@/shared/ui/Input/Input';
 import styles from './CodeStep.module.scss';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
-import { getRegistrationCode, getRegistrationPhone } from '../../model/selectors/getRegistrationData';
+import { getRegistrationCode, getRegistrationIsLoading, getRegistrationPhone } from '../../model/selectors/getRegistrationData';
 import { registrationActions } from '../../model/slice/registrationSlice';
+import { fetchCheckCode } from '../../model/services/fetchCheckCode';
+import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
+import { AuthSteps } from '../../model/types/authSchema';
 
 interface CodeStepProps {
   className?: string;
-  handleChangeStep: (currentStep: number) => void;
+  handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
 export const CodeStep = memo((props: CodeStepProps) => {
@@ -19,8 +24,19 @@ export const CodeStep = memo((props: CodeStepProps) => {
 
     const dispatch = useAppDispatch();
 
+    const [codeError, setCodeError] = useState('');
+
     const phone = useAppSelector(getRegistrationPhone);
     const code = useAppSelector(getRegistrationCode);
+    const isLoading = useAppSelector(getRegistrationIsLoading);
+
+    const validateCode = useCallback((code: string) => {
+        if (!code || code.length !== 4) {
+            return setCodeError('Некорректный ввод данных');
+        }
+
+        return setCodeError('');
+    }, []);
 
     const onChangeCode = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,9 +45,22 @@ export const CodeStep = memo((props: CodeStepProps) => {
         [dispatch],
     );
 
-    const handleSubmitCode = () => {
+    const handleSubmitCode = useCallback(async () => {
+        validateCode(code);
 
-    };
+        if (codeError === '' && phone.length !== 0) {
+            const result = await dispatch(fetchCheckCode({
+                phone,
+                code,
+                checkCodeApiName: 'check_phone_code',
+            }));
+
+            if (result.meta.requestStatus === 'fulfilled') {
+                handleChangeStep(AuthSteps.REGISTRATION);
+            }
+        }
+    }, [code, codeError, dispatch, handleChangeStep, phone, validateCode]);
+
     return (
         <VStack
             max
@@ -88,11 +117,14 @@ export const CodeStep = memo((props: CodeStepProps) => {
                     Позвонить еще раз
                 </Button>
                 <Button
-                    onClick={() => handleChangeStep(2)}
+                    onClick={handleSubmitCode}
                     fullWidth
+                    className="submitBtn"
                     theme={ThemeButton.DEFAULT}
                 >
-                    Продолжить
+                    {
+                        isLoading ? (<Loader theme={ThemeLoader.BTN_LOADER} />) : 'Продолжить'
+                    }
                 </Button>
             </VStack>
         </VStack>

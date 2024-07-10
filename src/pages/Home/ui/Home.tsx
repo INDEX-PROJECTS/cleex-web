@@ -3,19 +3,16 @@
 import React, { useState } from 'react';
 
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
-import { AuthModal } from '@/features/auth';
+import { AuthModal, authSlice } from '@/features/auth';
 import { HStack } from '@/shared/ui/Stack';
 import styles from './Home.module.scss';
+import { useAppDispatch } from '@/app/providers/StoreProvider/config/hooks';
 
 const Home = () => {
-    const [modal, setModal] = useState(false);
+    const dispatch = useAppDispatch();
 
-    const onCloseModal = () => {
-        setModal(false);
-    };
-
-    const onOpenModal = () => {
-        setModal(true);
+    const handleOpenModal = () => {
+        dispatch(authSlice.actions.setModal(true));
     };
 
     return (
@@ -27,15 +24,11 @@ const Home = () => {
         >
             <Button
                 theme={ThemeButton.DEFAULT}
-                onClick={onOpenModal}
+                onClick={handleOpenModal}
             >
                 Авторизация
             </Button>
-            <AuthModal
-                portal
-                isOpen={modal}
-                onClose={onCloseModal}
-            />
+            <AuthModal />
         </HStack>
     );
 };

@@ -10,12 +10,17 @@ import { PasswordStrength } from '@/shared/ui/PasswordStrength/PasswordStrength'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import styles from './CompleteRegistration.module.scss';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
-import { getRegistrationPassword, getRegistrationUsername } from '../../model/selectors/getRegistrationData';
+import {
+    getRegistrationPassword, getRegistrationPhone, getRegistrationUsername, getRegistrationValidateData,
+} from '../../model/selectors/getRegistrationData';
 import { registrationActions } from '../../model/slice/registrationSlice';
+import { validateRegistrationData } from '../../model/services/validateRegistrationData/validateRegistrationData';
+import { fetchUserRegistration } from '../../model/services/fetchUserRegistration';
+import { AuthSteps } from '../../model/types/authSchema';
 
 interface CompleteRegistrationProps {
   className?: string;
-  handleChangeStep: (currentStep: number) => void;
+  handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
 export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
@@ -29,6 +34,9 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
 
     const username = useAppSelector(getRegistrationUsername);
     const password = useAppSelector(getRegistrationPassword);
+    const phoneToken = useAppSelector(getRegistrationPassword);
+    const phone = useAppSelector(getRegistrationPhone);
+    // const validateRegistrationData = useAppSelector(getRegistrationValidateData);
 
     const onChangeUsername = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +51,24 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
         },
         [dispatch],
     );
+
+    const handleSubmitRegistration = useCallback(async () => {
+        const errors = validateRegistrationData(username, password);
+        if (errors.username.length === 0 && errors.password.length === 0 && check) {
+            const result = await dispatch(fetchUserRegistration({
+                username,
+                phone,
+                password,
+                phoneToken,
+                agree: check,
+            }));
+
+            if (result.meta.requestStatus === 'fulfilled') {
+                alert('Регистрация успешна');
+            }
+        }
+        return dispatch(registrationActions.setRegistrationValidateDataError(errors));
+    }, [check, dispatch, password, phone, phoneToken, username]);
 
     return (
         <VStack
@@ -108,8 +134,10 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                     onToggle={() => setCheck(!check)}
                 />
                 <Button
-                    onClick={() => handleChangeStep(0)}
+                    disabled={!check}
+                    onClick={handleSubmitRegistration}
                     fullWidth
+                    className="submitBtn"
                     theme={ThemeButton.DEFAULT}
                 >
                     Зарегистрироваться

@@ -10,3 +10,7 @@ export const removeTokensStorage = () => {
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
 };
+
+export const setHeaderAuthorization = (token = '') => ({
+    Authorization: `Bearer ${token}`,
+});

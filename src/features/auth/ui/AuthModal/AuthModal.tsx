@@ -16,79 +16,85 @@ import { CodeStep } from '../CodeStep/CodeStep';
 import { ResetPasswordStep } from '../ResetPasswordStep/ResetPasswordStep';
 import { CompleteRegistration } from '../CompleteRegistration/CompleteRegistration';
 import ArrowIconBack from '@/shared/assets/icons/ArrowIcon.svg';
+import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
+import { authSlice } from '../../model/slice/authSlice';
+import { AuthSteps } from '../../model/types/authSchema';
+import { getAuthCurrentStep, getAuthModal } from '../../model/selectors/getAuthData';
+import { ResetPasswordNumberStep } from '../ResetPasswordNumberStep/ResetPasswordNumberStep';
 
 interface AuthModalProps {
   className?: string;
-  isOpen: boolean;
-  portal: boolean;
-  onClose: () => void;
 }
-
-const stepsToRenderBack = [1, 3];
 
 export const AuthModal = memo((props: AuthModalProps) => {
     const {
-        className, onClose, isOpen, portal,
+        className,
     } = props;
 
-    const [currentStep, setCurrentStep] = useState(0);
-
-    const [modal, setModal] = useState(false);
-
-    const onCloseModal = () => {
-        setModal(false);
-    };
-
-    const onOpenModal = () => {
-        setModal(true);
-    };
+    const dispatch = useAppDispatch();
 
     const [slideIn, setSlideIn] = useState(true);
 
-    const handleChangeStep = (currentStep: number) => {
+    const modal = useAppSelector(getAuthModal);
+
+    const currentStep = useAppSelector(getAuthCurrentStep);
+
+    const handleCloseModal = () => {
+        dispatch(authSlice.actions.setModal(false));
+    };
+
+    const handleChangeStep = useCallback((currentStep: AuthSteps) => {
         setSlideIn(false);
 
         setTimeout(() => {
-            setCurrentStep(currentStep);
+            dispatch(authSlice.actions.setCurrentStep(currentStep));
             setSlideIn(true);
         }, 300);
-    };
+    }, [dispatch]);
 
-    const renderSteps = useCallback((currentStep: number) => {
+    const renderSteps = useCallback((currentStep: AuthSteps) => {
         switch (currentStep) {
-        case 0:
+        case AuthSteps.START:
             return <LoginRegistrationStep handleChangeStep={handleChangeStep} />;
 
-        case 1:
+        case AuthSteps.CODE:
             return <CodeStep handleChangeStep={handleChangeStep} />;
 
-        case 2:
+        case AuthSteps.REGISTRATION:
             return <CompleteRegistration handleChangeStep={handleChangeStep} />;
 
-        case 3:
+        case AuthSteps.RESET:
             return <ResetPasswordStep handleChangeStep={handleChangeStep} />;
+
+        case AuthSteps.RESET_START:
+            return <ResetPasswordNumberStep handleChangeStep={handleChangeStep} />;
 
         default:
             return <LoginRegistrationStep handleChangeStep={handleChangeStep} />;
         }
-    }, []);
+    }, [handleChangeStep]);
 
     return (
         <Modal
-            isOpen={isOpen}
-            portal={portal}
-            onClose={onClose}
+            isOpen={modal}
+            portal
+            onClose={handleCloseModal}
             className={clsx(styles.AuthModal, {}, [className])}
         >
-            <Modal portal={false} onClose={onCloseModal} isOpen={modal} className={styles.NotificationModal}>
+            {/* <Modal portal={false} onClose={onCloseModal} isOpen={modal} className={styles.NotificationModal}>
                 <VStack align="center" gap="24" max>
-                    <Text gap="0" align={TextAlign.CENTER} textPrimary text="Пользователь с таким номером уже существует" />
+                    <Text
+                        gap="0"
+                        align={TextAlign.CENTER}
+                        textPrimary
+                        text="Пользователь с таким номером уже существует"
+                    />
 
                     <Button fullWidth theme={ThemeButton.DEFAULT}>
                         Хорошо
                     </Button>
                 </VStack>
-            </Modal>
+            </Modal> */}
             <HStack
                 max
                 align="start"
@@ -174,8 +180,8 @@ export const AuthModal = memo((props: AuthModalProps) => {
                             </HStack>
                         </VStack>
 
-                        {stepsToRenderBack.includes(currentStep) && (
-                            <Button onClick={() => handleChangeStep(0)} theme={ThemeButton.BACK}>
+                        {AuthSteps.CODE === currentStep && (
+                            <Button onClick={() => handleChangeStep(AuthSteps.START)} theme={ThemeButton.BACK}>
                                 <ArrowIconBack />
                                 Назад
                             </Button>
@@ -192,7 +198,7 @@ export const AuthModal = memo((props: AuthModalProps) => {
                 >
 
                     <Button
-                        onClick={onOpenModal}
+                        onClick={handleCloseModal}
                         theme={ThemeButton.ICON_BG}
                     >
                         <CloseIcon />

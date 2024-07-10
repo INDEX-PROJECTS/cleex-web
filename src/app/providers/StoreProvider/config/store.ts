@@ -1,21 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { rootReducer } from './rootReducers';
-import { $api } from '@/shared/api/api';
+import { axiosProject } from '@/shared/api/api';
 
-export interface ThunkExtraArg {
-    api: AxiosInstance;
-}
-
-const extraArg: ThunkExtraArg = {
-    api: $api,
-};
+const extraArgument = axiosProject;
 
 const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         thunk: {
-            extraArgument: extraArg,
+            extraArgument,
         },
         serializableCheck: false,
     }),
@@ -27,7 +21,7 @@ type AppDispatch = typeof store.dispatch;
 interface IStore<T> {
     dispatch: AppDispatch;
     state: RootState;
-    extra: ThunkExtraArg;
+    extra: typeof extraArgument;
     rejectValue: T;
 }
 

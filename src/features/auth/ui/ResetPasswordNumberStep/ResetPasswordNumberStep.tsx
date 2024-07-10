@@ -1,43 +1,45 @@
 /* eslint-disable camelcase */
 import {
-    ChangeEvent, MutableRefObject, createRef, memo, useCallback,
-    useRef,
-    useState,
+    ChangeEvent, MutableRefObject, memo, useCallback, useRef, useState,
 } from 'react';
 import clsx from 'clsx';
-import ReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha';
 import { CSSTransition } from 'react-transition-group';
-import { Input } from '@/shared/ui/Input/Input';
+import ReCAPTCHA from 'react-google-recaptcha';
+import styles from './ResetPasswordNumberStep.module.scss';
 import { VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
-import styles from './RegistrationForm.module.scss';
+import { Error } from '@/shared/ui/Error/Error';
+import { Text, TextVariant } from '@/shared/ui/Text/Text';
+import { Input } from '@/shared/ui/Input/Input';
+import { AuthSteps } from '../../model/types/authSchema';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 import {
-    getRegistrationError, getRegistrationHasError, getRegistrationIsLoading, getRegistrationPhone,
-} from '../../model/selectors/getRegistrationData';
-import { registrationActions } from '../../model/slice/registrationSlice';
+    getLoginError, getLoginHasError, getLoginIsLoading, getLoginResetPhone,
+} from '../../model/selectors/getLoginData';
+import { loginActions } from '../../model/slice/loginSlice';
+import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { SITE_KEY_RECAPTCHA } from '@/shared/const/constants';
 import { fetchCallPhone } from '../../model/services/fetchCallPhone';
-import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
-import { Error } from '@/shared/ui/Error/Error';
-import { AuthSteps } from '../../model/types/authSchema';
 
-interface RegistrationFormProps {
+interface ResetPasswordNumberStepProps {
   className?: string;
   handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
-export const RegistrationForm = memo((props: RegistrationFormProps) => {
+export const ResetPasswordNumberStep = memo((props: ResetPasswordNumberStepProps) => {
     const { className, handleChangeStep } = props;
+
+    const recaptcha: MutableRefObject<ReCAPTCHA | null> = useRef<ReCAPTCHA>(null);
 
     const [phoneError, setPhoneError] = useState('');
 
-    const recaptcha: MutableRefObject<ReCAPTCHA | null> = useRef<ReCAPTCHA>(null);
     const dispatch = useAppDispatch();
-    const phone = useAppSelector(getRegistrationPhone);
-    const isLoading = useAppSelector(getRegistrationIsLoading);
-    const error = useAppSelector(getRegistrationError);
-    const hasError = useAppSelector(getRegistrationHasError);
+
+    const resetPhone = useAppSelector(getLoginResetPhone);
+    const error = useAppSelector(getLoginError);
+    const hasError = useAppSelector(getLoginHasError);
+
+    const isLoading = useAppSelector(getLoginIsLoading);
 
     const validatePhoneNumber = (phone: string) => {
         if (!phone || phone.length !== 18) {
@@ -48,22 +50,22 @@ export const RegistrationForm = memo((props: RegistrationFormProps) => {
     };
 
     const removeError = () => {
-        dispatch(registrationActions.setHasError(false));
+        dispatch(loginActions.setHasError(false));
 
         setTimeout(() => {
-            dispatch(registrationActions.setError(''));
+            dispatch(loginActions.setError(''));
         }, 300);
     };
 
-    const onChangePhone = useCallback(
+    const onChangeResetPhone = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            dispatch(registrationActions.setPhone(event.currentTarget.value));
+            dispatch(loginActions.setResetPhone(event.currentTarget.value));
         },
         [dispatch],
     );
 
     const handleSubmitForm = () => {
-        validatePhoneNumber(phone);
+        validatePhoneNumber(resetPhone);
 
         if (phoneError === '') {
             recaptcha.current?.execute();
@@ -71,32 +73,36 @@ export const RegistrationForm = memo((props: RegistrationFormProps) => {
     };
 
     const onChangeCaptcha = useCallback(async (recaptcha_token: string | null) => {
-        dispatch(registrationActions.setToken(recaptcha_token));
-
         if (phoneError === '' && recaptcha_token) {
-            const result = await dispatch(fetchCallPhone({ phone, recaptcha_token, method: 'registration' }));
+            const result = await dispatch(fetchCallPhone({ phone: resetPhone, recaptcha_token, method: 'reset-password' }));
 
             if (result.meta.requestStatus === 'fulfilled') {
                 handleChangeStep(AuthSteps.CODE);
             }
         }
-    }, [dispatch, handleChangeStep, phone, phoneError]);
+    }, [dispatch, handleChangeStep, phoneError, resetPhone]);
 
     return (
-        <VStack
-            max
-            gap="16"
-            justify="between"
-            className={clsx(styles.RegistrationForm, {}, [className])}
-        >
-            <Input
-                mask="+7 (999) 999-99-99"
-                value={phone}
-                error={phoneError !== ''}
-                errorText={phoneError}
-                onChange={onChangePhone}
-                placeholder="+7 (___) ___-__-__"
-            />
+        <VStack max justify="between" className={clsx(styles.ResetPasswordNumberStep, {}, [className])}>
+
+            <VStack gap="24" max>
+                <Text
+                    gap="0"
+                    text="Восстановление пароля"
+                    textPrimary
+                    variant={TextVariant.TITLE}
+                />
+
+                <Input
+                    mask="+7 (999) 999-99-99"
+                    value={resetPhone}
+                    error={phoneError !== ''}
+                    errorText={phoneError}
+                    onChange={onChangeResetPhone}
+                    placeholder="+7 (___) ___-__-__"
+                />
+
+            </VStack>
 
             <ReCAPTCHA
                 lang="RU"
@@ -116,19 +122,12 @@ export const RegistrationForm = memo((props: RegistrationFormProps) => {
                 >
                     <Error onClose={removeError} error={error || 'Ошибка'} />
                 </CSSTransition>
-
-                <Button
-                    onClick={handleSubmitForm}
-                    fullWidth
-                    className="submitBtn"
-                    theme={ThemeButton.DEFAULT}
-                >
+                <Button fullWidth onClick={handleSubmitForm} theme={ThemeButton.DEFAULT}>
                     {
                         isLoading ? (<Loader theme={ThemeLoader.BTN_LOADER} />) : 'Продолжить'
                     }
                 </Button>
             </VStack>
-
         </VStack>
     );
 });

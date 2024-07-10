@@ -8,6 +8,8 @@ export interface LoginSchema {
   password: string;
   isLoading: boolean;
   error?: string | undefined;
+  hasError: boolean;
+  resetPhone: string;
   resetPassword: string;
   repeatResetPassword: string;
   validateData: ValidateDataLogin;

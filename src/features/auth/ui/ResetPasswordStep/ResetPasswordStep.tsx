@@ -16,10 +16,12 @@ import {
     getLoginResetPassword,
 } from '../../model/selectors/getLoginData';
 import { loginActions } from '../../model/slice/loginSlice';
+import { AuthSteps } from '../../model/types/authSchema';
+import { authActions } from '../../model/slice/authSlice';
 
 interface ResetPasswordStepProps {
   className?: string;
-  handleChangeStep: (currentStep: number) => void;
+  handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
 export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
@@ -99,7 +101,7 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
             </VStack>
             <Button
                 fullWidth
-                onClick={() => handleChangeStep(2)}
+                onClick={() => handleChangeStep(AuthSteps.START)}
                 theme={ThemeButton.DEFAULT}
             >
                 Продолжить
