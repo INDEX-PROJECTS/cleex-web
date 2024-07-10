@@ -13,6 +13,8 @@ import {
 import { loginActions } from '../../model/slice/loginSlice';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { validateLoginData } from '../../model/services/validateLoginData/validateLoginData';
+import { getStandardNumber } from '@/shared/utils/getStandardNumber/getStandardNumber';
+import { loginByPhoneNumber } from '../../model/services/loginByPhoneNumber';
 
 interface LoginFormProps {
   className?: string;
@@ -48,8 +50,12 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const handleSubmitLogin = useCallback(async () => {
         const errors = validateLoginData(phone, password);
 
-        if (errors.length === 0) {
-            alert('Отправляй запрос');
+        if (errors.phone.length === 0 && errors.password.length === 0) {
+            const result = await dispatch(loginByPhoneNumber({ phone, password }));
+
+            if (result.meta.requestStatus === 'fulfilled') {
+                alert('Вход выполнен успешно!');
+            }
         }
 
         return dispatch(loginActions.setLoginValidateDataError(errors));
@@ -71,6 +77,8 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     mask="+7 (999) 999-99-99"
                     placeholder="+7 (___) ___-__-__"
                     value={phone}
+                    error={validateLoginDataErrors.phone.length > 0}
+                    errorText={validateLoginDataErrors.phone[0]}
                     onChange={onChangePhone}
                 />
 
@@ -78,6 +86,8 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     placeholder="Пароль"
                     isPassword
                     value={password}
+                    error={validateLoginDataErrors.password.length > 0}
+                    errorText={validateLoginDataErrors.password[0]}
                     onChange={onChangePassword}
                 />
             </VStack>

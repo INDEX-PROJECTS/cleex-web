@@ -1,17 +1,16 @@
-export enum ValidateLoginDataError {
-  EMPTY_PASSWORD = 'Некорректные данные для входа',
-  EMPTY_PHONE = 'Некорректные данные для входа',
-  EMPTY_DATA = 'Некорректный ввод данных',
+export interface ValidateDataLogin {
+  phone: string[];
+  password: string[];
 }
 
 export interface LoginSchema {
   phone: string;
   password: string;
   isLoading: boolean;
-  error?: string;
+  error?: string | undefined;
   resetPassword: string;
   repeatResetPassword: string;
-  validateData: ValidateLoginDataError[];
+  validateData: ValidateDataLogin;
 }
 
 export interface IAuthTokens {

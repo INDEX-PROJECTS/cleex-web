@@ -24,11 +24,12 @@ const store = configureStore({
 type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
 
-interface Store {
+interface IStore<T> {
     dispatch: AppDispatch;
     state: RootState;
-    extra: typeof extraArg;
+    extra: ThunkExtraArg;
+    rejectValue: T;
 }
 
 export { store };
-export type { RootState, AppDispatch, Store };
+export type { RootState, AppDispatch, IStore };

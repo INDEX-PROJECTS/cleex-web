@@ -1,19 +1,21 @@
-import { ValidateLoginDataError } from '../../types/loginSchema';
-
 export const validateLoginData = (phone: string, password: string) => {
-    if (!phone && !password) {
-        return [ValidateLoginDataError.EMPTY_DATA];
+    const phoneErrors: string[] = [];
+    const passwordErrors: string[] = [];
+
+    // Валидация номера телефона
+    if (!phone) {
+        phoneErrors.push('Некорректный ввод данных');
+    } else if (phone.length !== 18) {
+        phoneErrors.push('Некорректный ввод данных');
     }
 
-    const errors: ValidateLoginDataError[] = [];
-
-    if (phone.length < 18 || !phone) {
-        errors.push(ValidateLoginDataError.EMPTY_PHONE);
-    }
-
+    // Валидация пароля
     if (!password) {
-        errors.push(ValidateLoginDataError.EMPTY_PASSWORD);
+        passwordErrors.push('Некорректный ввод данных');
     }
 
-    return errors;
+    return {
+        phone: phoneErrors,
+        password: passwordErrors,
+    };
 };

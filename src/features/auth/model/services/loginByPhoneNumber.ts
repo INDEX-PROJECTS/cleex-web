@@ -1,27 +1,43 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ITokens } from '../types/loginSchema';
+import { IStore } from '@/app/providers/StoreProvider/config/store';
+import { getStandardNumber } from '@/shared/utils/getStandardNumber/getStandardNumber';
+import { saveTokensStorage } from './authHelper';
 
 interface LoginByPhoneNumberProps {
   phone: string;
   password: string;
-  token: string;
 }
 
 export const loginByPhoneNumber = createAsyncThunk<
-  ITokens,
+  string | boolean,
   LoginByPhoneNumberProps,
-  { rejectValue: string }
->('auth/loginByPhoneNumber', async (authData, { rejectWithValue }) => {
+  IStore<string>
+>('auth/loginByPhoneNumber', async ({ phone, password }, { extra: api, rejectWithValue }) => {
     try {
-        const { data } = await axios.post<ITokens>('auth/login', authData);
+        const phoneNonePlus = getStandardNumber(phone, false);
 
-        if (!data) {
-            return rejectWithValue('Нет данных в ответе');
+        let result = false;
+
+        const data: string[] = [
+            'grant_type=',
+            'scope=',
+            'client_id=',
+            'client_secret=',
+            `username=%2B${phoneNonePlus}`,
+            `password=${password}`,
+            `device=${{}}`,
+        ];
+
+        const response = await axios.post('https://testguru.ru/kvik_v3/api/v1/auth/login', data.join('&'));
+
+        if (response.status === 200) {
+            saveTokensStorage(response.data);
+            result = true;
         }
 
-        return data;
+        return result;
     } catch (error: any) {
-        return rejectWithValue(error.response.data.message);
+        return rejectWithValue(error.response.data.msg);
     }
 });

@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { LoginSchema, ValidateLoginDataError } from '../types/loginSchema';
+import type { LoginSchema, ValidateDataLogin } from '../types/loginSchema';
+import { loginByPhoneNumber } from '../services/loginByPhoneNumber';
 
 const initialState: LoginSchema = {
     isLoading: false,
@@ -7,7 +8,11 @@ const initialState: LoginSchema = {
     password: '',
     resetPassword: '',
     repeatResetPassword: '',
-    validateData: [],
+    validateData: {
+        phone: [],
+        password: [],
+    },
+    error: '',
 };
 
 export const loginSlice = createSlice({
@@ -26,9 +31,23 @@ export const loginSlice = createSlice({
         setRepeatResetPassword: (state, action: PayloadAction<string>) => {
             state.repeatResetPassword = action.payload;
         },
-        setLoginValidateDataError: (state, action: PayloadAction<ValidateLoginDataError[]>) => {
+        setLoginValidateDataError: (state, action: PayloadAction<ValidateDataLogin>) => {
             state.validateData = action.payload;
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(loginByPhoneNumber.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+            })
+            .addCase(loginByPhoneNumber.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(loginByPhoneNumber.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
     },
 });
 
