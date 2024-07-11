@@ -93,6 +93,7 @@ const Kit = () => {
             max
             className={styles.kit}
         >
+            <Header />
             <VStack
                 gap="50"
                 wrap
@@ -693,14 +694,6 @@ const Kit = () => {
             <HStack max>
                 <RadioButton id="test-kit-radio" />
             </HStack>
-
-            <Text
-                gap="0"
-                title="Header top"
-                variant={TextVariant.SUBTITLE}
-            />
-
-            <Header />
 
             <Text
                 gap="0"

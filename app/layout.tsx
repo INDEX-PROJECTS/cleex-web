@@ -15,7 +15,11 @@ export default function RootLayout({
     return (
         <html lang="ru">
             <body>
-                <StoreProvider>{children}</StoreProvider>
+                <StoreProvider>
+                    <main className="app">
+                        {children}
+                    </main>
+                </StoreProvider>
             </body>
         </html>
     );

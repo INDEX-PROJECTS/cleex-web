@@ -1,0 +1,26 @@
+.backdrop {
+  position: absolute;
+  height: calc(100dvh - 120px);
+  background-color: var(--overlay-color);
+  width: 100%;
+  padding: 12px 0;
+  z-index: -2;
+}
+
+.backdrop-enter {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.backdrop-enter-active {
+  background-color: var(--overlay-color);
+  transition: background-color 200ms ease-in-out;
+}
+
+.backdrop-exit {
+  background-color: var(--overlay-color);
+}
+
+.backdrop-exit-active {
+  background-color: transparent;
+  transition: background-color 200ms ease-in-out;
+}

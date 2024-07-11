@@ -2,11 +2,12 @@
 
 /* eslint-disable react/display-name */
 import {
-    memo, useEffect, useRef, useState,
+    memo, ReactElement, useEffect, useRef, useState,
 } from 'react';
 import clsx from 'clsx';
 import InputMask from 'react-input-mask';
 import type { ChangeEventHandler, InputHTMLAttributes } from 'react';
+import { JSXElement } from '@babel/types';
 import EyeClosed from '@/shared/assets/icons/EyeOffIcon.svg';
 import EyeOpened from '@/shared/assets/icons/EyeOnIcon.svg';
 import styles from './Input.module.scss';
@@ -33,6 +34,8 @@ interface InputProps extends HTMLInputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   autofocus?: boolean;
   readonly?: boolean;
+  adornment?: ReactElement;
+  adornmentAction?: () => void;
 }
 
 export const Input = memo((props: InputProps) => {
@@ -51,6 +54,8 @@ export const Input = memo((props: InputProps) => {
         maskChar,
         label,
         type = 'text',
+        adornment,
+        adornmentAction,
         ...otherProps
     } = props;
 
@@ -127,6 +132,16 @@ export const Input = memo((props: InputProps) => {
                     readOnly={readonly}
                     {...otherProps}
                 />
+                {adornment
+                  && (
+                      <Button
+                          className={styles.endAdornment}
+                          theme={ThemeButton.ICON}
+                          onClick={adornmentAction}
+                      >
+                          {adornment}
+                      </Button>
+                  )}
                 {isPassword && (
                     <Button
                         className={styles.eyeBtn}
