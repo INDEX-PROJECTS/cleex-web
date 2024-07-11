@@ -13,16 +13,20 @@ import CloseIcon from '@/shared/assets/icons/CloseIcon.svg';
 import ArrowBackIcon from '@/shared/assets/icons/ArrowIcon.svg';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 
+import type { TabItem } from '@/shared/ui/Tabs/Tabs';
 import { Tabs } from '@/shared/ui/Tabs/Tabs';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text, TextVariant } from '@/shared/ui/Text/Text';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
-import { PasswordStrength } from '@/shared/ui/PasswordStrength/PasswordStrength';
+import {
+    PasswordStrength,
+} from '@/shared/ui/PasswordStrength/PasswordStrength';
 import { AppLink, AppLinkTheme } from '@/shared/ui/AppLink/AppLink';
 import { RangeInput } from '@/shared/ui/RangeInput/RangeInput';
 import { Toggle } from '@/shared/ui/Toggle/Toggle';
-import AnnouncementsGrid from '@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx';
+import AnnouncementsGrid
+    from '@/shared/ui/AnnouncementsGrid/AnnouncementsGrid.tsx';
 import { AnnouncementCard } from '@/entities/announcement';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import Avatar, { AvatarSize } from '@/shared/ui/Avatar/Avatar.tsx';
@@ -31,7 +35,6 @@ import { RadioButton } from '@/shared/ui/RadioButton/RadioButton';
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 import styles from './Kit.module.scss';
-import type { TabItem } from '@/shared/ui/Tabs/Tabs';
 
 const tabs: TabItem[] = [
     { value: 'Логин', content: 'Логин' },
@@ -197,12 +200,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MAIN_MEDIUM}
                     />
                 </VStack>
@@ -219,12 +220,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MAIN_REGULAR}
                     />
                 </VStack>
@@ -241,12 +240,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.ADDITIONAL}
                     />
                 </VStack>
@@ -263,12 +260,10 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet,
-                         consectetur adipiscing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.MINIMUM}
                     />
                 </VStack>
