@@ -1,5 +1,55 @@
 .Header {
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: var(--header-z-index);
+
+  &_wrapper {
+    background-color: var(--color-white);
+    &_shadow {
+      box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
 }
+
+.isAccountPage {
+  position: initial;
+}
+
+.location_icon {
+  width: 32px;
+  height: 32px;
+}
+
+.location_popover {
+  width: fit-content;
+  background-color: var(--color-white);
+  padding: 16px;
+  border-radius: 12px;
+
+}
+
+.shadow-enter {
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0);
+}
+.shadow-enter-active {
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.06);
+  transition: box-shadow 250ms ease-in-out;
+}
+
+.shadow-enter-done {
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+.shadow-exit {
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+.shadow-exit-active {
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 250ms ease-in-out;
+}
+
+
 
 

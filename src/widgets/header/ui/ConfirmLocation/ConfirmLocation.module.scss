@@ -1,0 +1,52 @@
+.location_icon {
+  width: 32px;
+  height: 32px;
+}
+
+.location_popover {
+  width: fit-content;
+  background-color: var(--color-white);
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.backdrop {
+  position: absolute;
+  height: calc(100dvh - 120px);
+  background-color: var(--overlay-color);
+  width: 100%;
+  padding: 12px 0;
+  z-index: -1;
+}
+
+.backdrop-enter {
+  background-color: rgba(0, 0, 0, 0);
+  .location_popover {
+    transform: translateY(-150%);
+  }
+}
+.backdrop-enter-active {
+  background-color: var(--overlay-color);
+  transition: background-color 200ms ease-in-out;
+  .location_popover {
+    transform: translateY(0);
+    transition: transform 200ms ease-in-out;
+  }
+}
+.backdrop-exit {
+  background-color: var(--overlay-color);
+  .location_popover {
+    transform: translateY(0);
+  }
+}
+.backdrop-exit-active {
+  background-color: transparent;
+  transition: background-color 200ms ease-in-out;
+  .location_popover {
+    transform: translateY(-150%);
+    transition: transform 200ms ease-in-out;
+  }
+}
