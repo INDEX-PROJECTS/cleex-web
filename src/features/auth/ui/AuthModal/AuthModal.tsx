@@ -19,29 +19,27 @@ import ArrowIconBack from '@/shared/assets/icons/ArrowIcon.svg';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 import { authSlice } from '../../model/slice/authSlice';
 import { AuthSteps } from '../../model/types/authSchema';
-import { getAuthCurrentStep, getAuthModal } from '../../model/selectors/getAuthData';
+import { getAuthCurrentStep } from '../../model/selectors/getAuthData';
 import { ResetPasswordNumberStep } from '../ResetPasswordNumberStep/ResetPasswordNumberStep';
 
 interface AuthModalProps {
   className?: string;
+  isOpen: boolean;
+  onCloseModal: () => void;
 }
 
 export const AuthModal = memo((props: AuthModalProps) => {
     const {
         className,
+        isOpen,
+        onCloseModal,
     } = props;
 
     const dispatch = useAppDispatch();
 
     const [slideIn, setSlideIn] = useState(true);
 
-    const modal = useAppSelector(getAuthModal);
-
     const currentStep = useAppSelector(getAuthCurrentStep);
-
-    const handleCloseModal = () => {
-        dispatch(authSlice.actions.setModal(false));
-    };
 
     const handleChangeStep = useCallback((currentStep: AuthSteps) => {
         setSlideIn(false);
@@ -76,9 +74,9 @@ export const AuthModal = memo((props: AuthModalProps) => {
 
     return (
         <Modal
-            isOpen={modal}
+            isOpen={isOpen}
             portal
-            onClose={handleCloseModal}
+            onClose={onCloseModal}
             className={clsx(styles.AuthModal, {}, [className])}
         >
             {/* <Modal portal={false} onClose={onCloseModal} isOpen={modal} className={styles.NotificationModal}>
@@ -198,7 +196,7 @@ export const AuthModal = memo((props: AuthModalProps) => {
                 >
 
                     <Button
-                        onClick={handleCloseModal}
+                        onClick={onCloseModal}
                         theme={ThemeButton.ICON_BG}
                     >
                         <CloseIcon />
