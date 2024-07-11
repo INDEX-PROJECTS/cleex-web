@@ -14,7 +14,7 @@ import ArrowBackIcon from '@/shared/assets/icons/ArrowIcon.svg';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 
 import type { TabItem } from '@/shared/ui/Tabs/Tabs';
-import { Tabs } from '@/shared/ui/Tabs/Tabs';
+import { Tabs, ThemeTab } from '@/shared/ui/Tabs/Tabs';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text, TextVariant } from '@/shared/ui/Text/Text';
@@ -35,14 +35,26 @@ import { RadioButton } from '@/shared/ui/RadioButton/RadioButton';
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 import styles from './Kit.module.scss';
+import { ProfileMenu } from '@/features/profileMenu';
 
-const tabs: TabItem[] = [
+const tabsAuth: TabItem[] = [
     { value: 'Логин', content: 'Логин' },
     { value: 'Регистрация', content: 'Регистрация' },
 ];
+
+const tabsProfile: TabItem[] = [
+    { value: 'Активные', content: 'Активные' },
+    { value: 'Архивные', content: 'Архивные' },
+    { value: 'Черновики', content: 'Черновики' },
+];
+
 const Kit = () => {
     const [check, setCheck] = useState(false);
     const [meter, setMeter] = useState(false);
+
+    const [activeAuthTab, setActiveAuthTab] = useState('Логин');
+
+    const [activeProfileTab, setActiveProfileTab] = useState('Активные');
 
     const [modal, setModal] = useState(false);
 
@@ -66,10 +78,13 @@ const Kit = () => {
         const validateValue = event.currentTarget.value.replace(/\D+/gm, '');
         setHeight(Number(validateValue));
     };
-    const [activeTab, setActiveTab] = useState('Логин');
 
-    const onTabClick = useCallback((tab: TabItem) => {
-        setActiveTab(tab.value);
+    const onTabAuthClick = useCallback((tab: TabItem) => {
+        setActiveAuthTab(tab.value);
+    }, []);
+
+    const onTabProfileClick = useCallback((tab: TabItem) => {
+        setActiveProfileTab(tab.value);
     }, []);
 
     const onChangeHandle = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -426,16 +441,23 @@ const Kit = () => {
                 variant={TextVariant.SUBTITLE}
             />
 
-            <HStack
+            <VStack
                 gap="32"
                 max
             >
                 <Tabs
-                    tabs={tabs}
-                    value={activeTab}
-                    onTabClick={onTabClick}
+                    tabs={tabsAuth}
+                    value={activeAuthTab}
+                    onTabClick={onTabAuthClick}
+                    theme={ThemeTab.DEFAULT}
                 />
-            </HStack>
+                <Tabs
+                    tabs={tabsProfile}
+                    value={activeProfileTab}
+                    onTabClick={onTabProfileClick}
+                    theme={ThemeTab.MAIN}
+                />
+            </VStack>
 
             <Text
                 gap="0"
@@ -472,6 +494,7 @@ const Kit = () => {
                     isOpen={modal}
                     portal
                     onClose={onCloseModal}
+                    isNotification={false}
                 >
                     <VStack
                         gap="32"
@@ -637,28 +660,18 @@ const Kit = () => {
                     <Avatar
                         name="Девушка какая-то"
                         size={AvatarSize.SIZE88}
-                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair
-                        -Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jy
-                        ZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
                     />
                     <Avatar
                         name="Девушка какая-то"
                         size={AvatarSize.SIZE64}
-                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb
-                        2eb3a8c4d512?Expires=1721001600&Key-
-                        Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA
-                        -WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h
-                        4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFO
-                        txWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pw
-                        WXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05Pr
-                        axEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
                     />
                     <Avatar
                         name="Девушка какая-то"
                         size={AvatarSize.SIZE48}
                         isOnline
-                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb
-                        3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
                     />
                     <Avatar
                         name="Девушка какая-то"
@@ -721,6 +734,24 @@ const Kit = () => {
             <HStack max>
                 <RadioButton id="test-kit-radio" />
             </HStack>
+
+            <Text
+                gap="0"
+                title="Profile menu"
+                variant={TextVariant.SUBTITLE}
+            />
+
+            <HStack max>
+                <ProfileMenu />
+            </HStack>
+
+            <Text
+                gap="0"
+                title="Header top"
+                variant={TextVariant.SUBTITLE}
+            />
+
+            <Header />
 
             <Text
                 gap="0"

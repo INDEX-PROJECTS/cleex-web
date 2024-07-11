@@ -1,0 +1,34 @@
+.ProfileMenu {
+  position: relative;
+  padding: 24px 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%);
+}
+
+.avatarContainer {
+  position: relative;
+}
+
+.editIcon {
+  color: var(--color-dark) !important;
+  height: 24px !important;
+  width: 24px !important;
+  flex: none;
+}
+
+.editButton {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  bottom: -10px;
+  right: -10px;
+  background-color: var(--color-white);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: start;
+}
