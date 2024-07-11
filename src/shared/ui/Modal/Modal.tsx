@@ -11,6 +11,7 @@ interface ModalProps {
   children?: ReactNode;
   isOpen?: boolean;
   lazy?: boolean;
+  isNotification: boolean;
   onClose?: () => void;
   portal: boolean;
 }
@@ -19,7 +20,7 @@ const ANIMATION_DELAY = 200;
 
 export const Modal = (props: ModalProps) => {
     const {
-        className, children, isOpen, lazy, onClose, portal,
+        className, children, isNotification, isOpen, lazy, onClose, portal,
     } = props;
 
     const [isClosing, setIsClosing] = useState(false);
@@ -46,6 +47,7 @@ export const Modal = (props: ModalProps) => {
     const mods: Record<string, boolean> = {
         [styles.opened]: isOpening,
         [styles.isClosing]: isClosing,
+        [styles.notification]: isNotification,
     };
 
     const onKeyDown = useCallback(

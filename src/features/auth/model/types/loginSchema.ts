@@ -3,16 +3,24 @@ export interface ValidateDataLogin {
   password: string[];
 }
 
+export interface ValidateResetPassword {
+  resetPassword: string[],
+  repeatResetPassword: string[],
+}
+
 export interface LoginSchema {
   phone: string;
   password: string;
   isLoading: boolean;
+  code: string;
+  phone_token: string;
   error?: string | undefined;
   hasError: boolean;
   resetPhone: string;
   resetPassword: string;
   repeatResetPassword: string;
-  validateData: ValidateDataLogin;
+  validateLoginData: ValidateDataLogin;
+  validateResetPasswordData: ValidateResetPassword;
 }
 
 export interface IAuthTokens {

@@ -11,12 +11,15 @@ import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import styles from './CompleteRegistration.module.scss';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 import {
-    getRegistrationPassword, getRegistrationPhone, getRegistrationUsername, getRegistrationValidateData,
+    getRegistrationError,
+    getRegistrationHasError,
+    getRegistrationPassword, getRegistrationPhone, getRegistrationUsername,
 } from '../../model/selectors/getRegistrationData';
 import { registrationActions } from '../../model/slice/registrationSlice';
 import { validateRegistrationData } from '../../model/services/validateRegistrationData/validateRegistrationData';
 import { fetchUserRegistration } from '../../model/services/fetchUserRegistration';
 import { AuthSteps } from '../../model/types/authSchema';
+import { Error } from '@/shared/ui/Error/Error';
 
 interface CompleteRegistrationProps {
   className?: string;
@@ -37,6 +40,8 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
     const phoneToken = useAppSelector(getRegistrationPassword);
     const phone = useAppSelector(getRegistrationPhone);
     // const validateRegistrationData = useAppSelector(getRegistrationValidateData);
+    const error = useAppSelector(getRegistrationError);
+    const hasError = useAppSelector(getRegistrationHasError);
 
     const onChangeUsername = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +56,14 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
         },
         [dispatch],
     );
+
+    const removeError = () => {
+        dispatch(registrationActions.setHasError(false));
+
+        setTimeout(() => {
+            dispatch(registrationActions.setError(''));
+        }, 300);
+    };
 
     const handleSubmitRegistration = useCallback(async () => {
         const errors = validateRegistrationData(username, password);
@@ -127,6 +140,14 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                 max
                 gap="16"
             >
+                <CSSTransition
+                    in={hasError}
+                    timeout={300}
+                    unmountOnExit
+                    classNames="slide-animation"
+                >
+                    <Error onClose={removeError} error={error || 'Ошибка'} />
+                </CSSTransition>
                 <Checkbox
                     label="Я согласен(-на) с лицензионным соглашением"
                     checked={check}

@@ -4,6 +4,8 @@ import { AuthSchema, AuthSteps } from '../types/authSchema';
 const initialState: AuthSchema = {
     modal: false,
     currentStep: AuthSteps.START,
+    notificationModal: false,
+    notificationText: '',
 };
 
 export const authSlice = createSlice({
@@ -15,6 +17,12 @@ export const authSlice = createSlice({
         },
         setCurrentStep: (state, action: PayloadAction<AuthSteps>) => {
             state.currentStep = action.payload;
+        },
+        setNotificationText: (state, action: PayloadAction<string>) => {
+            state.notificationText = action.payload;
+        },
+        setNotificationModal: (state, action: PayloadAction<boolean>) => {
+            state.notificationModal = action.payload;
         },
     },
 });

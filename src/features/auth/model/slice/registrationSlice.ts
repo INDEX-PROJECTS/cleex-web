@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RegistrationSchema, ValidateDataRegistration } from '../types/registrationSchema';
-import { fetchCallPhone } from '../services/fetchCallPhone';
-import { fetchCheckCode } from '../services/fetchCheckCode';
 import { fetchUserRegistration } from '../services/fetchUserRegistration';
+import { fetchRegistrationCallPhone } from '../services/fetchCallPhone/fetchRegistrationCallPhone';
+import { fetchCheckRegistrationCode } from '../services/fetchCheckCode/fetchCheckRegistrationCode';
 
 const initialState: RegistrationSchema = {
     isLoading: false,
@@ -52,32 +52,32 @@ export const registrationSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchCallPhone.pending, (state) => {
+            .addCase(fetchRegistrationCallPhone.pending, (state) => {
                 state.error = '';
                 state.isLoading = true;
                 state.hasError = false;
             })
-            .addCase(fetchCallPhone.fulfilled, (state) => {
+            .addCase(fetchRegistrationCallPhone.fulfilled, (state) => {
                 state.isLoading = false;
                 state.hasError = false;
                 state.error = '';
                 state.currentStep = 1;
             })
-            .addCase(fetchCallPhone.rejected, (state, action) => {
+            .addCase(fetchRegistrationCallPhone.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
                 state.hasError = true;
             })
-            .addCase(fetchCheckCode.pending, (state) => {
+            .addCase(fetchCheckRegistrationCode.pending, (state) => {
                 state.error = '';
                 state.isLoading = true;
             })
-            .addCase(fetchCheckCode.fulfilled, (state, action) => {
+            .addCase(fetchCheckRegistrationCode.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.phone_token = action.payload;
                 state.currentStep = 2;
             })
-            .addCase(fetchCheckCode.rejected, (state, action) => {
+            .addCase(fetchCheckRegistrationCode.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

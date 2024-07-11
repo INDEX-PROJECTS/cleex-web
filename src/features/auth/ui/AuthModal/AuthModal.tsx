@@ -12,21 +12,25 @@ import SearchIcon from '@/shared/assets/icons/SearchIcon.svg';
 import DialogIcon from '@/shared/assets/icons/DialogIcon.svg';
 import styles from './AuthModal.module.scss';
 import { LoginRegistrationStep } from '../LoginRegistrationStep/LoginRegistrationStep';
-import { CodeStep } from '../CodeStep/CodeStep';
+import { CodeRegistrationStep } from '../CodeStep/CodeRegistrationStep';
 import { ResetPasswordStep } from '../ResetPasswordStep/ResetPasswordStep';
 import { CompleteRegistration } from '../CompleteRegistration/CompleteRegistration';
 import ArrowIconBack from '@/shared/assets/icons/ArrowIcon.svg';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
-import { authSlice } from '../../model/slice/authSlice';
+import { authActions, authSlice } from '../../model/slice/authSlice';
 import { AuthSteps } from '../../model/types/authSchema';
-import { getAuthCurrentStep } from '../../model/selectors/getAuthData';
+import { getAuthCurrentStep, getAuthNotificationModal, getAuthNotificationText } from '../../model/selectors/getAuthData';
 import { ResetPasswordNumberStep } from '../ResetPasswordNumberStep/ResetPasswordNumberStep';
+import { CodeResetStep } from '../CodeStep/CodeResetStep';
+import { loginActions } from '../../model/slice/loginSlice';
 
 interface AuthModalProps {
   className?: string;
   isOpen: boolean;
   onCloseModal: () => void;
 }
+
+const isBackSteps = [AuthSteps.CODE_REGISTRATION, AuthSteps.CODE_RESET, AuthSteps.RESET_START];
 
 export const AuthModal = memo((props: AuthModalProps) => {
     const {
@@ -39,7 +43,15 @@ export const AuthModal = memo((props: AuthModalProps) => {
 
     const [slideIn, setSlideIn] = useState(true);
 
+    const notificationModal = useAppSelector(getAuthNotificationModal);
+
+    const notificationText = useAppSelector(getAuthNotificationText);
+
     const currentStep = useAppSelector(getAuthCurrentStep);
+
+    const handleCloseNotificationModal = () => {
+        dispatch(authActions.setNotificationModal(false));
+    };
 
     const handleChangeStep = useCallback((currentStep: AuthSteps) => {
         setSlideIn(false);
@@ -50,13 +62,39 @@ export const AuthModal = memo((props: AuthModalProps) => {
         }, 300);
     }, [dispatch]);
 
+    const removeLoginError = () => {
+        dispatch(loginActions.setHasError(false));
+
+        setTimeout(() => {
+            dispatch(loginActions.setError(''));
+        }, 300);
+    };
+
+    const removeRegistrationError = () => {
+        dispatch(loginActions.setHasError(false));
+
+        setTimeout(() => {
+            dispatch(loginActions.setError(''));
+        }, 300);
+    };
+
+    const handleChangeStepBack = () => {
+        removeRegistrationError();
+
+        removeLoginError();
+        handleChangeStep(AuthSteps.START);
+    };
+
     const renderSteps = useCallback((currentStep: AuthSteps) => {
         switch (currentStep) {
         case AuthSteps.START:
             return <LoginRegistrationStep handleChangeStep={handleChangeStep} />;
 
-        case AuthSteps.CODE:
-            return <CodeStep handleChangeStep={handleChangeStep} />;
+        case AuthSteps.CODE_REGISTRATION:
+            return <CodeRegistrationStep handleChangeStep={handleChangeStep} />;
+
+        case AuthSteps.CODE_RESET:
+            return <CodeResetStep handleChangeStep={handleChangeStep} />;
 
         case AuthSteps.REGISTRATION:
             return <CompleteRegistration handleChangeStep={handleChangeStep} />;
@@ -74,25 +112,26 @@ export const AuthModal = memo((props: AuthModalProps) => {
 
     return (
         <Modal
+            isNotification={false}
             isOpen={isOpen}
             portal
             onClose={onCloseModal}
             className={clsx(styles.AuthModal, {}, [className])}
         >
-            {/* <Modal portal={false} onClose={onCloseModal} isOpen={modal} className={styles.NotificationModal}>
+            <Modal isNotification portal onClose={handleCloseNotificationModal} isOpen={notificationModal} className={styles.NotificationModal}>
                 <VStack align="center" gap="24" max>
                     <Text
                         gap="0"
                         align={TextAlign.CENTER}
                         textPrimary
-                        text="Пользователь с таким номером уже существует"
+                        text={notificationText}
                     />
 
-                    <Button fullWidth theme={ThemeButton.DEFAULT}>
+                    <Button onClick={handleCloseNotificationModal} fullWidth theme={ThemeButton.DEFAULT}>
                         Хорошо
                     </Button>
                 </VStack>
-            </Modal> */}
+            </Modal>
             <HStack
                 max
                 align="start"
@@ -178,8 +217,8 @@ export const AuthModal = memo((props: AuthModalProps) => {
                             </HStack>
                         </VStack>
 
-                        {AuthSteps.CODE === currentStep && (
-                            <Button onClick={() => handleChangeStep(AuthSteps.START)} theme={ThemeButton.BACK}>
+                        {isBackSteps.includes(currentStep) && (
+                            <Button onClick={handleChangeStepBack} theme={ThemeButton.BACK}>
                                 <ArrowIconBack />
                                 Назад
                             </Button>

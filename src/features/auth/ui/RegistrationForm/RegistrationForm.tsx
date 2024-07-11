@@ -17,10 +17,10 @@ import {
 } from '../../model/selectors/getRegistrationData';
 import { registrationActions } from '../../model/slice/registrationSlice';
 import { SITE_KEY_RECAPTCHA } from '@/shared/const/constants';
-import { fetchCallPhone } from '../../model/services/fetchCallPhone';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { Error } from '@/shared/ui/Error/Error';
 import { AuthSteps } from '../../model/types/authSchema';
+import { fetchRegistrationCallPhone } from '../../model/services/fetchCallPhone/fetchRegistrationCallPhone';
 
 interface RegistrationFormProps {
   className?: string;
@@ -74,10 +74,10 @@ export const RegistrationForm = memo((props: RegistrationFormProps) => {
         dispatch(registrationActions.setToken(recaptcha_token));
 
         if (phoneError === '' && recaptcha_token) {
-            const result = await dispatch(fetchCallPhone({ phone, recaptcha_token, method: 'registration' }));
+            const result = await dispatch(fetchRegistrationCallPhone({ phone, recaptcha_token }));
 
             if (result.meta.requestStatus === 'fulfilled') {
-                handleChangeStep(AuthSteps.CODE);
+                handleChangeStep(AuthSteps.CODE_REGISTRATION);
             }
         }
     }, [dispatch, handleChangeStep, phone, phoneError]);

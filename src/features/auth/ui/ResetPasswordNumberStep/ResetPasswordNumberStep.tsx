@@ -19,7 +19,7 @@ import {
 import { loginActions } from '../../model/slice/loginSlice';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { SITE_KEY_RECAPTCHA } from '@/shared/const/constants';
-import { fetchCallPhone } from '../../model/services/fetchCallPhone';
+import { fetchResetCallPhone } from '../../model/services/fetchCallPhone/fetchResetCallPhone';
 
 interface ResetPasswordNumberStepProps {
   className?: string;
@@ -74,10 +74,10 @@ export const ResetPasswordNumberStep = memo((props: ResetPasswordNumberStepProps
 
     const onChangeCaptcha = useCallback(async (recaptcha_token: string | null) => {
         if (phoneError === '' && recaptcha_token) {
-            const result = await dispatch(fetchCallPhone({ phone: resetPhone, recaptcha_token, method: 'reset-password' }));
+            const result = await dispatch(fetchResetCallPhone({ phone: resetPhone, recaptcha_token }));
 
             if (result.meta.requestStatus === 'fulfilled') {
-                handleChangeStep(AuthSteps.CODE);
+                handleChangeStep(AuthSteps.CODE_RESET);
             }
         }
     }, [dispatch, handleChangeStep, phoneError, resetPhone]);
@@ -122,7 +122,7 @@ export const ResetPasswordNumberStep = memo((props: ResetPasswordNumberStepProps
                 >
                     <Error onClose={removeError} error={error || 'Ошибка'} />
                 </CSSTransition>
-                <Button fullWidth onClick={handleSubmitForm} theme={ThemeButton.DEFAULT}>
+                <Button className="submitBtn" fullWidth onClick={handleSubmitForm} theme={ThemeButton.DEFAULT}>
                     {
                         isLoading ? (<Loader theme={ThemeLoader.BTN_LOADER} />) : 'Продолжить'
                     }

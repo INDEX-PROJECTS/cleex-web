@@ -19,6 +19,7 @@ import { validateLoginData } from '../../model/services/validateLoginData/valida
 import { loginByPhoneNumber } from '../../model/services/loginByPhoneNumber';
 import { Error } from '@/shared/ui/Error/Error';
 import { AuthSteps } from '../../model/types/authSchema';
+import { authActions } from '../../model/slice/authSlice';
 
 interface LoginFormProps {
   className?: string;
@@ -54,6 +55,12 @@ export const LoginForm = memo((props: LoginFormProps) => {
         }, 300);
     };
 
+    const handleResetPassword = () => {
+        removeError();
+
+        handleChangeStep(AuthSteps.RESET_START);
+    };
+
     const onChangePhone = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
             dispatch(loginActions.setPhone(event.currentTarget.value));
@@ -68,7 +75,8 @@ export const LoginForm = memo((props: LoginFormProps) => {
             const result = await dispatch(loginByPhoneNumber({ phone, password }));
 
             if (result.meta.requestStatus === 'fulfilled') {
-                alert('Вход выполнен успешно!');
+                dispatch(authActions.setNotificationText('Вы успешно вошли в систему'));
+                dispatch(authActions.setNotificationModal(true));
             }
         }
 
@@ -131,7 +139,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     />
 
                     <Button
-                        onClick={() => handleChangeStep(AuthSteps.RESET_START)}
+                        onClick={handleResetPassword}
                         theme={ThemeButton.LINK}
                     >
                         Забыли пароль?

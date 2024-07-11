@@ -1,21 +1,20 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-useless-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { IStore } from '@/app/providers/StoreProvider/config/store';
 import { getStandardNumber } from '@/shared/utils/getStandardNumber/getStandardNumber';
 
-interface fetchCheckCodeProps {
+interface fetchCheckRegistrationCodeProps {
   phone: string;
   code: string;
   checkCodeApiName: string;
 }
 
-export const fetchCheckCode = createAsyncThunk<
+export const fetchCheckRegistrationCode = createAsyncThunk<
   string,
-  fetchCheckCodeProps,
+  fetchCheckRegistrationCodeProps,
   IStore<string>
->('auth/fetchCheckCode', async ({
+>('login/fetchCheckRegistrationCode', async ({
     phone, code, checkCodeApiName,
 }, { extra: api, rejectWithValue }) => {
     try {

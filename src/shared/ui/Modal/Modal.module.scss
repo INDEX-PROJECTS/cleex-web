@@ -16,6 +16,10 @@
   justify-content: center;
 }
 
+.notification {
+  z-index: 100 !important;
+}
+
 .content {
   padding: 20px;
   border-radius: 20px;

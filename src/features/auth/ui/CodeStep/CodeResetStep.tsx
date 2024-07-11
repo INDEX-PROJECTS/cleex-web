@@ -2,33 +2,33 @@ import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
 import clsx from 'clsx';
-import { VStack } from '@/shared/ui/Stack';
-import { Button, ThemeButton } from '@/shared/ui/Button/Button';
-import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
-import { Input } from '@/shared/ui/Input/Input';
-import styles from './CodeStep.module.scss';
-import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
-import { getRegistrationCode, getRegistrationIsLoading, getRegistrationPhone } from '../../model/selectors/getRegistrationData';
-import { registrationActions } from '../../model/slice/registrationSlice';
-import { fetchCheckCode } from '../../model/services/fetchCheckCode';
-import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { AuthSteps } from '../../model/types/authSchema';
+import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
+import { getLoginIsLoading, getLoginResetCode, getLoginResetPhone } from '../../model/selectors/getLoginData';
+import { VStack } from '@/shared/ui/Stack';
+import styles from './CodeStep.module.scss';
+import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
+import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
+import { Input } from '@/shared/ui/Input/Input';
+import { loginActions } from '../../model/slice/loginSlice';
+import { fetchCheckResetCode } from '../../model/services/fetchCheckCode/fetchCheckResetCode';
 
-interface CodeStepProps {
+interface CodeResetStepProps {
   className?: string;
   handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
-export const CodeStep = memo((props: CodeStepProps) => {
+export const CodeResetStep = memo((props: CodeResetStepProps) => {
     const { className, handleChangeStep } = props;
 
     const dispatch = useAppDispatch();
 
     const [codeError, setCodeError] = useState('');
 
-    const phone = useAppSelector(getRegistrationPhone);
-    const code = useAppSelector(getRegistrationCode);
-    const isLoading = useAppSelector(getRegistrationIsLoading);
+    const resetPhone = useAppSelector(getLoginResetPhone);
+    const code = useAppSelector(getLoginResetCode);
+    const isLoading = useAppSelector(getLoginIsLoading);
 
     const validateCode = useCallback((code: string) => {
         if (!code || code.length !== 4) {
@@ -40,7 +40,7 @@ export const CodeStep = memo((props: CodeStepProps) => {
 
     const onChangeCode = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            dispatch(registrationActions.setCode(event.currentTarget.value));
+            dispatch(loginActions.setCode(event.currentTarget.value));
         },
         [dispatch],
     );
@@ -48,18 +48,18 @@ export const CodeStep = memo((props: CodeStepProps) => {
     const handleSubmitCode = useCallback(async () => {
         validateCode(code);
 
-        if (codeError === '' && phone.length !== 0) {
-            const result = await dispatch(fetchCheckCode({
-                phone,
+        if (codeError === '' && resetPhone.length !== 0) {
+            const result = await dispatch(fetchCheckResetCode({
+                phone: resetPhone,
                 code,
                 checkCodeApiName: 'check_phone_code',
             }));
 
             if (result.meta.requestStatus === 'fulfilled') {
-                handleChangeStep(AuthSteps.REGISTRATION);
+                handleChangeStep(AuthSteps.RESET);
             }
         }
-    }, [code, codeError, dispatch, handleChangeStep, phone, validateCode]);
+    }, [code, codeError, dispatch, handleChangeStep, resetPhone, validateCode]);
 
     return (
         <VStack
@@ -93,7 +93,7 @@ export const CodeStep = memo((props: CodeStepProps) => {
                     {' '}
                     номера позвонившего на
                     {' '}
-                    {phone}
+                    {resetPhone}
                 </p>
 
                 <Input
