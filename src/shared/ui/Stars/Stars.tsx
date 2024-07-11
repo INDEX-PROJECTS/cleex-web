@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/no-array-index-key */
-import { memo } from "react";
-import clsx from "clsx";
-import StarIcon from "@/shared/assets/icons/StarIcon.svg";
-import styles from "./Stars.module.scss";
-import { HStack } from "../Stack";
-import { Text, TextVariant } from "../Text/Text";
+import { memo } from 'react';
+import clsx from 'clsx';
+import StarIcon from '@/shared/assets/icons/StarIcon.svg';
+import styles from './Stars.module.scss';
+import { HStack } from '../Stack';
+import { Text, TextVariant } from '../Text/Text';
 
 interface StarsProps {
   className?: string;
@@ -13,67 +14,70 @@ interface StarsProps {
   size: number;
 }
 
-const getStars = (rating: number, size: number) => {
-  return new Array(5).fill(0).map((item, index) => {
-    return (
-      // eslint-disable-next-line react/no-array-index-key
-      <StarIcon
+const getStars = (rating: number, size: number) => new Array(5).fill(0).map((item, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <StarIcon
         className={clsx(styles.star, { [styles.active]: index < rating }, [])}
         key={index}
         style={{
-          height: `${size}px`,
-          width: `${size}px`,
+            height: `${size}px`,
+            width: `${size}px`,
         }}
-      />
-    );
-  });
-};
+    />
+));
 
 export const Stars = memo(
-  ({ className, rating, isRating, size }: StarsProps) => {
-    if (isRating) {
-      return (
-        <HStack
-          gap="8"
-          className={clsx(styles.Stars, {}, [className])}>
-          {[...Array(5)].map((star, index) => {
+    ({
+        className, rating, isRating, size,
+    }: StarsProps) => {
+        if (isRating) {
             return (
-              <label key={index}>
-                <input
-                  type="radio"
-                  name="rating"
-                  className={styles.input}
-                />
-                <StarIcon
-                  className={clsx(
-                    styles.star,
-                    { [styles.active]: index < rating },
-                    [],
-                  )}
-                  style={{
-                    height: `${size}px`,
-                    width: `${size}px`,
-                  }}
-                />
-              </label>
+                <HStack
+                    gap="4"
+                    className={clsx(styles.Stars, {}, [className])}
+                >
+                    {[...Array(5)].map((star, index) => (
+                        <label key={index}>
+                            <input
+                                type="radio"
+                                name="rating"
+                                className={styles.input}
+                            />
+                            <StarIcon
+                                className={clsx(
+                                    styles.star,
+                                    { [styles.active]: index < rating },
+                                    [],
+                                )}
+                                style={{
+                                    height: `${size}px`,
+                                    width: `${size}px`,
+                                }}
+                            />
+                        </label>
+                    ))}
+                </HStack>
             );
-          })}
-        </HStack>
-      );
-    }
+        }
 
-    return (
-      <HStack
-        gap="8"
-        className={clsx(styles.Stars, {}, [className])}>
-        <Text
-          gap="0"
-          textPrimary={true}
-          variant={TextVariant.TITLE}
-          text={`${rating}`}
-        />
-        {getStars(rating, size)}
-      </HStack>
-    );
-  },
+        return (
+            <HStack
+                gap="4"
+                className={clsx(styles.Stars, {}, [className])}
+            >
+
+                <Text
+                    gap="0"
+                    textPrimary
+                    variant={TextVariant.TITLE}
+                    text={`${rating.toFixed(1)}`}
+                />
+
+                <HStack gap="0">
+                    {getStars(rating, size)}
+                </HStack>
+
+            </HStack>
+        );
+    },
 );

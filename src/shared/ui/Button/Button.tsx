@@ -3,7 +3,7 @@
 /* eslint-disable react/display-name */
 import { memo } from 'react';
 import clsx from 'clsx';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, LegacyRef, ReactNode } from 'react';
 import styles from './Button.module.scss';
 import type { Mods } from '@/shared/types';
 
@@ -26,6 +26,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   helper?: boolean;
   helperText?: string;
+  ref: LegacyRef<HTMLButtonElement> | undefined
 }
 
 export const Button = memo((props: ButtonProps) => {
@@ -34,6 +35,7 @@ export const Button = memo((props: ButtonProps) => {
         children,
         fullWidth,
         disabled,
+        ref,
         theme = ThemeButton.CLEAR,
         ...otherProps
     } = props;
@@ -46,6 +48,7 @@ export const Button = memo((props: ButtonProps) => {
 
     return (
         <button
+            ref={ref}
             disabled={disabled}
             type="button"
             className={clsx(styles.Button, mods, [className])}
