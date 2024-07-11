@@ -16,6 +16,8 @@ export enum AppLinkTheme {
 interface AppLinkProps extends LinkProps {
   className?: string;
   theme?: AppLinkTheme;
+  target?: string;
+  title?: string;
   children?: ReactNode;
 }
 
@@ -23,6 +25,8 @@ export const AppLink = forwardRef(
     (props: AppLinkProps, ref: ForwardedRef<HTMLAnchorElement>) => {
         const {
             href,
+            target,
+            title,
             className,
             children,
             theme = AppLinkTheme.MAIN,
@@ -36,6 +40,8 @@ export const AppLink = forwardRef(
             <Link
                 ref={ref}
                 href={href}
+                title={title}
+                target={target}
                 className={clsx(styles.AppLink, mods, [className])}
                 {...otherProps}
             >

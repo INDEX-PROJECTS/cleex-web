@@ -19,9 +19,10 @@ import type { Mods } from '@/shared/types';
 interface HeaderTopProps {
   isAccountPage?: boolean;
   toggleLocation?: () => void;
+  handleOpenAuthModal: () => void;
 }
 
-const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, toggleLocation }) => {
+const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, handleOpenAuthModal, toggleLocation }) => {
     const mods: Mods = {
         [styles.accountPage]: isAccountPage,
     };
@@ -77,13 +78,7 @@ const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, toggleLocation }
                     gap="16"
                     className={styles.accountLinks}
                 >
-                    <Button theme={ThemeButton.ICON}>
-                        <Avatar
-                            name="Ян Юшков"
-                            size={AvatarSize.SIZE32}
-                        />
-                    </Button>
-                    <Button theme={ThemeButton.ICON}>
+                    <Button onClick={handleOpenAuthModal} theme={ThemeButton.ICON}>
                         <ProfileIcon />
                     </Button>
                     <Button theme={ThemeButton.ICON}>

@@ -1,3 +1,3 @@
-import Kit from "@/pages/Kit/index";
+import Kit from '@/pages/Kit';
 
-export default Kit
+export default Kit;

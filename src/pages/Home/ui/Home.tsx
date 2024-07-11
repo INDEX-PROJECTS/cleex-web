@@ -1,41 +1,49 @@
+/* eslint-disable react/no-array-index-key */
+
 'use client';
 
-import React, { useState } from 'react';
-
-import { Button, ThemeButton } from '@/shared/ui/Button/Button';
-import { AuthModal, authSlice, getAuthModal } from '@/features/auth';
-import { HStack } from '@/shared/ui/Stack';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { VStack } from '@/shared/ui/Stack';
 import styles from './Home.module.scss';
-import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
+import AnnouncementsGrid from '@/shared/ui/AnnouncementsGrid/AnnouncementsGrid';
+import { AnnouncementCard } from '@/entities/announcement';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 
 const Home = () => {
-    const dispatch = useAppDispatch();
+    const currentDATE = new Date();
 
-    const modal = useAppSelector(getAuthModal);
+    const [data, setData] = useState([]);
 
-    const handleOpenModal = () => {
-        dispatch(authSlice.actions.setModal(true));
-    };
-
-    const handleCloseModal = () => {
-        dispatch(authSlice.actions.setModal(false));
-    };
+    useEffect(() => {
+        axios.get('https://testguru.ru/kvik_v3/api/v1/items').then((res) => {
+            setData(res.data.items);
+        });
+    }, []);
 
     return (
-        <HStack
+        <VStack
             max
-            justify="center"
-            align="center"
+            gap="32"
             className={styles.wrapper}
         >
-            <Button
-                theme={ThemeButton.DEFAULT}
-                onClick={handleOpenModal}
-            >
-                Авторизация
-            </Button>
-            <AuthModal isOpen={modal} onCloseModal={handleCloseModal} />
-        </HStack>
+            <AnnouncementsGrid>
+                {data.map((item) => (
+                    <AnnouncementCard
+                        key={item.id}
+                        href="#"
+                        imageUrl={item.photos}
+                        price={item.price}
+                        title={item.title}
+                        address={item.location.address}
+                        date={item.created_at}
+                    />
+                ))}
+            </AnnouncementsGrid>
+
+            <Button theme={ThemeButton.DEFAULT} className={styles.loadMore}>Показать еще</Button>
+
+        </VStack>
     );
 };
 
