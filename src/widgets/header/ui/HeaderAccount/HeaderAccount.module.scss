@@ -1,10 +1,11 @@
-.HeaderBottom {
-  width: 100%;
-  padding: 4px 0;
+.HeaderAccount {
+  padding: 12px 0;
+  background-color: red;
 }
 
-.logo {
-  flex-shrink: 0;
+.icon {
+  width: 32px;
+  height: 32px;
 }
 
 .burger {
@@ -20,13 +21,13 @@
   display: block;
   width: 12px;
   height: 2px;
-  background: var(--color-main);
+  background: var(--color-white);
   border-radius: 16px;
   transition: all .15s ease-in-out;
 
   &:before, &:after {
     position: absolute;
-    background: var(--color-main);
+    background: var(--color-white);
     border-radius: 16px;
     content: '';
     width: 20px;
@@ -57,7 +58,12 @@
 }
 
 .category {
+  color: var(--color-white);
+  transition: all 0.15s ease-in-out;
   &:hover {
+    color: var(--color-main-hover);
+    transition: all 0.15s ease-in-out;
+
     .burger, .burger:before, .burger:after{
       background-color: var(--color-main-hover);
       transition: all 0.15s ease-in-out;
@@ -69,6 +75,9 @@
   }
 
   &:active {
+    color: var(--color-main-active);
+    transition: all 0.15s ease-in-out;
+
     .burger, .burger:before, .burger:after{
       background-color: var(--color-main-active);
       transition: all 0.15s ease-in-out;
@@ -81,21 +90,16 @@
 }
 
 .search_bar {
-  display: flex;
-  position: relative;
-  flex-grow: 1;
-
   &_input > * {
     border-radius: 12px 0 0 12px;
+    background-color: var(--color-white-opacity40);
+    input::placeholder{
+      color: var(--color-white);
+    }
   }
 
   &_button {
     border-radius: 0 12px 12px 0;
     padding: 8px 16px;
   }
-}
-
-.icon {
-  width: 32px;
-  height: 32px;
 }

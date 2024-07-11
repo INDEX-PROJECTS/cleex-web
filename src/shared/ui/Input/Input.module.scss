@@ -70,6 +70,24 @@
   }
 }
 
+.endAdornment {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: color 0.15s ease-in-out;
+
+  svg {
+    color: var(--color-gray);
+  }
+
+  &:hover {
+    svg {
+      color: var(--color-gray-secondary);
+    }
+  }
+}
+
 .label {
   display: flex;
   align-items: center;

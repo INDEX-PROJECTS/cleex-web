@@ -1,0 +1,36 @@
+.autocomplete_popover {
+  padding: 0;
+}
+
+.autocomplete {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  padding: 12px 0;
+  z-index: -1;
+}
+
+.wrapper {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.autocomplete-enter {
+  transform: translateY(-150%);
+}
+
+.autocomplete-enter-active {
+  transform: translateY(0);
+  transition: transform 200ms ease-in-out;
+}
+
+.autocomplete-exit {
+  transform: translateY(0);
+}
+
+.autocomplete-exit-active {
+  transform: translateY(-150%);
+  transition: transform 200ms ease-in-out;
+}

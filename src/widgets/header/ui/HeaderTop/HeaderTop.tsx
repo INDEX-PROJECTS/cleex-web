@@ -17,10 +17,11 @@ import styles from './HeaderTop.module.scss';
 import type { Mods } from '@/shared/types';
 
 interface HeaderTopProps {
-  isAccountPage: boolean;
+  isAccountPage?: boolean;
+  toggleLocation?: () => void;
 }
 
-const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage }) => {
+const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, toggleLocation }) => {
     const mods: Mods = {
         [styles.accountPage]: isAccountPage,
     };
@@ -31,7 +32,7 @@ const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage }) => {
                 justify="between"
                 className={clsx(styles.HeaderTop, mods)}
             >
-                <Button>
+                <Button onClick={toggleLocation}>
                     <HStack
                         gap="16"
                         className={styles.navigate}
@@ -77,13 +78,13 @@ const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage }) => {
                     className={styles.accountLinks}
                 >
                     <Button theme={ThemeButton.ICON}>
-                        <ProfileIcon />
-                    </Button>
-                    <Button theme={ThemeButton.ICON}>
                         <Avatar
                             name="Ян Юшков"
                             size={AvatarSize.SIZE32}
                         />
+                    </Button>
+                    <Button theme={ThemeButton.ICON}>
+                        <ProfileIcon />
                     </Button>
                     <Button theme={ThemeButton.ICON}>
                         <LikeIcon />
