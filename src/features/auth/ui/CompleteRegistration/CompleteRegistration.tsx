@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 import type { ChangeEvent } from 'react';
@@ -9,23 +9,79 @@ import { Text, TextVariant } from '@/shared/ui/Text/Text';
 import { PasswordStrength } from '@/shared/ui/PasswordStrength/PasswordStrength';
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import styles from './CompleteRegistration.module.scss';
+import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
+import {
+    getRegistrationError,
+    getRegistrationHasError,
+    getRegistrationPassword, getRegistrationPhone, getRegistrationUsername,
+} from '../../model/selectors/getRegistrationData';
+import { registrationActions } from '../../model/slice/registrationSlice';
+import { validateRegistrationData } from '../../model/services/validateRegistrationData/validateRegistrationData';
+import { fetchUserRegistration } from '../../model/services/fetchUserRegistration';
+import { AuthSteps } from '../../model/types/authSchema';
+import { Error } from '@/shared/ui/Error/Error';
 
 interface CompleteRegistrationProps {
   className?: string;
-  handleChangeStep: (currentStep: number) => void;
+  handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
 export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
     const { className, handleChangeStep } = props;
 
     const [meter, setMeter] = useState(false);
-    const [password, setPassword] = useState('');
 
     const [check, setCheck] = useState(false);
 
-    const onChangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.currentTarget.value);
+    const dispatch = useAppDispatch();
+
+    const username = useAppSelector(getRegistrationUsername);
+    const password = useAppSelector(getRegistrationPassword);
+    const phoneToken = useAppSelector(getRegistrationPassword);
+    const phone = useAppSelector(getRegistrationPhone);
+    // const validateRegistrationData = useAppSelector(getRegistrationValidateData);
+    const error = useAppSelector(getRegistrationError);
+    const hasError = useAppSelector(getRegistrationHasError);
+
+    const onChangeUsername = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(registrationActions.setUsername(event.currentTarget.value));
+        },
+        [dispatch],
+    );
+
+    const onChangePassword = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            dispatch(registrationActions.setPassword(event.currentTarget.value));
+        },
+        [dispatch],
+    );
+
+    const removeError = () => {
+        dispatch(registrationActions.setHasError(false));
+
+        setTimeout(() => {
+            dispatch(registrationActions.setError(''));
+        }, 300);
     };
+
+    const handleSubmitRegistration = useCallback(async () => {
+        const errors = validateRegistrationData(username, password);
+        if (errors.username.length === 0 && errors.password.length === 0 && check) {
+            const result = await dispatch(fetchUserRegistration({
+                username,
+                phone,
+                password,
+                phoneToken,
+                agree: check,
+            }));
+
+            if (result.meta.requestStatus === 'fulfilled') {
+                alert('Регистрация успешна');
+            }
+        }
+        return dispatch(registrationActions.setRegistrationValidateDataError(errors));
+    }, [check, dispatch, password, phone, phoneToken, username]);
 
     return (
         <VStack
@@ -48,7 +104,11 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                     max
                     gap="16"
                 >
-                    <Input placeholder="Имя пользователя" />
+                    <Input
+                        value={username}
+                        onChange={onChangeUsername}
+                        placeholder="Имя пользователя"
+                    />
 
                     <HStack
                         max
@@ -60,7 +120,7 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                             value={password}
                             onBlur={() => setMeter(false)}
                             onFocus={() => setMeter(true)}
-                            onChange={onChangeNewPassword}
+                            onChange={onChangePassword}
                         />
                         <CSSTransition
                             in={meter}
@@ -80,6 +140,14 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                 max
                 gap="16"
             >
+                <CSSTransition
+                    in={hasError}
+                    timeout={300}
+                    unmountOnExit
+                    classNames="slide-animation"
+                >
+                    <Error onClose={removeError} error={error || 'Ошибка'} />
+                </CSSTransition>
                 <Checkbox
                     label="Я согласен(-на) с лицензионным соглашением"
                     checked={check}
@@ -87,8 +155,10 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                     onToggle={() => setCheck(!check)}
                 />
                 <Button
-                    onClick={() => handleChangeStep(0)}
+                    disabled={!check}
+                    onClick={handleSubmitRegistration}
                     fullWidth
+                    className="submitBtn"
                     theme={ThemeButton.DEFAULT}
                 >
                     Зарегистрироваться

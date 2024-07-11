@@ -2,6 +2,12 @@ import { RootState } from '@/app/providers/StoreProvider/config/store';
 
 export const getLoginPhone = (state: RootState) => state.login.phone;
 
+export const getLoginResetPhone = (state: RootState) => state.login.resetPhone;
+
+export const getLoginPhoneToken = (state: RootState) => state.login.phone_token;
+
+export const getLoginResetCode = (state: RootState) => state.login.code;
+
 export const getLoginPassword = (state: RootState) => state.login.password;
 
 export const getLoginResetPassword = (state: RootState) => state.login.resetPassword;
@@ -12,4 +18,6 @@ export const getLoginIsLoading = (state: RootState) => state.login.isLoading;
 
 export const getLoginError = (state: RootState) => state.login.error;
 
-export const getLoginValidateData = (state: RootState) => state.login.validateData;
+export const getLoginHasError = (state: RootState) => state.login.hasError;
+
+export const getLoginValidateData = (state: RootState) => state.login.validateLoginData;

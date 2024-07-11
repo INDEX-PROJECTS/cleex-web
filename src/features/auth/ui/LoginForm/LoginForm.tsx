@@ -1,6 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Input } from '@/shared/ui/Input/Input';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
@@ -8,16 +9,21 @@ import { Checkbox } from '@/shared/ui/Checkbox/Checkbox';
 import styles from './LoginForm.module.scss';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 import {
+    getLoginError,
+    getLoginHasError,
     getLoginIsLoading, getLoginPassword, getLoginPhone, getLoginValidateData,
 } from '../../model/selectors/getLoginData';
 import { loginActions } from '../../model/slice/loginSlice';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { validateLoginData } from '../../model/services/validateLoginData/validateLoginData';
-import { ValidateLoginDataError } from '../../model/types/loginSchema';
+import { loginByPhoneNumber } from '../../model/services/loginByPhoneNumber';
+import { Error } from '@/shared/ui/Error/Error';
+import { AuthSteps } from '../../model/types/authSchema';
+import { authActions } from '../../model/slice/authSlice';
 
 interface LoginFormProps {
   className?: string;
-  handleChangeStep: (currentStep: number) => void;
+  handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
 export const LoginForm = memo((props: LoginFormProps) => {
@@ -28,7 +34,9 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const phone = useAppSelector(getLoginPhone);
     const password = useAppSelector(getLoginPassword);
     const isLoading = useAppSelector(getLoginIsLoading);
-    const validateDataErrors = useAppSelector(getLoginValidateData);
+    const error = useAppSelector(getLoginError);
+    const hasError = useAppSelector(getLoginHasError);
+    const validateLoginDataErrors = useAppSelector(getLoginValidateData);
 
     const [check, setCheck] = useState(false);
 
@@ -38,6 +46,20 @@ export const LoginForm = memo((props: LoginFormProps) => {
         },
         [dispatch],
     );
+
+    const removeError = () => {
+        dispatch(loginActions.setHasError(false));
+
+        setTimeout(() => {
+            dispatch(loginActions.setError(''));
+        }, 300);
+    };
+
+    const handleResetPassword = () => {
+        removeError();
+
+        handleChangeStep(AuthSteps.RESET_START);
+    };
 
     const onChangePhone = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,10 +71,13 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const handleSubmitLogin = useCallback(async () => {
         const errors = validateLoginData(phone, password);
 
-        if (errors.length === 0) {
-            // const result = await dispatch(loginByPhoneNumber(phone, password));
+        if (errors.phone.length === 0 && errors.password.length === 0) {
+            const result = await dispatch(loginByPhoneNumber({ phone, password }));
 
-            alert('Вход выполнен успешно');
+            if (result.meta.requestStatus === 'fulfilled') {
+                dispatch(authActions.setNotificationText('Вы успешно вошли в систему'));
+                dispatch(authActions.setNotificationModal(true));
+            }
         }
 
         return dispatch(loginActions.setLoginValidateDataError(errors));
@@ -74,6 +99,8 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     mask="+7 (999) 999-99-99"
                     placeholder="+7 (___) ___-__-__"
                     value={phone}
+                    error={validateLoginDataErrors.phone.length > 0}
+                    errorText={validateLoginDataErrors.phone[0]}
                     onChange={onChangePhone}
                 />
 
@@ -81,6 +108,8 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     placeholder="Пароль"
                     isPassword
                     value={password}
+                    error={validateLoginDataErrors.password.length > 0}
+                    errorText={validateLoginDataErrors.password[0]}
                     onChange={onChangePassword}
                 />
             </VStack>
@@ -89,6 +118,14 @@ export const LoginForm = memo((props: LoginFormProps) => {
                 gap="16"
                 max
             >
+                <CSSTransition
+                    in={hasError}
+                    timeout={300}
+                    unmountOnExit
+                    classNames="slide-animation"
+                >
+                    <Error onClose={removeError} error={error || 'Ошибка'} />
+                </CSSTransition>
                 <HStack
                     max
                     align="center"
@@ -102,7 +139,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     />
 
                     <Button
-                        onClick={() => handleChangeStep(3)}
+                        onClick={handleResetPassword}
                         theme={ThemeButton.LINK}
                     >
                         Забыли пароль?
@@ -113,7 +150,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     fullWidth
                     disabled={isLoading}
                     onClick={handleSubmitLogin}
-                    className={styles.submitBtn}
+                    className="submitBtn"
                     theme={ThemeButton.DEFAULT}
                 >
                     {

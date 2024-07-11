@@ -113,8 +113,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.TITLE}
                     />
                 </VStack>
@@ -131,8 +135,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.SUBTITLE}
                     />
                 </VStack>
@@ -149,8 +157,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.DESCRIPTION_MEDIUM}
                     />
                 </VStack>
@@ -167,8 +179,12 @@ const Kit = () => {
                     />
                     <Text
                         gap="16"
-                        title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        title="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        text="Lorem ipsum dolor sit amet,
+                         consectetur adipiscing elit,
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         variant={TextVariant.DESCRIPTION_REGULAR}
                     />
                 </VStack>
@@ -454,6 +470,7 @@ const Kit = () => {
                 </Button>
                 <Modal
                     isOpen={modal}
+                    portal
                     onClose={onCloseModal}
                 >
                     <VStack
@@ -468,7 +485,7 @@ const Kit = () => {
                         <Text
                             gap="0"
                             text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                             variant={TextVariant.MAIN_REGULAR}
                         />
                         <Button
@@ -620,18 +637,28 @@ const Kit = () => {
                     <Avatar
                         name="Девушка какая-то"
                         size={AvatarSize.SIZE88}
-                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair
+                        -Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jy
+                        ZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
                     />
                     <Avatar
                         name="Девушка какая-то"
                         size={AvatarSize.SIZE64}
-                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb
+                        2eb3a8c4d512?Expires=1721001600&Key-
+                        Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA
+                        -WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h
+                        4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFO
+                        txWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pw
+                        WXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05Pr
+                        axEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
                     />
                     <Avatar
                         name="Девушка какая-то"
                         size={AvatarSize.SIZE48}
                         isOnline
-                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
+                        imageUrl="https://s3-alpha-sig.figma.com/img/f261/eecd/2260bb04a4bd36bb15bb2eb
+                        3a8c4d512?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OzTR09vnrQuviVyv3Xcgz5UCxOQ9voA-WSCgAjrMtYQssyTeJimREyf-CT7Ltn-cwuOqzOT5VZUt4jyZZpiecbhLIFh1oOeFYfd8NWMzR5h4XA7wa2VJVV9hyhF2e95R8aANlzTwy6-KFOtxWMIS0Q~ebDGWQ6ZjzCF8TVTzI1EoI85NjxsnrDaCPseQt8y3MzXQIncpkZ3wZrE75pwWXrXvFyDbx5NIZHRmBQEhOmS1kbYduTpJMp05PraxEtPUSjp8~gsh5MLtyHujaWjfR2T4XwdaHbeSonarQ4Y7KLZaIeRFbkigyt1J2vkBAhlOL6d88bECyQN32rlw6T4d6Q__"
                     />
                     <Avatar
                         name="Девушка какая-то"

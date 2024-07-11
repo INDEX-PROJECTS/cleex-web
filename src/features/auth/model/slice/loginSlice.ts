@@ -1,5 +1,9 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { LoginSchema, ValidateLoginDataError } from '../types/loginSchema';
+import type { LoginSchema, ValidateDataLogin, ValidateResetPassword } from '../types/loginSchema';
+import { loginByPhoneNumber } from '../services/loginByPhoneNumber';
+import { fetchResetCallPhone } from '../services/fetchCallPhone/fetchResetCallPhone';
+import { fetchCheckResetCode } from '../services/fetchCheckCode/fetchCheckResetCode';
+import { fetchUserResetPassword } from '../services/fetchUserResetPassword';
 
 const initialState: LoginSchema = {
     isLoading: false,
@@ -7,7 +11,19 @@ const initialState: LoginSchema = {
     password: '',
     resetPassword: '',
     repeatResetPassword: '',
-    validateData: [],
+    validateLoginData: {
+        phone: [],
+        password: [],
+    },
+    error: '',
+    hasError: false,
+    resetPhone: '',
+    code: '',
+    phone_token: '',
+    validateResetPasswordData: {
+        resetPassword: [],
+        repeatResetPassword: [],
+    },
 };
 
 export const loginSlice = createSlice({
@@ -17,18 +33,96 @@ export const loginSlice = createSlice({
         setPhone: (state, action: PayloadAction<string>) => {
             state.phone = action.payload;
         },
+        setResetPhone: (state, action: PayloadAction<string>) => {
+            state.resetPhone = action.payload;
+        },
+        setCode: (state, action: PayloadAction<string>) => {
+            state.code = action.payload;
+        },
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload;
         },
         setResetPassword: (state, action: PayloadAction<string>) => {
-            state.password = action.payload;
+            state.resetPassword = action.payload;
         },
         setRepeatResetPassword: (state, action: PayloadAction<string>) => {
-            state.password = action.payload;
+            state.repeatResetPassword = action.payload;
         },
-        setLoginValidateDataError: (state, action: PayloadAction<ValidateLoginDataError[]>) => {
-            state.validateData = action.payload;
+        setLoginValidateDataError: (state, action: PayloadAction<ValidateDataLogin>) => {
+            state.validateLoginData = action.payload;
         },
+        setResetPasswordsError: (state, action: PayloadAction<ValidateResetPassword>) => {
+            state.validateResetPasswordData = action.payload;
+        },
+        setHasError: (state, action: PayloadAction<boolean>) => {
+            state.hasError = action.payload;
+        },
+        setError: (state, action: PayloadAction<string | undefined>) => {
+            state.error = action.payload;
+        },
+        setPhoneToken: (state, action: PayloadAction<string>) => {
+            state.phone_token = action.payload;
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(loginByPhoneNumber.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+                state.hasError = false;
+            })
+            .addCase(loginByPhoneNumber.fulfilled, (state) => {
+                state.isLoading = false;
+                state.hasError = false;
+                state.error = '';
+            })
+            .addCase(loginByPhoneNumber.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+                state.hasError = true;
+            })
+            .addCase(fetchUserResetPassword.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+                state.hasError = false;
+            })
+            .addCase(fetchUserResetPassword.fulfilled, (state) => {
+                state.isLoading = false;
+                state.hasError = false;
+                state.error = '';
+            })
+            .addCase(fetchUserResetPassword.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+                state.hasError = true;
+            })
+            .addCase(fetchResetCallPhone.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+                state.hasError = false;
+            })
+            .addCase(fetchResetCallPhone.fulfilled, (state) => {
+                state.isLoading = false;
+                state.hasError = false;
+                state.error = '';
+            })
+            .addCase(fetchResetCallPhone.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+                state.hasError = true;
+            })
+            .addCase(fetchCheckResetCode.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+            })
+            .addCase(fetchCheckResetCode.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.phone_token = action.payload;
+            })
+            .addCase(fetchCheckResetCode.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
     },
 });
 
