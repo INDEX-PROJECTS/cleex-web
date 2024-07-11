@@ -2,3 +2,19 @@
   position: relative;
   height: 100%;
 }
+
+.textActive,
+.text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.textActive {
+  color: var(--color-main);
+}
+
+.text {
+  color: var(--color-dark);
+}

@@ -1,40 +1,42 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Button, ThemeButton } from "@/shared/ui/Button/Button";
-import { AuthModal } from "@/features/auth";
-import { HStack } from "@/shared/ui/Stack";
-import styles from "./Home.module.scss";
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
+import { AuthModal, authSlice, getAuthModal } from '@/features/auth';
+import { HStack } from '@/shared/ui/Stack';
+import styles from './Home.module.scss';
+import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 
 const Home = () => {
-  const [modal, setModal] = useState(false);
+    const dispatch = useAppDispatch();
 
-  const onCloseModal = () => {
-    setModal(false);
-  };
+    const modal = useAppSelector(getAuthModal);
 
-  const onOpenModal = () => {
-    setModal(true);
-  };
+    const handleOpenModal = () => {
+        dispatch(authSlice.actions.setModal(true));
+    };
 
-  return (
-    <HStack
-      max={true}
-      justify="center"
-      align="center"
-      className={styles.wrapper}>
-      <Button
-        theme={ThemeButton.DEFAULT}
-        onClick={onOpenModal}>
-        Авторизация
-      </Button>
-      <AuthModal
-        isOpen={modal}
-        onClose={onCloseModal}
-      />
-    </HStack>
-  );
+    const handleCloseModal = () => {
+        dispatch(authSlice.actions.setModal(false));
+    };
+
+    return (
+        <HStack
+            max
+            justify="center"
+            align="center"
+            className={styles.wrapper}
+        >
+            <Button
+                theme={ThemeButton.DEFAULT}
+                onClick={handleOpenModal}
+            >
+                Авторизация
+            </Button>
+            <AuthModal isOpen={modal} onCloseModal={handleCloseModal} />
+        </HStack>
+    );
 };
 
 export default Home;

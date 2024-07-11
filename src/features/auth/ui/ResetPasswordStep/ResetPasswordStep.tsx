@@ -11,15 +11,23 @@ import { Input } from '@/shared/ui/Input/Input';
 import { PasswordStrength } from '@/shared/ui/PasswordStrength/PasswordStrength';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 import {
+    getLoginError,
+    getLoginHasError,
     getLoginIsLoading,
+    getLoginPhoneToken,
     getLoginRepeatResetPassword,
     getLoginResetPassword,
 } from '../../model/selectors/getLoginData';
 import { loginActions } from '../../model/slice/loginSlice';
+import { AuthSteps } from '../../model/types/authSchema';
+import { validatePasswords } from '../../model/services/validatePasswords/validatePasswords';
+import { fetchUserResetPassword } from '../../model/services/fetchUserResetPassword';
+import { Error } from '@/shared/ui/Error/Error';
+import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 
 interface ResetPasswordStepProps {
   className?: string;
-  handleChangeStep: (currentStep: number) => void;
+  handleChangeStep: (currentStep: AuthSteps) => void;
 }
 
 export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
@@ -32,6 +40,9 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
     const resetPassword = useAppSelector(getLoginResetPassword);
     const repeatResetPassword = useAppSelector(getLoginRepeatResetPassword);
     const isLoading = useAppSelector(getLoginIsLoading);
+    const phoneToken = useAppSelector(getLoginPhoneToken);
+    const error = useAppSelector(getLoginError);
+    const hasError = useAppSelector(getLoginHasError);
 
     const onChangeResetPassword = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +57,30 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
         },
         [dispatch],
     );
+
+    const handleResetPassword = useCallback(async () => {
+        const errors = validatePasswords(resetPassword, repeatResetPassword);
+        if (errors.resetPassword.length === 0 && errors.repeatResetPassword.length === 0) {
+            const result = await dispatch(fetchUserResetPassword({
+                new_password: resetPassword,
+                phoneToken,
+            }));
+
+            if (result.meta.requestStatus === 'fulfilled') {
+                alert('Пароль успешно изменен');
+            }
+        }
+        return dispatch(loginActions.setResetPasswordsError(errors));
+    }, [dispatch, phoneToken, repeatResetPassword, resetPassword]);
+
+    const removeError = () => {
+        dispatch(loginActions.setHasError(false));
+
+        setTimeout(() => {
+            dispatch(loginActions.setError(''));
+        }, 300);
+    };
+
     return (
         <VStack
             max
@@ -56,7 +91,7 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
             <VStack max gap="24">
                 <Text
                     gap="0"
-                    text="Регистрация"
+                    text="Востановление пароля"
                     textPrimary
                     variant={TextVariant.TITLE}
                 />
@@ -97,13 +132,27 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
 
                 </VStack>
             </VStack>
-            <Button
-                fullWidth
-                onClick={() => handleChangeStep(2)}
-                theme={ThemeButton.DEFAULT}
-            >
-                Продолжить
-            </Button>
+
+            <VStack max gap="16">
+                <CSSTransition
+                    in={hasError}
+                    timeout={300}
+                    unmountOnExit
+                    classNames="slide-animation"
+                >
+                    <Error onClose={removeError} error={error || 'Ошибка'} />
+                </CSSTransition>
+                <Button
+                    fullWidth
+                    onClick={handleResetPassword}
+                    theme={ThemeButton.DEFAULT}
+                >
+                    {
+                        isLoading ? (<Loader theme={ThemeLoader.BTN_LOADER} />) : ' Восстановить пароль'
+                    }
+                </Button>
+            </VStack>
+
         </VStack>
     );
 });
