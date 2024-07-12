@@ -12,17 +12,19 @@ import Apple from '@/shared/assets/icons/AppleIcon-24.svg';
 import ProfileIcon from '@/shared/assets/icons/ProfileIcon.svg';
 import LikeIcon from '@/shared/assets/icons/LikeIcon.svg';
 import MessageIcon from '@/shared/assets/icons/MessageIcon.svg';
-import Avatar, { AvatarSize } from '@/shared/ui/Avatar/Avatar.tsx';
 import styles from './HeaderTop.module.scss';
 import type { Mods } from '@/shared/types';
 
 interface HeaderTopProps {
   isAccountPage?: boolean;
-  toggleLocation?: () => void;
+  toggleLocation: () => void;
   handleOpenAuthModal: () => void;
+  closeAllModals: () => void;
 }
 
-const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, handleOpenAuthModal, toggleLocation }) => {
+const HeaderTop: FC<HeaderTopProps> = ({
+    isAccountPage = false, handleOpenAuthModal, toggleLocation, closeAllModals,
+}) => {
     const mods: Mods = {
         [styles.accountPage]: isAccountPage,
     };
@@ -78,7 +80,7 @@ const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, handleOpenAuthMo
                     gap="16"
                     className={styles.accountLinks}
                 >
-                    <Button onClick={handleOpenAuthModal} theme={ThemeButton.ICON}>
+                    <Button onClick={() => { handleOpenAuthModal(); closeAllModals(); }} theme={ThemeButton.ICON}>
                         <ProfileIcon />
                     </Button>
                     <Button theme={ThemeButton.ICON}>
