@@ -108,7 +108,6 @@ const Kit = () => {
             max
             className={styles.kit}
         >
-            <Header />
             <VStack
                 gap="50"
                 wrap

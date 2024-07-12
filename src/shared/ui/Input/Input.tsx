@@ -1,13 +1,12 @@
 'use client';
 
+import type { ChangeEventHandler, InputHTMLAttributes } from 'react';
 /* eslint-disable react/display-name */
 import {
     memo, ReactElement, useEffect, useRef, useState,
 } from 'react';
 import clsx from 'clsx';
 import InputMask from 'react-input-mask';
-import type { ChangeEventHandler, InputHTMLAttributes } from 'react';
-import { JSXElement } from '@babel/types';
 import EyeClosed from '@/shared/assets/icons/EyeOffIcon.svg';
 import EyeOpened from '@/shared/assets/icons/EyeOnIcon.svg';
 import styles from './Input.module.scss';
@@ -127,7 +126,6 @@ export const Input = memo((props: InputProps) => {
                     placeholder={placeholder}
                     name={label}
                     value={value}
-                    autoComplete="new-password"
                     onChange={onChange}
                     readOnly={readonly}
                     {...otherProps}
