@@ -2,10 +2,10 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(170px, 266px));
   justify-content: center;
-  column-gap: 8px;
-  row-gap: 16px;
+  gap: 16px 8px;
+  padding: 16px;
 
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     grid-template-columns: repeat(2, minmax(170px, 266px));
   }
 }

@@ -3,6 +3,7 @@
   padding: 24px 16px;
   border-radius: 16px;
   box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%);
+  background-color: var(--color-white);
 }
 
 .avatarContainer {
@@ -17,12 +18,12 @@
 }
 
 .editButton {
-  position: absolute;
+  position: absolute !important;
   height: 40px;
   width: 40px;
   bottom: -10px;
   right: -10px;
-  background-color: var(--color-white);
+  background-color: var(--color-white) !important;
 }
 
 .list {

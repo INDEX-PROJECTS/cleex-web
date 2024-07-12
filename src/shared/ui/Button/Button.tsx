@@ -10,6 +10,7 @@ import type { Mods } from '@/shared/types';
 export enum ThemeButton {
   CLEAR = 'clear',
   DEFAULT = 'default',
+  SHADOW = 'shadow',
   SECONDARY = 'secondary',
   ICON = 'icon',
   ICON_BG = 'icon_bg',

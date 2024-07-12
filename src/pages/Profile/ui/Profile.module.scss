@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+  padding: 24px;
+}
+
+.menu {
+  min-width: 248px;
+  transform: translateY(-150px);
+}
+
+.categoryButton {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+
+  svg {
+    height: 24px;
+    width: 24px;
+    flex: none; 
+    color: var(--color-main);
+    transform: rotate(-90deg);
+  }
+}

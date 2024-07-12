@@ -743,22 +743,6 @@ const Kit = () => {
             <HStack max>
                 <ProfileMenu />
             </HStack>
-
-            <Text
-                gap="0"
-                title="Header top"
-                variant={TextVariant.SUBTITLE}
-            />
-
-            <Header />
-
-            <Text
-                gap="0"
-                title="Footer"
-                variant={TextVariant.SUBTITLE}
-            />
-
-            <Footer />
         </VStack>
     );
 };
