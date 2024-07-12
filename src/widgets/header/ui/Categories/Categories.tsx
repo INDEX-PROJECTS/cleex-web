@@ -25,6 +25,8 @@ const Categories: FC<CategoriesProps> = ({ isOpen, toggleCategories }) => {
             }
         };
 
+        document.addEventListener('click', handleClickOutside);
+
         if (isOpen) {
             document.addEventListener('keydown', onKey);
         } else {
