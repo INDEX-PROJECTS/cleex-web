@@ -51,7 +51,7 @@
 }
 
 .eyeBtn {
-  position: absolute;
+  position: absolute !important;
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
@@ -60,8 +60,7 @@
   svg {
     color: var(--color-gray);
   }
- 
-
+  
   &:hover {
     svg {
       color: var(--color-gray-secondary);
