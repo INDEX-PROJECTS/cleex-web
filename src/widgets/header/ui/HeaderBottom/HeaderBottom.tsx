@@ -84,10 +84,11 @@ const HeaderBottom: FC<HeaderBottomProps> = ({
                         adornment={visibleClose ? <CloseIcon /> : undefined}
                         autofocus={check}
                         adornmentAction={ClearInput}
+                        autoComplete="off"
                     />
                     <Button
-                        theme={ThemeButton.DEFAULT}
                         className={styles.search_bar_button}
+                        theme={ThemeButton.DEFAULT}
                     >
                         <SearchIcon className={styles.icon} />
                     </Button>
