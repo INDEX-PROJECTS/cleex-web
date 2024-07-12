@@ -86,12 +86,12 @@
   flex-grow: 1;
 
   &_input > * {
-    border-radius: 12px 0 0 12px;
+    border-radius: 12px 0 0 12px !important;
   }
 
   &_button {
-    border-radius: 0 12px 12px 0;
-    padding: 8px 16px;
+    border-radius: 0 12px 12px 0 !important;
+    padding: 8px 16px !important;
   }
 }
 

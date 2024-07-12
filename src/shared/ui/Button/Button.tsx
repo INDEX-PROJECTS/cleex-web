@@ -26,7 +26,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   helper?: boolean;
   helperText?: string;
-  ref: LegacyRef<HTMLButtonElement> | undefined
+  ref?: LegacyRef<HTMLButtonElement> | undefined
 }
 
 export const Button = memo((props: ButtonProps) => {

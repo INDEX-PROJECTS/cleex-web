@@ -86,8 +86,8 @@ const HeaderBottom: FC<HeaderBottomProps> = ({
                         adornmentAction={ClearInput}
                     />
                     <Button
-                        theme={ThemeButton.DEFAULT}
                         className={styles.search_bar_button}
+                        theme={ThemeButton.DEFAULT}
                     >
                         <SearchIcon className={styles.icon} />
                     </Button>
