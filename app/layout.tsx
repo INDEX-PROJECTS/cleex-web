@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { StoreProvider } from '@/app/providers/StoreProvider';
 import '@/app/styles/index.scss';
+import { Header } from '@/widgets/header';
 
 export const metadata: Metadata = {
     title: 'Cleex Web',
@@ -16,9 +17,12 @@ export default function RootLayout({
         <html lang="ru">
             <body>
                 <StoreProvider>
-                    <main className="app">
-                        {children}
-                    </main>
+                    <div className="app">
+                        <Header />
+                        <main>
+                            {children}
+                        </main>
+                    </div>
                 </StoreProvider>
             </body>
         </html>
