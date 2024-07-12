@@ -11,6 +11,9 @@ import { AnnouncementCard } from '@/entities/announcement';
 import { ProfileMenu, ProfileBackground } from '@/features/profileMenu';
 import { Text } from '@/shared/ui/Text/Text';
 import { TabItem, Tabs, ThemeTab } from '@/shared/ui/Tabs/Tabs';
+import MaxContainer from '@/shared/ui/MaxContainer/MaxContainer';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button';
+import ArrowIcon from '@/shared/assets/icons/ArrowIcon.svg';
 
 export const testData = [{
     title: 'NFT документы',
@@ -121,40 +124,47 @@ const Profile = () => {
     return (
         <VStack max>
             <ProfileBackground handleChangeBackground={() => {}} />
-            <HStack
-                max
-                align="start"
-                justify="between"
-                gap="32"
-                className={styles.wrapper}
-            >
-                <ProfileMenu className={styles.menu} />
+            <MaxContainer>
+                <HStack
+                    max
+                    align="start"
+                    justify="between"
+                    gap="32"
+                    className={styles.wrapper}
+                >
+                    <ProfileMenu className={styles.menu} />
 
-                <VStack align="start" gap="0">
-                    <Text gap="0" title="Мои объявления" />
-                    <Tabs
-                        tabs={tabsProfile}
-                        theme={ThemeTab.MAIN}
-                        value={activeProfileTab}
-                        onTabClick={onTabProfileClick}
-                    />
-                    <AnnouncementsGrid>
-                        {testData.map((item, index) => (
-                            <AnnouncementCard
-                                key={index}
-                                href="#"
-                                test
-                                imageUrl={item.imageUrl}
-                                price={item.price}
-                                title={item.title}
-                                address={item.address}
-                                date={String(currentDATE)}
-                            />
-                        ))}
-                    </AnnouncementsGrid>
-                </VStack>
+                    <VStack align="start" gap="4">
+                        <Text gap="0" title="Мои объявления" />
+                        <Button className={styles.categoryButton} theme={ThemeButton.LINK}>
+                            Искать в категориях
+                            <ArrowIcon className={styles.categoryIcon} />
+                        </Button>
+                        <Tabs
+                            tabs={tabsProfile}
+                            theme={ThemeTab.MAIN}
+                            value={activeProfileTab}
+                            onTabClick={onTabProfileClick}
+                        />
+                        <AnnouncementsGrid>
+                            {testData.map((item, index) => (
+                                <AnnouncementCard
+                                    key={index}
+                                    href="#"
+                                    test
+                                    imageUrl={item.imageUrl}
+                                    price={item.price}
+                                    title={item.title}
+                                    address={item.address}
+                                    date={String(currentDATE)}
+                                />
+                            ))}
+                        </AnnouncementsGrid>
+                    </VStack>
 
-            </HStack>
+                </HStack>
+            </MaxContainer>
+
         </VStack>
 
     );
