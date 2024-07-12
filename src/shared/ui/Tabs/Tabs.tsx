@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/display-name */
-import clsx from 'clsx';
 import {
-    createRef,
     memo, useCallback, useEffect, useRef, useState,
 } from 'react';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import styles from './Tabs.module.scss';
-import { Button, ThemeButton } from '../Button/Button';
 import { Text, TextVariant } from '../Text/Text';
 import { Mods } from '@/shared/types';
 
@@ -69,13 +67,13 @@ export const Tabs = memo((props: TabsProps) => {
     };
 
     return (
-        <div className={clsx(styles.Tabs, mods, [className])}>
+        <div className={classNames(styles.Tabs, mods, [className])}>
             {tabs.map((tab) => (
                 <button
                     type="button"
                     onClick={clickHandle(tab)}
                     key={tab.value}
-                    className={clsx(styles.tab, {
+                    className={classNames(styles.tab, {
                         [styles.selected]: tab.value === value,
                     })}
                     ref={tab.value === value ? activeRef : none}

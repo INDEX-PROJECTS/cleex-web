@@ -5,7 +5,7 @@ import type { ChangeEventHandler, InputHTMLAttributes } from 'react';
 import {
     memo, ReactElement, useEffect, useRef, useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import InputMask from 'react-input-mask';
 import EyeClosed from '@/shared/assets/icons/EyeOffIcon.svg';
 import EyeOpened from '@/shared/assets/icons/EyeOnIcon.svg';
@@ -79,7 +79,7 @@ export const Input = memo((props: InputProps) => {
 
     if (mask) {
         return (
-            <div className={clsx(styles.FieldBox, {}, [className])}>
+            <div className={classNames(styles.FieldBox, {}, [className])}>
                 {label && (
                     <label
                         htmlFor={placeholder}
@@ -88,7 +88,7 @@ export const Input = memo((props: InputProps) => {
                         {label}
                     </label>
                 )}
-                <div className={clsx(styles.InputWrapper, mods, [])}>
+                <div className={classNames(styles.InputWrapper, mods, [])}>
                     <InputMask
                         mask={mask}
                         id={placeholder}
@@ -108,7 +108,7 @@ export const Input = memo((props: InputProps) => {
     }
 
     return (
-        <div className={clsx(styles.FieldBox, {}, [className])}>
+        <div className={classNames(styles.FieldBox, {}, [className])}>
             {label && (
                 <label
                     htmlFor={placeholder}
@@ -117,7 +117,7 @@ export const Input = memo((props: InputProps) => {
                     {label}
                 </label>
             )}
-            <div className={clsx(styles.InputWrapper, mods, [])}>
+            <div className={classNames(styles.InputWrapper, mods, [])}>
                 <input
                     ref={ref}
                     type={isPassword ? ChangeInputType : type}

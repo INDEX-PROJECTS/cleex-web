@@ -15,7 +15,7 @@ html {
 @-moz-document url-prefix() {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.24) transparent;
+    scrollbar-color: rgb(0 0 0 / 24%) transparent;
   }
 }
 
@@ -26,12 +26,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.24);
+  background: rgb(0 0 0 / 24%);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-corner {
-  background: rgba(0,0,0,0);
+  background: rgb(0 0 0 / 0%);
 }
 
 html, body {
@@ -138,5 +138,33 @@ input {
 .slide-animation-exit-active {
   opacity: 0;
   transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-enter-active,
+.fade-exit-active {
   transition: opacity 300ms, transform 300ms;
 }

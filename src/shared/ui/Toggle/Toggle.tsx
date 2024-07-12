@@ -11,7 +11,7 @@ interface ToggleProps {
 
 export const Toggle = memo(({ className, onChange, value }: ToggleProps) => {
   return (
-    <label className={clsx(styles.ToggleContainer, {}, [className])}>
+    <label className={classNames(styles.ToggleContainer, {}, [className])}>
       <input
         type="checkbox"
         value={value}

@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import type { ChangeEvent } from 'react';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
@@ -87,7 +87,7 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
         <VStack
             max
             justify="between"
-            className={clsx(styles.CompleteRegistration, {}, [className])}
+            className={classNames(styles.CompleteRegistration, {}, [className])}
         >
             <VStack
                 max

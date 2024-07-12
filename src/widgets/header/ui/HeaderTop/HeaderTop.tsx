@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import type { FC } from 'react';
 import { HStack } from '@/shared/ui/Stack';
 import MaxContainer from '@/shared/ui/MaxContainer/MaxContainer.tsx';
@@ -31,7 +31,7 @@ const HeaderTop: FC<HeaderTopProps> = ({ isAccountPage = false, handleOpenAuthMo
         <MaxContainer>
             <HStack
                 justify="between"
-                className={clsx(styles.HeaderTop, mods)}
+                className={classNames(styles.HeaderTop, mods)}
             >
                 <Button onClick={toggleLocation}>
                     <HStack

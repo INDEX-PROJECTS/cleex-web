@@ -2,7 +2,7 @@
 import {
     ChangeEvent, MutableRefObject, memo, useCallback, useRef, useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import ReCAPTCHA from 'react-google-recaptcha';
 import styles from './ResetPasswordNumberStep.module.scss';
@@ -83,7 +83,7 @@ export const ResetPasswordNumberStep = memo((props: ResetPasswordNumberStepProps
     }, [dispatch, handleChangeStep, phoneError, resetPhone]);
 
     return (
-        <VStack max justify="between" className={clsx(styles.ResetPasswordNumberStep, {}, [className])}>
+        <VStack max justify="between" className={classNames(styles.ResetPasswordNumberStep, {}, [className])}>
 
             <VStack gap="24" max>
                 <Text

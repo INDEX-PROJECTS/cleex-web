@@ -18,12 +18,23 @@
 }
 
 .editButton {
-  position: absolute !important;
   height: 40px;
   width: 40px;
+  background-color: var(--color-white) !important;
+
+  &:hover {
+    box-shadow: var(--box-shadow-default);
+
+    .editIcon {
+      color: var(--color-dark-hover) !important;
+    }
+  }
+}
+
+.editButtonPosition {
+  position: absolute !important;
   bottom: -10px;
   right: -10px;
-  background-color: var(--color-white) !important;
 }
 
 .list {

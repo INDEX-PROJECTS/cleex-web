@@ -1,7 +1,7 @@
 import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import { HStack, VStack } from '@/shared/ui/Stack';
@@ -85,7 +85,7 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
         <VStack
             max
             justify="between"
-            className={clsx(styles.ResetPasswordStep, {}, [className])}
+            className={classNames(styles.ResetPasswordStep, {}, [className])}
         >
 
             <VStack max gap="24">

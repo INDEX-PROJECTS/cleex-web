@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { forwardRef } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import type { ForwardedRef, ReactNode } from 'react';
 import type { LinkProps } from 'next/link';
 import styles from './AppLink.module.scss';
@@ -42,7 +42,7 @@ export const AppLink = forwardRef(
                 href={href}
                 title={title}
                 target={target}
-                className={clsx(styles.AppLink, mods, [className])}
+                className={classNames(styles.AppLink, mods, [className])}
                 {...otherProps}
             >
                 {children}

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import styles from './AnnouncementCardSkeleton.module.scss';
 
 interface AnnouncementCardSkeletonProps {
@@ -9,7 +9,7 @@ interface AnnouncementCardSkeletonProps {
 export const AnnouncementCardSkeleton = memo((props: AnnouncementCardSkeletonProps) => {
     const { className } = props;
     return (
-        <div className={clsx(styles.AnnouncementCardSkeleton, {}, [className])}>
+        <div className={classNames(styles.AnnouncementCardSkeleton, {}, [className])}>
             AnnouncementCardSkeleton
         </div>
     );

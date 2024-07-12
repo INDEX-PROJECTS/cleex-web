@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import './Loader.scss';
 
 export enum ThemeLoader {
@@ -14,4 +14,4 @@ interface LoaderProps {
 export const Loader = ({
     className,
     theme = ThemeLoader.MAIN_LOADER,
-}: LoaderProps) => <span className={clsx(theme, {}, [className])} />;
+}: LoaderProps) => <span className={classNames(theme, {}, [className])} />;

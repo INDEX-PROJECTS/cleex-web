@@ -1,7 +1,7 @@
 import {
     useState, useRef, useEffect, useCallback,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import type { ReactNode, MouseEvent } from 'react';
 import styles from './Modal.module.scss';
 import { Portal } from '../Portal/Portal';
@@ -89,13 +89,13 @@ export const Modal = (props: ModalProps) => {
     if (portal) {
         return (
             <Portal>
-                <div className={clsx(styles.Modal, mods, [])}>
+                <div className={classNames(styles.Modal, mods, [])}>
                     <div
                         className={styles.overlay}
                         onClick={closeHandler}
                     >
                         <div
-                            className={clsx(styles.content, {}, [className])}
+                            className={classNames(styles.content, {}, [className])}
                             onClick={onContentClick}
                         >
                             {children}
@@ -107,13 +107,13 @@ export const Modal = (props: ModalProps) => {
     }
 
     return (
-        <div className={clsx(styles.Modal, mods, [])}>
+        <div className={classNames(styles.Modal, mods, [])}>
             <div
                 className={styles.overlay}
                 onClick={closeHandler}
             >
                 <div
-                    className={clsx(styles.content, {}, [className])}
+                    className={classNames(styles.content, {}, [className])}
                     onClick={onContentClick}
                 >
                     {children}

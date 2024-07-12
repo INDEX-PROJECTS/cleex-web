@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import type { ChangeEvent } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Input } from '@/shared/ui/Input/Input';
@@ -88,7 +88,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
             max
             justify="between"
             gap="16"
-            className={clsx(styles.LoginForm, {}, [className])}
+            className={classNames(styles.LoginForm, {}, [className])}
         >
             <VStack
                 gap="16"

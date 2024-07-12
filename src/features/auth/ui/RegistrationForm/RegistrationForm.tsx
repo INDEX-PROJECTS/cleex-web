@@ -4,7 +4,7 @@ import {
     useRef,
     useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import ReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha';
 import { CSSTransition } from 'react-transition-group';
 import { Input } from '@/shared/ui/Input/Input';
@@ -87,7 +87,7 @@ export const RegistrationForm = memo((props: RegistrationFormProps) => {
             max
             gap="16"
             justify="between"
-            className={clsx(styles.RegistrationForm, {}, [className])}
+            className={classNames(styles.RegistrationForm, {}, [className])}
         >
             <Input
                 mask="+7 (999) 999-99-99"

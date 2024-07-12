@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import styles from './MaxContainer.module.scss';
 
 interface MainContainerProps {
@@ -13,7 +13,7 @@ const MaxContainer = (props: MainContainerProps) => {
 
     return (
         <div className={styles.MainContainer} style={{ height: `${height}` }}>
-            <div className={clsx(styles.MainContainer_max, [className])} style={{ height: `${height}` }}>{children}</div>
+            <div className={classNames(styles.MainContainer_max, [className])} style={{ height: `${height}` }}>{children}</div>
         </div>
     );
 };

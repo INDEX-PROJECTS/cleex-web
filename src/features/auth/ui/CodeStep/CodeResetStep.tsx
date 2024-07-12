@@ -1,7 +1,7 @@
 import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { AuthSteps } from '../../model/types/authSchema';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
 import { getLoginIsLoading, getLoginResetCode, getLoginResetPhone } from '../../model/selectors/getLoginData';
@@ -66,7 +66,7 @@ export const CodeResetStep = memo((props: CodeResetStepProps) => {
             max
             justify="between"
             align="center"
-            className={clsx(styles.CodeStep, {}, [className])}
+            className={classNames(styles.CodeStep, {}, [className])}
         >
             <VStack
                 max

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { FC } from 'react';
 import styles from './HeaderAccount.module.scss';
 import MaxContainer from '@/shared/ui/MaxContainer/MaxContainer.tsx';
@@ -34,7 +34,7 @@ const HeaderAccount: FC<HeaderAccountProps> = ({ isCategories, toggleCategories,
                 >
                     <div className={styles.burger_wrapper}>
                         <div
-                            className={clsx(styles.burger, [isCategories && styles.burger_active])}
+                            className={classNames(styles.burger, [isCategories && styles.burger_active])}
                         />
                     </div>
                     Категории

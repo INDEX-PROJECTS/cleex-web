@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { HStack, VStack } from '@/shared/ui/Stack';
@@ -116,7 +116,7 @@ export const AuthModal = memo((props: AuthModalProps) => {
             isOpen={isOpen}
             portal
             onClose={onCloseModal}
-            className={clsx(styles.AuthModal, {}, [className])}
+            className={classNames(styles.AuthModal, {}, [className])}
         >
             <Modal isNotification portal onClose={handleCloseNotificationModal} isOpen={notificationModal} className={styles.NotificationModal}>
                 <VStack align="center" gap="24" max>

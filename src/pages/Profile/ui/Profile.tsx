@@ -14,6 +14,7 @@ import { TabItem, Tabs, ThemeTab } from '@/shared/ui/Tabs/Tabs';
 import MaxContainer from '@/shared/ui/MaxContainer/MaxContainer';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import ArrowIcon from '@/shared/assets/icons/ArrowIcon.svg';
+import { ProfileModal } from '@/features/profileModal';
 
 export const testData = [{
     title: 'NFT документы',
@@ -107,6 +108,16 @@ const Profile = () => {
 
     const currentDATE = new Date();
 
+    const [modal, setModal] = useState(false);
+
+    const handleCloseModal = () => {
+        setModal(false);
+    };
+
+    const handleOpenModal = () => {
+        setModal(true);
+    };
+
     const [activeProfileTab, setActiveProfileTab] = useState('Активные');
 
     const [data, setData] = useState([]);
@@ -124,6 +135,7 @@ const Profile = () => {
     return (
         <VStack max>
             <ProfileBackground handleChangeBackground={() => {}} />
+            <ProfileModal isOpen={modal} onCloseModal={handleCloseModal} />
             <MaxContainer>
                 <HStack
                     max
@@ -132,11 +144,11 @@ const Profile = () => {
                     gap="32"
                     className={styles.wrapper}
                 >
-                    <ProfileMenu className={styles.menu} />
+                    <ProfileMenu onModalOpen={handleOpenModal} className={styles.menu} />
 
                     <VStack align="start" gap="4">
                         <Text gap="0" title="Мои объявления" />
-                        <Button className={styles.categoryButton} theme={ThemeButton.LINK}>
+                        <Button onClick={handleOpenModal} className={styles.categoryButton} theme={ThemeButton.LINK}>
                             Искать в категориях
                             <ArrowIcon className={styles.categoryIcon} />
                         </Button>

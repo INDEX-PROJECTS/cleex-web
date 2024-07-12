@@ -22,7 +22,7 @@ export const Skeleton = memo((props: SkeletonProps) => {
   };
   return (
     <div
-      className={clsx(styles.Skeleton, {}, [className])}
+      className={classNames(styles.Skeleton, {}, [className])}
       style={style}
     />
   );

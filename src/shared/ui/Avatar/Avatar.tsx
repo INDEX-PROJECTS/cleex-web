@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import Image from 'next/image';
 import type { FC } from 'react';
 import { getUppercaseFirstLetter } from '@/shared/utils/getUppercaseFirstLetter/getUppercaseFirstLetter.ts';
@@ -47,7 +47,7 @@ const Avatar: FC<AvatarProps> = ({
 
     if (imageUrl) {
         return (
-            <div className={clsx(styles.avatar, mods, [className])}>
+            <div className={classNames(styles.avatar, mods, [className])}>
                 <Image
                     src={imageUrl}
                     width={500}
@@ -60,7 +60,7 @@ const Avatar: FC<AvatarProps> = ({
     return (
         <div
             style={{ backgroundColor: `${backgroundColor}` }}
-            className={clsx(styles.avatar, mods, [className])}
+            className={classNames(styles.avatar, mods, [className])}
             {...props}
         >
             {title}

@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { memo } from 'react';
-import clsx from 'clsx';
 import type { ReactNode } from 'react';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import styles from './Text.module.scss';
 import { VStack } from '../Stack';
 import type { Mods } from '@/shared/types';
@@ -89,7 +89,7 @@ export const Text = memo((props: TextProps) => {
         <VStack
             gap={gap}
             align="start"
-            className={clsx(styles.TextWrapper, mods, [className])}
+            className={classNames(styles.TextWrapper, mods, [className])}
         >
             {title && (
                 <HeaderTag className={styles.title}>

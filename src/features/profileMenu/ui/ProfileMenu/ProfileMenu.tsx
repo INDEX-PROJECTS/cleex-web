@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import styles from './ProfileMenu.module.scss';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import Avatar, { AvatarSize } from '@/shared/ui/Avatar/Avatar';
@@ -11,15 +11,16 @@ import { AppLink, AppLinkTheme } from '@/shared/ui/AppLink/AppLink';
 
 interface ProfileMenuProps {
   className?: string;
+  onModalOpen: () => void;
 }
 
 export const ProfileMenu = memo((props: ProfileMenuProps) => {
-    const { className } = props;
+    const { className, onModalOpen } = props;
     return (
-        <VStack gap="16" className={clsx(styles.ProfileMenu, {}, [className])}>
+        <VStack gap="16" className={classNames(styles.ProfileMenu, {}, [className])}>
             <HStack align="center" justify="center" className={styles.avatarContainer}>
                 <Avatar size={AvatarSize.SIZE88} name="Артем Шабанов" />
-                <Button className={styles.editButton} theme={ThemeButton.ICON_BG}>
+                <Button onClick={onModalOpen} position={styles.editButtonPosition} className={styles.editButton} helper helperText="Редактировать" theme={ThemeButton.ICON_BG}>
                     <EditIcon className={styles.editIcon} />
                 </Button>
             </HStack>

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 import { memo, useCallback, useState } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import { Tabs } from '@/shared/ui/Tabs/Tabs';
 import { VStack } from '@/shared/ui/Stack';
@@ -52,7 +52,7 @@ export const LoginRegistrationStep = memo(
             <VStack
                 gap="24"
                 max
-                className={clsx(styles.LoginRegistrationStep, {}, [className])}
+                className={classNames(styles.LoginRegistrationStep, {}, [className])}
             >
                 <Tabs
                     tabs={tabs}

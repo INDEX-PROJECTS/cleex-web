@@ -12,7 +12,7 @@ export const RadioButton = memo((props: RadioButtonProps) => {
 
   const [checked, setChecked] = useState(false);
   return (
-    <div className={clsx(styles.RadioButton, {}, [className])}>
+    <div className={classNames(styles.RadioButton, {}, [className])}>
       <input
         id={id}
         name="radio"

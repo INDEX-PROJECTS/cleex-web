@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import Dot from '@/shared/assets/icons/DotIcon.svg';
 import Done from '@/shared/assets/icons/DoneIcon.svg';
 import styles from './PasswordStrength.module.scss';
@@ -64,7 +64,7 @@ export const PasswordStrength = memo(
             <VStack
                 gap="16"
                 align="start"
-                className={clsx(styles.PasswordStrength, {}, [className])}
+                className={classNames(styles.PasswordStrength, {}, [className])}
             >
                 <Text
                     title={renderStrength(passwordStrength)}
@@ -73,28 +73,28 @@ export const PasswordStrength = memo(
                 />
                 <div className={styles.steps}>
                     <span
-                        className={clsx(
+                        className={classNames(
                             styles.step,
                             { [styles.active]: passwordStrength >= 2 },
                             [],
                         )}
                     />
                     <span
-                        className={clsx(
+                        className={classNames(
                             styles.step,
                             { [styles.active]: passwordStrength >= 3 },
                             [],
                         )}
                     />
                     <span
-                        className={clsx(
+                        className={classNames(
                             styles.step,
                             { [styles.active]: passwordStrength >= 4 },
                             [],
                         )}
                     />
                     <span
-                        className={clsx(
+                        className={classNames(
                             styles.step,
                             { [styles.active]: passwordStrength >= 5 },
                             [],

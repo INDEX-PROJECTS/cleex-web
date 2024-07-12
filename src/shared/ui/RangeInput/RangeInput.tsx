@@ -22,7 +22,7 @@ export const RangeInput = memo(
       <VStack
         align="start"
         max={true}
-        className={clsx(styles.RangeInput, {}, [className])}>
+        className={classNames(styles.RangeInput, {}, [className])}>
         <Text
           gap="0"
           variant={TextVariant.MAIN_MEDIUM}

@@ -1,7 +1,7 @@
 import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
@@ -66,7 +66,7 @@ export const CodeRegistrationStep = memo((props: CodeRegistrationStepProps) => {
             max
             justify="between"
             align="center"
-            className={clsx(styles.CodeStep, {}, [className])}
+            className={classNames(styles.CodeStep, {}, [className])}
         >
             <VStack
                 max

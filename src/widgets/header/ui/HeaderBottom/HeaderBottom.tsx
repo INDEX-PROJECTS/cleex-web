@@ -2,7 +2,7 @@ import Image from 'next/image';
 import {
     FC, useEffect, useRef, useState,
 } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { HStack } from '@/shared/ui/Stack';
 import styles from './HeaderBottom.module.scss';
 import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
@@ -67,7 +67,7 @@ const HeaderBottom: FC<HeaderBottomProps> = ({
                     >
                         <div className={styles.burger_wrapper}>
                             <div
-                                className={clsx(styles.burger, [isCategories && styles.burger_active])}
+                                className={classNames(styles.burger, [isCategories && styles.burger_active])}
                             />
                         </div>
                         Категории

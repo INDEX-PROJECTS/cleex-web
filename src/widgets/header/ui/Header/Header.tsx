@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
-import clsx from 'clsx';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import HeaderBottom from '../HeaderBottom/HeaderBottom.tsx';
 import HeaderTop from '../HeaderTop/HeaderTop.tsx';
@@ -66,7 +66,7 @@ export const Header: FC<HeaderProps> = ({ isAccountPage = false }) => {
     }, [isLocation, isCategories, isAutocomplete]);
 
     return (
-        <div className={clsx(styles.Header, mods)}>
+        <div className={classNames(styles.Header, mods)}>
             <CSSTransition
                 in={isCategories}
                 timeout={300}
@@ -78,7 +78,7 @@ export const Header: FC<HeaderProps> = ({ isAccountPage = false }) => {
                     exitActive: styles['shadow-exit-active'],
                 }}
             >
-                <div className={clsx(styles.Header_wrapper)}>
+                <div className={classNames(styles.Header_wrapper)}>
                     <HeaderTop
                         handleOpenAuthModal={handleOpenAuthModal}
                         isAccountPage={isAccountPage}
