@@ -2,9 +2,9 @@
 import {
     ChangeEvent, MutableRefObject, memo, useCallback, useRef, useState,
 } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import styles from './ResetPasswordNumberStep.module.scss';
 import { VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
@@ -73,6 +73,8 @@ export const ResetPasswordNumberStep = memo((props: ResetPasswordNumberStepProps
     };
 
     const onChangeCaptcha = useCallback(async (recaptcha_token: string | null) => {
+        dispatch(loginActions.setToken(recaptcha_token));
+
         if (phoneError === '' && recaptcha_token) {
             const result = await dispatch(fetchResetCallPhone({ phone: resetPhone, recaptcha_token }));
 

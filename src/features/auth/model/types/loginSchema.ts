@@ -12,6 +12,7 @@ export interface LoginSchema {
   phone: string;
   password: string;
   isLoading: boolean;
+  token: string | null;
   code: string;
   phone_token: string;
   error?: string | undefined;

@@ -1,16 +1,22 @@
 import { memo } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
-import styles from './AnnouncementCardSkeleton.module.scss';
+import styles from './AnnouncementCard.module.scss';
+import { VStack } from '@/shared/ui/Stack';
+import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 
-interface AnnouncementCardSkeletonProps {
-  className?: string;
-}
+export const AnnouncementCardSkeleton = memo(() => (
+    <VStack gap="8">
+        <Skeleton
+            border="8px"
+            className={styles.image}
+        />
 
-export const AnnouncementCardSkeleton = memo((props: AnnouncementCardSkeletonProps) => {
-    const { className } = props;
-    return (
-        <div className={classNames(styles.AnnouncementCardSkeleton, {}, [className])}>
-            AnnouncementCardSkeleton
-        </div>
-    );
-});
+        <VStack align="start" max gap="4">
+            <Skeleton height="26px" width="100%" border="8px" />
+            <Skeleton height="18px" width="100%" border="8px" />
+
+            <Skeleton height="17px" width="70%" border="8px" />
+            <Skeleton height="17px" width="40%" border="8px" />
+        </VStack>
+
+    </VStack>
+));

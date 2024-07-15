@@ -1,13 +1,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-useless-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { IStore } from '@/app/providers/StoreProvider/config/store';
 import { setHeaderAuthorization } from './authHelper';
 import { loginByPhoneNumber } from './loginByPhoneNumber';
 
 interface fetchUserRegistrationProps {
-  username: string;
+  name: string;
   password: string;
   phoneToken: string;
   phone: string;
@@ -19,11 +18,11 @@ export const fetchUserRegistration = createAsyncThunk<
   fetchUserRegistrationProps,
   IStore<string>
 >('auth/fetchUserRegistration', async ({
-    username, password, phone, phoneToken, agree,
+    name, password, phone, phoneToken, agree,
 }, { extra: api, rejectWithValue, dispatch }) => {
     try {
         const response = await api.post('auth/registration', {
-            name: username,
+            name,
             password,
             agree,
         }, {

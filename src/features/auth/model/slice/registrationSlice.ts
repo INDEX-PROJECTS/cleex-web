@@ -9,13 +9,13 @@ const initialState: RegistrationSchema = {
     phone: '',
     password: '',
     code: '',
-    username: '',
+    name: '',
     token: '',
     phone_token: '',
     currentStep: 0,
     validateData: {
         password: [],
-        username: [],
+        name: [],
     },
     hasError: false,
 };
@@ -33,8 +33,8 @@ export const registrationSlice = createSlice({
         setCode: (state, action: PayloadAction<string>) => {
             state.code = action.payload;
         },
-        setUsername: (state, action: PayloadAction<string>) => {
-            state.username = action.payload;
+        setName: (state, action: PayloadAction<string>) => {
+            state.name = action.payload;
         },
         setToken: (state, action: PayloadAction<string | null>) => {
             state.token = action.payload;
@@ -47,6 +47,11 @@ export const registrationSlice = createSlice({
         },
         setError: (state, action: PayloadAction<string | undefined>) => {
             state.error = action.payload;
+        },
+        setClearStatus: (state) => {
+            state.isLoading = false;
+            state.error = '';
+            state.hasError = false;
         },
 
     },

@@ -1,8 +1,8 @@
 import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import styles from './ResetPasswordStep.module.scss';
@@ -24,6 +24,7 @@ import { validatePasswords } from '../../model/services/validatePasswords/valida
 import { fetchUserResetPassword } from '../../model/services/fetchUserResetPassword';
 import { Error } from '@/shared/ui/Error/Error';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
+import { authActions } from '../../model/slice/authSlice';
 
 interface ResetPasswordStepProps {
   className?: string;
@@ -67,7 +68,8 @@ export const ResetPasswordStep = memo((props: ResetPasswordStepProps) => {
             }));
 
             if (result.meta.requestStatus === 'fulfilled') {
-                alert('Пароль успешно изменен');
+                dispatch(authActions.setNotificationText('Пароль успешно изменен'));
+                dispatch(authActions.setNotificationModal(true));
             }
         }
         return dispatch(loginActions.setResetPasswordsError(errors));

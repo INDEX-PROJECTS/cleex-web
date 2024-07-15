@@ -24,6 +24,7 @@ const initialState: LoginSchema = {
         resetPassword: [],
         repeatResetPassword: [],
     },
+    token: '',
 };
 
 export const loginSlice = createSlice({
@@ -51,6 +52,9 @@ export const loginSlice = createSlice({
         setLoginValidateDataError: (state, action: PayloadAction<ValidateDataLogin>) => {
             state.validateLoginData = action.payload;
         },
+        setToken: (state, action: PayloadAction<string | null>) => {
+            state.token = action.payload;
+        },
         setResetPasswordsError: (state, action: PayloadAction<ValidateResetPassword>) => {
             state.validateResetPasswordData = action.payload;
         },
@@ -63,6 +67,12 @@ export const loginSlice = createSlice({
         setPhoneToken: (state, action: PayloadAction<string>) => {
             state.phone_token = action.payload;
         },
+        setClearStatus: (state) => {
+            state.isLoading = false;
+            state.error = '';
+            state.hasError = false;
+        },
+
     },
     extraReducers: (builder) => {
         builder

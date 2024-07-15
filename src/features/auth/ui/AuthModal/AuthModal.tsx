@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';

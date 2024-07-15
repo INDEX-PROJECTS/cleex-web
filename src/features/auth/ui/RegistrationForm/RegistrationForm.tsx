@@ -4,9 +4,9 @@ import {
     useRef,
     useState,
 } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
 import ReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha';
 import { CSSTransition } from 'react-transition-group';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { Input } from '@/shared/ui/Input/Input';
 import { VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';

@@ -1,11 +1,11 @@
-export const validateRegistrationData = (username: string, password: string) => {
+export const validateRegistrationData = (name: string, password: string) => {
     const passwordErrors: string[] = [];
-    const usernameErrors: string[] = [];
+    const nameErrors: string[] = [];
 
     // Валидация номера телефона
 
-    if (username.length < 3) {
-        usernameErrors.push('Некорректный ввод данных');
+    if (name.length < 3) {
+        nameErrors.push('Некорректный ввод данных');
     }
 
     if (!password || password.length < 8) {
@@ -14,6 +14,6 @@ export const validateRegistrationData = (username: string, password: string) => 
 
     return {
         password: passwordErrors,
-        username: usernameErrors,
+        name: nameErrors,
     };
 };

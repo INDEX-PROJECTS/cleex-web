@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { classNames } from '@/shared/utils/classNames/classNames';
 import { VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
@@ -8,11 +10,15 @@ import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
 import { Input } from '@/shared/ui/Input/Input';
 import styles from './CodeStep.module.scss';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
-import { getRegistrationCode, getRegistrationIsLoading, getRegistrationPhone } from '../../model/selectors/getRegistrationData';
+import {
+    getRegistrationCode, getRegistrationError, getRegistrationHasError, getRegistrationIsLoading, getRegistrationPhone, getRegistrationPhoneToken, getRegistrationToken,
+} from '../../model/selectors/getRegistrationData';
 import { registrationActions } from '../../model/slice/registrationSlice';
 import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { AuthSteps } from '../../model/types/authSchema';
 import { fetchCheckRegistrationCode } from '../../model/services/fetchCheckCode/fetchCheckRegistrationCode';
+import { CallCodeInterval } from './CallCodeInterval/CallCodeInterval';
+import { Error } from '@/shared/ui/Error/Error';
 
 interface CodeRegistrationStepProps {
   className?: string;
@@ -29,6 +35,9 @@ export const CodeRegistrationStep = memo((props: CodeRegistrationStepProps) => {
     const phone = useAppSelector(getRegistrationPhone);
     const code = useAppSelector(getRegistrationCode);
     const isLoading = useAppSelector(getRegistrationIsLoading);
+    const error = useAppSelector(getRegistrationError);
+    const hasError = useAppSelector(getRegistrationHasError);
+    const recaptcha_token = useAppSelector(getRegistrationToken);
 
     const validateCode = useCallback((code: string) => {
         if (!code || code.length !== 4) {
@@ -44,6 +53,10 @@ export const CodeRegistrationStep = memo((props: CodeRegistrationStepProps) => {
         },
         [dispatch],
     );
+
+    const removeError = () => {
+        dispatch(registrationActions.setClearStatus());
+    };
 
     const handleSubmitCode = useCallback(async () => {
         validateCode(code);
@@ -106,16 +119,20 @@ export const CodeRegistrationStep = memo((props: CodeRegistrationStepProps) => {
                 />
             </VStack>
 
+            <CSSTransition
+                in={hasError}
+                timeout={300}
+                unmountOnExit
+                classNames="slide-animation"
+            >
+                <Error onClose={removeError} error={error || 'Ошибка'} />
+            </CSSTransition>
+
             <VStack
                 max
                 gap="16"
             >
-                <Button
-                    fullWidth
-                    theme={ThemeButton.LINK}
-                >
-                    Позвонить еще раз
-                </Button>
+                <CallCodeInterval phone={phone} recaptcha_token={recaptcha_token} method="reset" />
                 <Button
                     onClick={handleSubmitCode}
                     fullWidth

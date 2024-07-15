@@ -10,9 +10,11 @@ export const getRegistrationPassword = (state: RootState) => state.registration.
 
 export const getRegistrationCode = (state: RootState) => state.registration.code;
 
-export const getRegistrationUsername = (state: RootState) => state.registration.username;
+export const getRegistrationName = (state: RootState) => state.registration.name;
 
 export const getRegistrationPhoneToken = (state: RootState) => state.registration.phone_token;
+
+export const getRegistrationToken = (state: RootState) => state.registration.token;
 
 export const getRegistrationValidateData = (state: RootState) => state.registration.validateData;
 

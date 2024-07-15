@@ -1,10 +1,16 @@
+/* eslint-disable camelcase */
 import {
     ChangeEvent, memo, useCallback, useState,
 } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { classNames } from '@/shared/utils/classNames/classNames';
 import { AuthSteps } from '../../model/types/authSchema';
 import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/config/hooks';
-import { getLoginIsLoading, getLoginResetCode, getLoginResetPhone } from '../../model/selectors/getLoginData';
+import {
+    getLoginError,
+    getLoginHasError,
+    getLoginIsLoading, getLoginResetCode, getLoginResetPhone, getLoginToken,
+} from '../../model/selectors/getLoginData';
 import { VStack } from '@/shared/ui/Stack';
 import styles from './CodeStep.module.scss';
 import { Text, TextAlign, TextVariant } from '@/shared/ui/Text/Text';
@@ -13,6 +19,8 @@ import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 import { Input } from '@/shared/ui/Input/Input';
 import { loginActions } from '../../model/slice/loginSlice';
 import { fetchCheckResetCode } from '../../model/services/fetchCheckCode/fetchCheckResetCode';
+import { CallCodeInterval } from './CallCodeInterval/CallCodeInterval';
+import { Error } from '@/shared/ui/Error/Error';
 
 interface CodeResetStepProps {
   className?: string;
@@ -29,6 +37,9 @@ export const CodeResetStep = memo((props: CodeResetStepProps) => {
     const resetPhone = useAppSelector(getLoginResetPhone);
     const code = useAppSelector(getLoginResetCode);
     const isLoading = useAppSelector(getLoginIsLoading);
+    const recaptcha_token = useAppSelector(getLoginToken);
+    const error = useAppSelector(getLoginError);
+    const hasError = useAppSelector(getLoginHasError);
 
     const validateCode = useCallback((code: string) => {
         if (!code || code.length !== 4) {
@@ -44,6 +55,10 @@ export const CodeResetStep = memo((props: CodeResetStepProps) => {
         },
         [dispatch],
     );
+
+    const removeError = () => {
+        dispatch(loginActions.setClearStatus());
+    };
 
     const handleSubmitCode = useCallback(async () => {
         validateCode(code);
@@ -106,16 +121,20 @@ export const CodeResetStep = memo((props: CodeResetStepProps) => {
                 />
             </VStack>
 
+            <CSSTransition
+                in={hasError}
+                timeout={300}
+                unmountOnExit
+                classNames="slide-animation"
+            >
+                <Error onClose={removeError} error={error || 'Ошибка'} />
+            </CSSTransition>
+
             <VStack
                 max
                 gap="16"
             >
-                <Button
-                    fullWidth
-                    theme={ThemeButton.LINK}
-                >
-                    Позвонить еще раз
-                </Button>
+                <CallCodeInterval phone={resetPhone} recaptcha_token={recaptcha_token} method="reset" />
                 <Button
                     onClick={handleSubmitCode}
                     fullWidth

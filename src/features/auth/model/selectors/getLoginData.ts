@@ -21,3 +21,5 @@ export const getLoginError = (state: RootState) => state.login.error;
 export const getLoginHasError = (state: RootState) => state.login.hasError;
 
 export const getLoginValidateData = (state: RootState) => state.login.validateLoginData;
+
+export const getLoginToken = (state: RootState) => state.login.token;

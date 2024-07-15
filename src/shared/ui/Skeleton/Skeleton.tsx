@@ -1,7 +1,7 @@
-import { memo } from "react";
-import clsx from "clsx";
-import styles from "./Skeleton.module.scss";
-import type { CSSProperties } from "react";
+import { memo } from 'react';
+import type { CSSProperties } from 'react';
+import styles from './Skeleton.module.scss';
+import { classNames } from '@/shared/utils/classNames/classNames';
 
 interface SkeletonProps {
   className?: string;
@@ -12,18 +12,20 @@ interface SkeletonProps {
 }
 
 export const Skeleton = memo((props: SkeletonProps) => {
-  const { className, height, flex, width, border } = props;
+    const {
+        className, height, flex, width, border,
+    } = props;
 
-  const style: CSSProperties = {
-    height,
-    width,
-    flex: flex ? "flex" : "none",
-    borderRadius: border,
-  };
-  return (
-    <div
-      className={classNames(styles.Skeleton, {}, [className])}
-      style={style}
-    />
-  );
+    const style: CSSProperties = {
+        height,
+        width,
+        flex: flex ? 'flex' : 'none',
+        borderRadius: border,
+    };
+    return (
+        <div
+            className={classNames(styles.Skeleton, {}, [className])}
+            style={style}
+        />
+    );
 });

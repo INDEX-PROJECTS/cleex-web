@@ -3,7 +3,7 @@ import { AuthSchema, AuthSteps } from '../types/authSchema';
 
 const initialState: AuthSchema = {
     modal: false,
-    currentStep: AuthSteps.START,
+    currentStep: AuthSteps.CODE_REGISTRATION,
     notificationModal: false,
     notificationText: '',
 };

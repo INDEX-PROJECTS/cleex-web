@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
 import type { ChangeEvent } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { Input } from '@/shared/ui/Input/Input';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';

@@ -1,12 +1,12 @@
 export interface ValidateDataRegistration {
-  username: string[];
+  name: string[];
   password: string[];
 }
 
 export interface RegistrationSchema {
   phone: string;
   code: string;
-  username: string;
+  name: string;
   token: string | null;
   password: string;
   phone_token: string;

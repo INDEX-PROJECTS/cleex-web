@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
-import { classNames } from '@/shared/utils/classNames/classNames';
 import { CSSTransition } from 'react-transition-group';
 import type { ChangeEvent } from 'react';
+import { classNames } from '@/shared/utils/classNames/classNames';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Input } from '@/shared/ui/Input/Input';
@@ -13,13 +13,18 @@ import { useAppDispatch, useAppSelector } from '@/app/providers/StoreProvider/co
 import {
     getRegistrationError,
     getRegistrationHasError,
-    getRegistrationPassword, getRegistrationPhone, getRegistrationUsername,
+    getRegistrationIsLoading,
+    getRegistrationName,
+    getRegistrationPassword, getRegistrationPhone,
+    getRegistrationPhoneToken,
 } from '../../model/selectors/getRegistrationData';
 import { registrationActions } from '../../model/slice/registrationSlice';
 import { validateRegistrationData } from '../../model/services/validateRegistrationData/validateRegistrationData';
 import { fetchUserRegistration } from '../../model/services/fetchUserRegistration';
 import { AuthSteps } from '../../model/types/authSchema';
 import { Error } from '@/shared/ui/Error/Error';
+import { authActions } from '../../model/slice/authSlice';
+import { Loader, ThemeLoader } from '@/shared/ui/Loader/Loader';
 
 interface CompleteRegistrationProps {
   className?: string;
@@ -31,21 +36,22 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
 
     const [meter, setMeter] = useState(false);
 
-    const [check, setCheck] = useState(false);
+    const [isAgree, setIsAgree] = useState<boolean>(true);
 
     const dispatch = useAppDispatch();
 
-    const username = useAppSelector(getRegistrationUsername);
+    const name = useAppSelector(getRegistrationName);
     const password = useAppSelector(getRegistrationPassword);
-    const phoneToken = useAppSelector(getRegistrationPassword);
+    const phoneToken = useAppSelector(getRegistrationPhoneToken);
     const phone = useAppSelector(getRegistrationPhone);
+    const isLoading = useAppSelector(getRegistrationIsLoading);
     // const validateRegistrationData = useAppSelector(getRegistrationValidateData);
     const error = useAppSelector(getRegistrationError);
     const hasError = useAppSelector(getRegistrationHasError);
 
-    const onChangeUsername = useCallback(
+    const onChangeName = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            dispatch(registrationActions.setUsername(event.currentTarget.value));
+            dispatch(registrationActions.setName(event.currentTarget.value));
         },
         [dispatch],
     );
@@ -66,22 +72,23 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
     };
 
     const handleSubmitRegistration = useCallback(async () => {
-        const errors = validateRegistrationData(username, password);
-        if (errors.username.length === 0 && errors.password.length === 0 && check) {
+        const errors = validateRegistrationData(name, password);
+        if (errors.name.length === 0 && errors.password.length === 0 && isAgree) {
             const result = await dispatch(fetchUserRegistration({
-                username,
+                name,
                 phone,
                 password,
                 phoneToken,
-                agree: check,
+                agree: isAgree,
             }));
 
             if (result.meta.requestStatus === 'fulfilled') {
-                alert('Регистрация успешна');
+                dispatch(authActions.setNotificationText('Вы успеш'));
+                dispatch(authActions.setNotificationModal(true));
             }
         }
         return dispatch(registrationActions.setRegistrationValidateDataError(errors));
-    }, [check, dispatch, password, phone, phoneToken, username]);
+    }, [dispatch, isAgree, name, password, phone, phoneToken]);
 
     return (
         <VStack
@@ -105,8 +112,8 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                     gap="16"
                 >
                     <Input
-                        value={username}
-                        onChange={onChangeUsername}
+                        value={name}
+                        onChange={onChangeName}
                         placeholder="Имя пользователя"
                     />
 
@@ -150,18 +157,21 @@ export const CompleteRegistration = memo((props: CompleteRegistrationProps) => {
                 </CSSTransition>
                 <Checkbox
                     label="Я согласен(-на) с лицензионным соглашением"
-                    checked={check}
+                    checked={isAgree}
                     id="registrationCheck"
-                    onToggle={() => setCheck(!check)}
+                    onToggle={() => setIsAgree(!isAgree)}
                 />
                 <Button
-                    disabled={!check}
+                    disabled={!isAgree}
                     onClick={handleSubmitRegistration}
                     fullWidth
                     className="submitBtn"
                     theme={ThemeButton.DEFAULT}
                 >
-                    Зарегистрироваться
+
+                    {
+                        isLoading ? (<Loader theme={ThemeLoader.BTN_LOADER} />) : 'Зарегистрироваться'
+                    }
                 </Button>
             </VStack>
         </VStack>
