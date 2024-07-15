@@ -57,6 +57,12 @@ export const Header: FC<HeaderProps> = ({ isAccountPage = false }) => {
         setIsAutocomplete(open);
     };
 
+    const closeAllModals = () => {
+        setIsLocation(false);
+        setIsCategories(false);
+        setIsAutocomplete(false);
+    };
+
     useEffect(() => {
         if (isLocation || isCategories || isAutocomplete) {
             document.body.style.overflowY = 'hidden';
@@ -83,6 +89,7 @@ export const Header: FC<HeaderProps> = ({ isAccountPage = false }) => {
                         handleOpenAuthModal={handleOpenAuthModal}
                         isAccountPage={isAccountPage}
                         toggleLocation={() => toggleLocation(!isLocation)}
+                        closeAllModals={closeAllModals}
                     />
                     {
                         isAccountPage
